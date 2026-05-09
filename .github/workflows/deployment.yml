@@ -40,7 +40,7 @@ jobs:
         
       # 5. Links to your Vercel project
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token=${{ secrets.CERBERUS_VERCEL_TOKEN }}
 
       # Deletes the Git tracking info
       - name: Delete Git Metadata
@@ -52,11 +52,11 @@ jobs:
           # Injected directly into the build process to satisfy Next.js/T3 Env
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token=${{ secrets.CERBERUS_VERCEL_TOKEN }}
         
       # 7. Deploys the built project
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.CERBERUS_VERCEL_TOKEN }}
 
 
 
@@ -125,7 +125,7 @@ jobs:
         
 #       # 5. Links to your Vercel project
 #       - name: Pull Vercel Environment Information
-#         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+#         run: vercel pull --yes --environment=production --token=${{ secrets.CERBERUS_VERCEL_TOKEN }}
 
 #       # Deletes the Git tracking info
 #       - name: Delete Git Metadata
@@ -133,8 +133,8 @@ jobs:
         
 #       # 6. Builds the project (This will now successfully use pnpm)
 #       - name: Build Project Artifacts
-#         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+#         run: vercel build --prod --token=${{ secrets.CERBERUS_VERCEL_TOKEN }}
         
 #       # 7. Deploys the built project
 #       - name: Deploy Project Artifacts to Vercel
-#         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+#         run: vercel deploy --prebuilt --prod --token=${{ secrets.CERBERUS_VERCEL_TOKEN }}
