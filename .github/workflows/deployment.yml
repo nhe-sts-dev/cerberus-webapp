@@ -1,0 +1,140 @@
+name: Deploy to Vercel
+on:
+  push:
+    branches:
+      - main # Triggers when pushed to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      # 1. Fetches your code
+      - uses: actions/checkout@v4 
+      
+      # 2. Sets up Node 24
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          
+      # 3. Installs pnpm exactly matching your local environment
+      - name: Install pnpm
+        run: npm install -g pnpm@9.11.0
+
+      # Explicitly install dependencies and generate both Prisma clients 
+      # before Vercel takes over to guarantee the types exist
+      - name: Install Dependencies & Generate Prisma Clients
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} # Added here in case Prisma validation needs it
+        run: |
+          pnpm install
+          pnpm exec prisma generate
+
+      # 4. Installs the Vercel CLI
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+        
+      # 5. Links to your Vercel project
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      # Deletes the Git tracking info
+      - name: Delete Git Metadata
+        run: rm -rf .git
+        
+      # 6. Builds the project (This will now successfully use pnpm)
+      - name: Build Project Artifacts
+        env:
+          # Injected directly into the build process to satisfy Next.js/T3 Env
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
+      # 7. Deploys the built project
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: Deploy to Vercel
+# on:
+#   push:
+#     branches:
+#       - main # Triggers when pushed to main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     env:
+#       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+#       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+#       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+#     steps:
+#       # 1. Fetches your code
+#       - uses: actions/checkout@v4 
+      
+#       # 2. Sets up Node 24
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '24'
+          
+#       # 3. Installs pnpm exactly matching your local environment
+#       - name: Install pnpm
+#         run: npm install -g pnpm@9.11.0
+
+#       # Explicitly install dependencies and generate both Prisma clients 
+#       # before Vercel takes over to guarantee the types exist
+#       - name: Install Dependencies & Generate Prisma Clients
+#         run: |
+#           pnpm install
+#           pnpm exec prisma generate
+
+#       # 4. Installs the Vercel CLI
+#       - name: Install Vercel CLI
+#         run: npm install --global vercel@latest
+        
+#       # 5. Links to your Vercel project
+#       - name: Pull Vercel Environment Information
+#         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+#       # Deletes the Git tracking info
+#       - name: Delete Git Metadata
+#         run: rm -rf .git
+        
+#       # 6. Builds the project (This will now successfully use pnpm)
+#       - name: Build Project Artifacts
+#         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
+#       # 7. Deploys the built project
+#       - name: Deploy Project Artifacts to Vercel
+#         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
