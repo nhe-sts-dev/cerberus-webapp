@@ -8,10 +8,12 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface CreateUserModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  // onClose: () => void;
 }
 
-export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
+export function CreateUserModal({ isOpen
+  // , onClose
+ }: CreateUserModalProps) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -53,7 +55,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
       if (authError) {
         setError(authError.message ?? "Failed to create account.");
       } else {
-        onClose(); // Close modal on success
+        // onClose(); // Close modal on success
         router.push("/dashboard");
         router.refresh(); 
       }
@@ -69,7 +71,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-xl relative">
         {/* Close Button */}
         <button 
-          onClick={onClose}
+          // onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
         >
           ✕

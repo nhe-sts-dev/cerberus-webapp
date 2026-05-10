@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "~/server/better-auth/server";
 import { LoginModal } from "~/app/_components/auth/LoginModal";
+import { CreateUserModal } from "./_components/auth/CreateUserModal";
 
 export default async function Home() {
   // 1. Check if the user is already logged in
@@ -24,6 +25,9 @@ export default async function Home() {
 
         {/* Client component for the actual form */}
         <LoginModal />
+        {/* <CreateUserModal isOpen={true} 
+        // onClose={() => {}} 
+        /> */}
         
       </div>
     </main>
