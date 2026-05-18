@@ -25,9 +25,7 @@ export default async function Home() {
 
         {/* Client component for the actual form */}
         <LoginModal />
-        {/* <CreateUserModal isOpen={true} 
-        // onClose={() => {}} 
-        /> */}
+        {/* <CreateUserModal isOpen={true} /> */}
         
       </div>
     </main>
