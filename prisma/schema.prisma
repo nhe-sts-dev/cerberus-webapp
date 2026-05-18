@@ -186,16 +186,16 @@ model DatasetImage {
 model ModelRegistry {
   id              String            @id @default(cuid())
   name            String            // e.g., "bus-classifier-v1"
-  version         String            // e.g., "v1.0.0"
+  version         String?           // e.g., "v1.0.0"
   architecture    ModelArchitecture
   status          ModelStatus       @default(EXPERIMENTAL)
   
   // Storage
-  weightsUrl      String            // S3/R2 URI to the .tflite file
+  weightsUrl      String?            // S3/R2 URI to the .tflite file
   
   // ML Metadata (JSON allows flexible schema for hyperparameters and metrics)
-  hyperparameters Json              // e.g., { "learning_rate": 0.001, "batch_size": 32, "epochs": 50 }
-  metrics         Json              // e.g., { "accuracy": 0.92, "f1_score": 0.89, "val_loss": 0.15 }
+  hyperparameters Json?             // e.g., { "learning_rate": 0.001, "batch_size": 32, "epochs": 50 }
+  metrics         Json?             // e.g., { "accuracy": 0.92, "f1_score": 0.89, "val_loss": 0.15 }
   
   // Which dataset was used to train this?
   datasetId       String?

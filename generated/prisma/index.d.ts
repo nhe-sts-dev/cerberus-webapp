@@ -43,6 +43,21 @@ export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
  * 
  */
 export type BusImage = $Result.DefaultSelection<Prisma.$BusImagePayload>
+/**
+ * Model Dataset
+ * 
+ */
+export type Dataset = $Result.DefaultSelection<Prisma.$DatasetPayload>
+/**
+ * Model DatasetImage
+ * 
+ */
+export type DatasetImage = $Result.DefaultSelection<Prisma.$DatasetImagePayload>
+/**
+ * Model ModelRegistry
+ * 
+ */
+export type ModelRegistry = $Result.DefaultSelection<Prisma.$ModelRegistryPayload>
 
 /**
  * Enums
@@ -76,6 +91,26 @@ export const Angle: {
 
 export type Angle = (typeof Angle)[keyof typeof Angle]
 
+
+export const ModelArchitecture: {
+  MOBILENET_V2: 'MOBILENET_V2',
+  MOBILENET_V3: 'MOBILENET_V3',
+  RESNET_18: 'RESNET_18',
+  YOLO_V8: 'YOLO_V8'
+};
+
+export type ModelArchitecture = (typeof ModelArchitecture)[keyof typeof ModelArchitecture]
+
+
+export const ModelStatus: {
+  EXPERIMENTAL: 'EXPERIMENTAL',
+  STAGING: 'STAGING',
+  PRODUCTION: 'PRODUCTION',
+  DEPRECATED: 'DEPRECATED'
+};
+
+export type ModelStatus = (typeof ModelStatus)[keyof typeof ModelStatus]
+
 }
 
 export type LabelStatus = $Enums.LabelStatus
@@ -89,6 +124,14 @@ export const Weather: typeof $Enums.Weather
 export type Angle = $Enums.Angle
 
 export const Angle: typeof $Enums.Angle
+
+export type ModelArchitecture = $Enums.ModelArchitecture
+
+export const ModelArchitecture: typeof $Enums.ModelArchitecture
+
+export type ModelStatus = $Enums.ModelStatus
+
+export const ModelStatus: typeof $Enums.ModelStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -267,6 +310,36 @@ export class PrismaClient<
     * ```
     */
   get busImage(): Prisma.BusImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dataset`: Exposes CRUD operations for the **Dataset** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Datasets
+    * const datasets = await prisma.dataset.findMany()
+    * ```
+    */
+  get dataset(): Prisma.DatasetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.datasetImage`: Exposes CRUD operations for the **DatasetImage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DatasetImages
+    * const datasetImages = await prisma.datasetImage.findMany()
+    * ```
+    */
+  get datasetImage(): Prisma.DatasetImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.modelRegistry`: Exposes CRUD operations for the **ModelRegistry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ModelRegistries
+    * const modelRegistries = await prisma.modelRegistry.findMany()
+    * ```
+    */
+  get modelRegistry(): Prisma.ModelRegistryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -713,7 +786,10 @@ export namespace Prisma {
     Session: 'Session',
     Account: 'Account',
     Verification: 'Verification',
-    BusImage: 'BusImage'
+    BusImage: 'BusImage',
+    Dataset: 'Dataset',
+    DatasetImage: 'DatasetImage',
+    ModelRegistry: 'ModelRegistry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -732,7 +808,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage"
+      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "dataset" | "datasetImage" | "modelRegistry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1180,6 +1256,228 @@ export namespace Prisma {
           }
         }
       }
+      Dataset: {
+        payload: Prisma.$DatasetPayload<ExtArgs>
+        fields: Prisma.DatasetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DatasetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DatasetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
+          }
+          findFirst: {
+            args: Prisma.DatasetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DatasetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
+          }
+          findMany: {
+            args: Prisma.DatasetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
+          }
+          create: {
+            args: Prisma.DatasetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
+          }
+          createMany: {
+            args: Prisma.DatasetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DatasetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
+          }
+          delete: {
+            args: Prisma.DatasetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
+          }
+          update: {
+            args: Prisma.DatasetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
+          }
+          deleteMany: {
+            args: Prisma.DatasetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DatasetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DatasetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>[]
+          }
+          upsert: {
+            args: Prisma.DatasetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetPayload>
+          }
+          aggregate: {
+            args: Prisma.DatasetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDataset>
+          }
+          groupBy: {
+            args: Prisma.DatasetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DatasetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DatasetCountArgs<ExtArgs>
+            result: $Utils.Optional<DatasetCountAggregateOutputType> | number
+          }
+        }
+      }
+      DatasetImage: {
+        payload: Prisma.$DatasetImagePayload<ExtArgs>
+        fields: Prisma.DatasetImageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DatasetImageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DatasetImageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>
+          }
+          findFirst: {
+            args: Prisma.DatasetImageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DatasetImageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>
+          }
+          findMany: {
+            args: Prisma.DatasetImageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>[]
+          }
+          create: {
+            args: Prisma.DatasetImageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>
+          }
+          createMany: {
+            args: Prisma.DatasetImageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DatasetImageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>[]
+          }
+          delete: {
+            args: Prisma.DatasetImageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>
+          }
+          update: {
+            args: Prisma.DatasetImageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>
+          }
+          deleteMany: {
+            args: Prisma.DatasetImageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DatasetImageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DatasetImageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>[]
+          }
+          upsert: {
+            args: Prisma.DatasetImageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DatasetImagePayload>
+          }
+          aggregate: {
+            args: Prisma.DatasetImageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDatasetImage>
+          }
+          groupBy: {
+            args: Prisma.DatasetImageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DatasetImageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DatasetImageCountArgs<ExtArgs>
+            result: $Utils.Optional<DatasetImageCountAggregateOutputType> | number
+          }
+        }
+      }
+      ModelRegistry: {
+        payload: Prisma.$ModelRegistryPayload<ExtArgs>
+        fields: Prisma.ModelRegistryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ModelRegistryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ModelRegistryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>
+          }
+          findFirst: {
+            args: Prisma.ModelRegistryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ModelRegistryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>
+          }
+          findMany: {
+            args: Prisma.ModelRegistryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>[]
+          }
+          create: {
+            args: Prisma.ModelRegistryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>
+          }
+          createMany: {
+            args: Prisma.ModelRegistryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ModelRegistryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>[]
+          }
+          delete: {
+            args: Prisma.ModelRegistryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>
+          }
+          update: {
+            args: Prisma.ModelRegistryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>
+          }
+          deleteMany: {
+            args: Prisma.ModelRegistryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ModelRegistryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ModelRegistryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>[]
+          }
+          upsert: {
+            args: Prisma.ModelRegistryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModelRegistryPayload>
+          }
+          aggregate: {
+            args: Prisma.ModelRegistryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateModelRegistry>
+          }
+          groupBy: {
+            args: Prisma.ModelRegistryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ModelRegistryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ModelRegistryCountArgs<ExtArgs>
+            result: $Utils.Optional<ModelRegistryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1282,6 +1580,9 @@ export namespace Prisma {
     account?: AccountOmit
     verification?: VerificationOmit
     busImage?: BusImageOmit
+    dataset?: DatasetOmit
+    datasetImage?: DatasetImageOmit
+    modelRegistry?: ModelRegistryOmit
   }
 
   /* Types for Logging */
@@ -1412,6 +1713,77 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostWhereInput
+  }
+
+
+  /**
+   * Count Type BusImageCountOutputType
+   */
+
+  export type BusImageCountOutputType = {
+    trainingData: number
+  }
+
+  export type BusImageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trainingData?: boolean | BusImageCountOutputTypeCountTrainingDataArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BusImageCountOutputType without action
+   */
+  export type BusImageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusImageCountOutputType
+     */
+    select?: BusImageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BusImageCountOutputType without action
+   */
+  export type BusImageCountOutputTypeCountTrainingDataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DatasetImageWhereInput
+  }
+
+
+  /**
+   * Count Type DatasetCountOutputType
+   */
+
+  export type DatasetCountOutputType = {
+    images: number
+    models: number
+  }
+
+  export type DatasetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | DatasetCountOutputTypeCountImagesArgs
+    models?: boolean | DatasetCountOutputTypeCountModelsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DatasetCountOutputType without action
+   */
+  export type DatasetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetCountOutputType
+     */
+    select?: DatasetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DatasetCountOutputType without action
+   */
+  export type DatasetCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DatasetImageWhereInput
+  }
+
+  /**
+   * DatasetCountOutputType without action
+   */
+  export type DatasetCountOutputTypeCountModelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModelRegistryWhereInput
   }
 
 
@@ -7187,6 +7559,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
+    trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
+    _count?: boolean | BusImageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["busImage"]>
 
   export type BusImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7242,6 +7616,8 @@ export namespace Prisma {
   export type BusImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "imageUrl" | "label" | "confidence" | "fleetNumber" | "cameraId" | "timeTaken" | "weatherCondition" | "cameraAngle" | "isVerified" | "labeledById" | "createdAt" | "updatedAt", ExtArgs["result"]["busImage"]>
   export type BusImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
+    trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
+    _count?: boolean | BusImageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BusImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
@@ -7254,6 +7630,7 @@ export namespace Prisma {
     name: "BusImage"
     objects: {
       labeledBy: Prisma.$UserPayload<ExtArgs> | null
+      trainingData: Prisma.$DatasetImagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7664,6 +8041,7 @@ export namespace Prisma {
   export interface Prisma__BusImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     labeledBy<T extends BusImage$labeledByArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$labeledByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    trainingData<T extends BusImage$trainingDataArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$trainingDataArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8121,6 +8499,30 @@ export namespace Prisma {
   }
 
   /**
+   * BusImage.trainingData
+   */
+  export type BusImage$trainingDataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    where?: DatasetImageWhereInput
+    orderBy?: DatasetImageOrderByWithRelationInput | DatasetImageOrderByWithRelationInput[]
+    cursor?: DatasetImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DatasetImageScalarFieldEnum | DatasetImageScalarFieldEnum[]
+  }
+
+  /**
    * BusImage without action
    */
   export type BusImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8136,6 +8538,3265 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BusImageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Dataset
+   */
+
+  export type AggregateDataset = {
+    _count: DatasetCountAggregateOutputType | null
+    _min: DatasetMinAggregateOutputType | null
+    _max: DatasetMaxAggregateOutputType | null
+  }
+
+  export type DatasetMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type DatasetMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type DatasetCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DatasetMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type DatasetMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type DatasetCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DatasetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Dataset to aggregate.
+     */
+    where?: DatasetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Datasets to fetch.
+     */
+    orderBy?: DatasetOrderByWithRelationInput | DatasetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DatasetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Datasets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Datasets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Datasets
+    **/
+    _count?: true | DatasetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DatasetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DatasetMaxAggregateInputType
+  }
+
+  export type GetDatasetAggregateType<T extends DatasetAggregateArgs> = {
+        [P in keyof T & keyof AggregateDataset]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDataset[P]>
+      : GetScalarType<T[P], AggregateDataset[P]>
+  }
+
+
+
+
+  export type DatasetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DatasetWhereInput
+    orderBy?: DatasetOrderByWithAggregationInput | DatasetOrderByWithAggregationInput[]
+    by: DatasetScalarFieldEnum[] | DatasetScalarFieldEnum
+    having?: DatasetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DatasetCountAggregateInputType | true
+    _min?: DatasetMinAggregateInputType
+    _max?: DatasetMaxAggregateInputType
+  }
+
+  export type DatasetGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    createdAt: Date
+    _count: DatasetCountAggregateOutputType | null
+    _min: DatasetMinAggregateOutputType | null
+    _max: DatasetMaxAggregateOutputType | null
+  }
+
+  type GetDatasetGroupByPayload<T extends DatasetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DatasetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DatasetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DatasetGroupByOutputType[P]>
+            : GetScalarType<T[P], DatasetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DatasetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    images?: boolean | Dataset$imagesArgs<ExtArgs>
+    models?: boolean | Dataset$modelsArgs<ExtArgs>
+    _count?: boolean | DatasetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataset"]>
+
+  export type DatasetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["dataset"]>
+
+  export type DatasetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["dataset"]>
+
+  export type DatasetSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type DatasetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt", ExtArgs["result"]["dataset"]>
+  export type DatasetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | Dataset$imagesArgs<ExtArgs>
+    models?: boolean | Dataset$modelsArgs<ExtArgs>
+    _count?: boolean | DatasetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DatasetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DatasetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DatasetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Dataset"
+    objects: {
+      images: Prisma.$DatasetImagePayload<ExtArgs>[]
+      models: Prisma.$ModelRegistryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["dataset"]>
+    composites: {}
+  }
+
+  type DatasetGetPayload<S extends boolean | null | undefined | DatasetDefaultArgs> = $Result.GetResult<Prisma.$DatasetPayload, S>
+
+  type DatasetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DatasetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DatasetCountAggregateInputType | true
+    }
+
+  export interface DatasetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Dataset'], meta: { name: 'Dataset' } }
+    /**
+     * Find zero or one Dataset that matches the filter.
+     * @param {DatasetFindUniqueArgs} args - Arguments to find a Dataset
+     * @example
+     * // Get one Dataset
+     * const dataset = await prisma.dataset.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DatasetFindUniqueArgs>(args: SelectSubset<T, DatasetFindUniqueArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Dataset that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DatasetFindUniqueOrThrowArgs} args - Arguments to find a Dataset
+     * @example
+     * // Get one Dataset
+     * const dataset = await prisma.dataset.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DatasetFindUniqueOrThrowArgs>(args: SelectSubset<T, DatasetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Dataset that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetFindFirstArgs} args - Arguments to find a Dataset
+     * @example
+     * // Get one Dataset
+     * const dataset = await prisma.dataset.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DatasetFindFirstArgs>(args?: SelectSubset<T, DatasetFindFirstArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Dataset that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetFindFirstOrThrowArgs} args - Arguments to find a Dataset
+     * @example
+     * // Get one Dataset
+     * const dataset = await prisma.dataset.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DatasetFindFirstOrThrowArgs>(args?: SelectSubset<T, DatasetFindFirstOrThrowArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Datasets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Datasets
+     * const datasets = await prisma.dataset.findMany()
+     * 
+     * // Get first 10 Datasets
+     * const datasets = await prisma.dataset.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const datasetWithIdOnly = await prisma.dataset.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DatasetFindManyArgs>(args?: SelectSubset<T, DatasetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Dataset.
+     * @param {DatasetCreateArgs} args - Arguments to create a Dataset.
+     * @example
+     * // Create one Dataset
+     * const Dataset = await prisma.dataset.create({
+     *   data: {
+     *     // ... data to create a Dataset
+     *   }
+     * })
+     * 
+     */
+    create<T extends DatasetCreateArgs>(args: SelectSubset<T, DatasetCreateArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Datasets.
+     * @param {DatasetCreateManyArgs} args - Arguments to create many Datasets.
+     * @example
+     * // Create many Datasets
+     * const dataset = await prisma.dataset.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DatasetCreateManyArgs>(args?: SelectSubset<T, DatasetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Datasets and returns the data saved in the database.
+     * @param {DatasetCreateManyAndReturnArgs} args - Arguments to create many Datasets.
+     * @example
+     * // Create many Datasets
+     * const dataset = await prisma.dataset.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Datasets and only return the `id`
+     * const datasetWithIdOnly = await prisma.dataset.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DatasetCreateManyAndReturnArgs>(args?: SelectSubset<T, DatasetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Dataset.
+     * @param {DatasetDeleteArgs} args - Arguments to delete one Dataset.
+     * @example
+     * // Delete one Dataset
+     * const Dataset = await prisma.dataset.delete({
+     *   where: {
+     *     // ... filter to delete one Dataset
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DatasetDeleteArgs>(args: SelectSubset<T, DatasetDeleteArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Dataset.
+     * @param {DatasetUpdateArgs} args - Arguments to update one Dataset.
+     * @example
+     * // Update one Dataset
+     * const dataset = await prisma.dataset.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DatasetUpdateArgs>(args: SelectSubset<T, DatasetUpdateArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Datasets.
+     * @param {DatasetDeleteManyArgs} args - Arguments to filter Datasets to delete.
+     * @example
+     * // Delete a few Datasets
+     * const { count } = await prisma.dataset.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DatasetDeleteManyArgs>(args?: SelectSubset<T, DatasetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Datasets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Datasets
+     * const dataset = await prisma.dataset.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DatasetUpdateManyArgs>(args: SelectSubset<T, DatasetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Datasets and returns the data updated in the database.
+     * @param {DatasetUpdateManyAndReturnArgs} args - Arguments to update many Datasets.
+     * @example
+     * // Update many Datasets
+     * const dataset = await prisma.dataset.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Datasets and only return the `id`
+     * const datasetWithIdOnly = await prisma.dataset.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DatasetUpdateManyAndReturnArgs>(args: SelectSubset<T, DatasetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Dataset.
+     * @param {DatasetUpsertArgs} args - Arguments to update or create a Dataset.
+     * @example
+     * // Update or create a Dataset
+     * const dataset = await prisma.dataset.upsert({
+     *   create: {
+     *     // ... data to create a Dataset
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Dataset we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DatasetUpsertArgs>(args: SelectSubset<T, DatasetUpsertArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Datasets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetCountArgs} args - Arguments to filter Datasets to count.
+     * @example
+     * // Count the number of Datasets
+     * const count = await prisma.dataset.count({
+     *   where: {
+     *     // ... the filter for the Datasets we want to count
+     *   }
+     * })
+    **/
+    count<T extends DatasetCountArgs>(
+      args?: Subset<T, DatasetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DatasetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Dataset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DatasetAggregateArgs>(args: Subset<T, DatasetAggregateArgs>): Prisma.PrismaPromise<GetDatasetAggregateType<T>>
+
+    /**
+     * Group by Dataset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DatasetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DatasetGroupByArgs['orderBy'] }
+        : { orderBy?: DatasetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DatasetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDatasetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Dataset model
+   */
+  readonly fields: DatasetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Dataset.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DatasetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    images<T extends Dataset$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    models<T extends Dataset$modelsArgs<ExtArgs> = {}>(args?: Subset<T, Dataset$modelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Dataset model
+   */
+  interface DatasetFieldRefs {
+    readonly id: FieldRef<"Dataset", 'String'>
+    readonly name: FieldRef<"Dataset", 'String'>
+    readonly description: FieldRef<"Dataset", 'String'>
+    readonly createdAt: FieldRef<"Dataset", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Dataset findUnique
+   */
+  export type DatasetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * Filter, which Dataset to fetch.
+     */
+    where: DatasetWhereUniqueInput
+  }
+
+  /**
+   * Dataset findUniqueOrThrow
+   */
+  export type DatasetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * Filter, which Dataset to fetch.
+     */
+    where: DatasetWhereUniqueInput
+  }
+
+  /**
+   * Dataset findFirst
+   */
+  export type DatasetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * Filter, which Dataset to fetch.
+     */
+    where?: DatasetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Datasets to fetch.
+     */
+    orderBy?: DatasetOrderByWithRelationInput | DatasetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Datasets.
+     */
+    cursor?: DatasetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Datasets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Datasets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Datasets.
+     */
+    distinct?: DatasetScalarFieldEnum | DatasetScalarFieldEnum[]
+  }
+
+  /**
+   * Dataset findFirstOrThrow
+   */
+  export type DatasetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * Filter, which Dataset to fetch.
+     */
+    where?: DatasetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Datasets to fetch.
+     */
+    orderBy?: DatasetOrderByWithRelationInput | DatasetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Datasets.
+     */
+    cursor?: DatasetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Datasets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Datasets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Datasets.
+     */
+    distinct?: DatasetScalarFieldEnum | DatasetScalarFieldEnum[]
+  }
+
+  /**
+   * Dataset findMany
+   */
+  export type DatasetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * Filter, which Datasets to fetch.
+     */
+    where?: DatasetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Datasets to fetch.
+     */
+    orderBy?: DatasetOrderByWithRelationInput | DatasetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Datasets.
+     */
+    cursor?: DatasetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Datasets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Datasets.
+     */
+    skip?: number
+    distinct?: DatasetScalarFieldEnum | DatasetScalarFieldEnum[]
+  }
+
+  /**
+   * Dataset create
+   */
+  export type DatasetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Dataset.
+     */
+    data: XOR<DatasetCreateInput, DatasetUncheckedCreateInput>
+  }
+
+  /**
+   * Dataset createMany
+   */
+  export type DatasetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Datasets.
+     */
+    data: DatasetCreateManyInput | DatasetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Dataset createManyAndReturn
+   */
+  export type DatasetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * The data used to create many Datasets.
+     */
+    data: DatasetCreateManyInput | DatasetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Dataset update
+   */
+  export type DatasetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Dataset.
+     */
+    data: XOR<DatasetUpdateInput, DatasetUncheckedUpdateInput>
+    /**
+     * Choose, which Dataset to update.
+     */
+    where: DatasetWhereUniqueInput
+  }
+
+  /**
+   * Dataset updateMany
+   */
+  export type DatasetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Datasets.
+     */
+    data: XOR<DatasetUpdateManyMutationInput, DatasetUncheckedUpdateManyInput>
+    /**
+     * Filter which Datasets to update
+     */
+    where?: DatasetWhereInput
+    /**
+     * Limit how many Datasets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Dataset updateManyAndReturn
+   */
+  export type DatasetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * The data used to update Datasets.
+     */
+    data: XOR<DatasetUpdateManyMutationInput, DatasetUncheckedUpdateManyInput>
+    /**
+     * Filter which Datasets to update
+     */
+    where?: DatasetWhereInput
+    /**
+     * Limit how many Datasets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Dataset upsert
+   */
+  export type DatasetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Dataset to update in case it exists.
+     */
+    where: DatasetWhereUniqueInput
+    /**
+     * In case the Dataset found by the `where` argument doesn't exist, create a new Dataset with this data.
+     */
+    create: XOR<DatasetCreateInput, DatasetUncheckedCreateInput>
+    /**
+     * In case the Dataset was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DatasetUpdateInput, DatasetUncheckedUpdateInput>
+  }
+
+  /**
+   * Dataset delete
+   */
+  export type DatasetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    /**
+     * Filter which Dataset to delete.
+     */
+    where: DatasetWhereUniqueInput
+  }
+
+  /**
+   * Dataset deleteMany
+   */
+  export type DatasetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Datasets to delete
+     */
+    where?: DatasetWhereInput
+    /**
+     * Limit how many Datasets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Dataset.images
+   */
+  export type Dataset$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    where?: DatasetImageWhereInput
+    orderBy?: DatasetImageOrderByWithRelationInput | DatasetImageOrderByWithRelationInput[]
+    cursor?: DatasetImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DatasetImageScalarFieldEnum | DatasetImageScalarFieldEnum[]
+  }
+
+  /**
+   * Dataset.models
+   */
+  export type Dataset$modelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    where?: ModelRegistryWhereInput
+    orderBy?: ModelRegistryOrderByWithRelationInput | ModelRegistryOrderByWithRelationInput[]
+    cursor?: ModelRegistryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ModelRegistryScalarFieldEnum | ModelRegistryScalarFieldEnum[]
+  }
+
+  /**
+   * Dataset without action
+   */
+  export type DatasetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DatasetImage
+   */
+
+  export type AggregateDatasetImage = {
+    _count: DatasetImageCountAggregateOutputType | null
+    _min: DatasetImageMinAggregateOutputType | null
+    _max: DatasetImageMaxAggregateOutputType | null
+  }
+
+  export type DatasetImageMinAggregateOutputType = {
+    datasetId: string | null
+    imageId: string | null
+  }
+
+  export type DatasetImageMaxAggregateOutputType = {
+    datasetId: string | null
+    imageId: string | null
+  }
+
+  export type DatasetImageCountAggregateOutputType = {
+    datasetId: number
+    imageId: number
+    _all: number
+  }
+
+
+  export type DatasetImageMinAggregateInputType = {
+    datasetId?: true
+    imageId?: true
+  }
+
+  export type DatasetImageMaxAggregateInputType = {
+    datasetId?: true
+    imageId?: true
+  }
+
+  export type DatasetImageCountAggregateInputType = {
+    datasetId?: true
+    imageId?: true
+    _all?: true
+  }
+
+  export type DatasetImageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DatasetImage to aggregate.
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DatasetImages to fetch.
+     */
+    orderBy?: DatasetImageOrderByWithRelationInput | DatasetImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DatasetImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DatasetImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DatasetImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DatasetImages
+    **/
+    _count?: true | DatasetImageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DatasetImageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DatasetImageMaxAggregateInputType
+  }
+
+  export type GetDatasetImageAggregateType<T extends DatasetImageAggregateArgs> = {
+        [P in keyof T & keyof AggregateDatasetImage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDatasetImage[P]>
+      : GetScalarType<T[P], AggregateDatasetImage[P]>
+  }
+
+
+
+
+  export type DatasetImageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DatasetImageWhereInput
+    orderBy?: DatasetImageOrderByWithAggregationInput | DatasetImageOrderByWithAggregationInput[]
+    by: DatasetImageScalarFieldEnum[] | DatasetImageScalarFieldEnum
+    having?: DatasetImageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DatasetImageCountAggregateInputType | true
+    _min?: DatasetImageMinAggregateInputType
+    _max?: DatasetImageMaxAggregateInputType
+  }
+
+  export type DatasetImageGroupByOutputType = {
+    datasetId: string
+    imageId: string
+    _count: DatasetImageCountAggregateOutputType | null
+    _min: DatasetImageMinAggregateOutputType | null
+    _max: DatasetImageMaxAggregateOutputType | null
+  }
+
+  type GetDatasetImageGroupByPayload<T extends DatasetImageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DatasetImageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DatasetImageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DatasetImageGroupByOutputType[P]>
+            : GetScalarType<T[P], DatasetImageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DatasetImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    datasetId?: boolean
+    imageId?: boolean
+    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["datasetImage"]>
+
+  export type DatasetImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    datasetId?: boolean
+    imageId?: boolean
+    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["datasetImage"]>
+
+  export type DatasetImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    datasetId?: boolean
+    imageId?: boolean
+    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["datasetImage"]>
+
+  export type DatasetImageSelectScalar = {
+    datasetId?: boolean
+    imageId?: boolean
+  }
+
+  export type DatasetImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"datasetId" | "imageId", ExtArgs["result"]["datasetImage"]>
+  export type DatasetImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+  }
+  export type DatasetImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+  }
+  export type DatasetImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dataset?: boolean | DatasetDefaultArgs<ExtArgs>
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+  }
+
+  export type $DatasetImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DatasetImage"
+    objects: {
+      dataset: Prisma.$DatasetPayload<ExtArgs>
+      image: Prisma.$BusImagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      datasetId: string
+      imageId: string
+    }, ExtArgs["result"]["datasetImage"]>
+    composites: {}
+  }
+
+  type DatasetImageGetPayload<S extends boolean | null | undefined | DatasetImageDefaultArgs> = $Result.GetResult<Prisma.$DatasetImagePayload, S>
+
+  type DatasetImageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DatasetImageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DatasetImageCountAggregateInputType | true
+    }
+
+  export interface DatasetImageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DatasetImage'], meta: { name: 'DatasetImage' } }
+    /**
+     * Find zero or one DatasetImage that matches the filter.
+     * @param {DatasetImageFindUniqueArgs} args - Arguments to find a DatasetImage
+     * @example
+     * // Get one DatasetImage
+     * const datasetImage = await prisma.datasetImage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DatasetImageFindUniqueArgs>(args: SelectSubset<T, DatasetImageFindUniqueArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DatasetImage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DatasetImageFindUniqueOrThrowArgs} args - Arguments to find a DatasetImage
+     * @example
+     * // Get one DatasetImage
+     * const datasetImage = await prisma.datasetImage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DatasetImageFindUniqueOrThrowArgs>(args: SelectSubset<T, DatasetImageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DatasetImage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageFindFirstArgs} args - Arguments to find a DatasetImage
+     * @example
+     * // Get one DatasetImage
+     * const datasetImage = await prisma.datasetImage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DatasetImageFindFirstArgs>(args?: SelectSubset<T, DatasetImageFindFirstArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DatasetImage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageFindFirstOrThrowArgs} args - Arguments to find a DatasetImage
+     * @example
+     * // Get one DatasetImage
+     * const datasetImage = await prisma.datasetImage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DatasetImageFindFirstOrThrowArgs>(args?: SelectSubset<T, DatasetImageFindFirstOrThrowArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DatasetImages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DatasetImages
+     * const datasetImages = await prisma.datasetImage.findMany()
+     * 
+     * // Get first 10 DatasetImages
+     * const datasetImages = await prisma.datasetImage.findMany({ take: 10 })
+     * 
+     * // Only select the `datasetId`
+     * const datasetImageWithDatasetIdOnly = await prisma.datasetImage.findMany({ select: { datasetId: true } })
+     * 
+     */
+    findMany<T extends DatasetImageFindManyArgs>(args?: SelectSubset<T, DatasetImageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DatasetImage.
+     * @param {DatasetImageCreateArgs} args - Arguments to create a DatasetImage.
+     * @example
+     * // Create one DatasetImage
+     * const DatasetImage = await prisma.datasetImage.create({
+     *   data: {
+     *     // ... data to create a DatasetImage
+     *   }
+     * })
+     * 
+     */
+    create<T extends DatasetImageCreateArgs>(args: SelectSubset<T, DatasetImageCreateArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DatasetImages.
+     * @param {DatasetImageCreateManyArgs} args - Arguments to create many DatasetImages.
+     * @example
+     * // Create many DatasetImages
+     * const datasetImage = await prisma.datasetImage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DatasetImageCreateManyArgs>(args?: SelectSubset<T, DatasetImageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DatasetImages and returns the data saved in the database.
+     * @param {DatasetImageCreateManyAndReturnArgs} args - Arguments to create many DatasetImages.
+     * @example
+     * // Create many DatasetImages
+     * const datasetImage = await prisma.datasetImage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DatasetImages and only return the `datasetId`
+     * const datasetImageWithDatasetIdOnly = await prisma.datasetImage.createManyAndReturn({
+     *   select: { datasetId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DatasetImageCreateManyAndReturnArgs>(args?: SelectSubset<T, DatasetImageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DatasetImage.
+     * @param {DatasetImageDeleteArgs} args - Arguments to delete one DatasetImage.
+     * @example
+     * // Delete one DatasetImage
+     * const DatasetImage = await prisma.datasetImage.delete({
+     *   where: {
+     *     // ... filter to delete one DatasetImage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DatasetImageDeleteArgs>(args: SelectSubset<T, DatasetImageDeleteArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DatasetImage.
+     * @param {DatasetImageUpdateArgs} args - Arguments to update one DatasetImage.
+     * @example
+     * // Update one DatasetImage
+     * const datasetImage = await prisma.datasetImage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DatasetImageUpdateArgs>(args: SelectSubset<T, DatasetImageUpdateArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DatasetImages.
+     * @param {DatasetImageDeleteManyArgs} args - Arguments to filter DatasetImages to delete.
+     * @example
+     * // Delete a few DatasetImages
+     * const { count } = await prisma.datasetImage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DatasetImageDeleteManyArgs>(args?: SelectSubset<T, DatasetImageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DatasetImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DatasetImages
+     * const datasetImage = await prisma.datasetImage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DatasetImageUpdateManyArgs>(args: SelectSubset<T, DatasetImageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DatasetImages and returns the data updated in the database.
+     * @param {DatasetImageUpdateManyAndReturnArgs} args - Arguments to update many DatasetImages.
+     * @example
+     * // Update many DatasetImages
+     * const datasetImage = await prisma.datasetImage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DatasetImages and only return the `datasetId`
+     * const datasetImageWithDatasetIdOnly = await prisma.datasetImage.updateManyAndReturn({
+     *   select: { datasetId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DatasetImageUpdateManyAndReturnArgs>(args: SelectSubset<T, DatasetImageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DatasetImage.
+     * @param {DatasetImageUpsertArgs} args - Arguments to update or create a DatasetImage.
+     * @example
+     * // Update or create a DatasetImage
+     * const datasetImage = await prisma.datasetImage.upsert({
+     *   create: {
+     *     // ... data to create a DatasetImage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DatasetImage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DatasetImageUpsertArgs>(args: SelectSubset<T, DatasetImageUpsertArgs<ExtArgs>>): Prisma__DatasetImageClient<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DatasetImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageCountArgs} args - Arguments to filter DatasetImages to count.
+     * @example
+     * // Count the number of DatasetImages
+     * const count = await prisma.datasetImage.count({
+     *   where: {
+     *     // ... the filter for the DatasetImages we want to count
+     *   }
+     * })
+    **/
+    count<T extends DatasetImageCountArgs>(
+      args?: Subset<T, DatasetImageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DatasetImageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DatasetImage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DatasetImageAggregateArgs>(args: Subset<T, DatasetImageAggregateArgs>): Prisma.PrismaPromise<GetDatasetImageAggregateType<T>>
+
+    /**
+     * Group by DatasetImage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DatasetImageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DatasetImageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DatasetImageGroupByArgs['orderBy'] }
+        : { orderBy?: DatasetImageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DatasetImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDatasetImageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DatasetImage model
+   */
+  readonly fields: DatasetImageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DatasetImage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DatasetImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    dataset<T extends DatasetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DatasetDefaultArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    image<T extends BusImageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusImageDefaultArgs<ExtArgs>>): Prisma__BusImageClient<$Result.GetResult<Prisma.$BusImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DatasetImage model
+   */
+  interface DatasetImageFieldRefs {
+    readonly datasetId: FieldRef<"DatasetImage", 'String'>
+    readonly imageId: FieldRef<"DatasetImage", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DatasetImage findUnique
+   */
+  export type DatasetImageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * Filter, which DatasetImage to fetch.
+     */
+    where: DatasetImageWhereUniqueInput
+  }
+
+  /**
+   * DatasetImage findUniqueOrThrow
+   */
+  export type DatasetImageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * Filter, which DatasetImage to fetch.
+     */
+    where: DatasetImageWhereUniqueInput
+  }
+
+  /**
+   * DatasetImage findFirst
+   */
+  export type DatasetImageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * Filter, which DatasetImage to fetch.
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DatasetImages to fetch.
+     */
+    orderBy?: DatasetImageOrderByWithRelationInput | DatasetImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DatasetImages.
+     */
+    cursor?: DatasetImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DatasetImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DatasetImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DatasetImages.
+     */
+    distinct?: DatasetImageScalarFieldEnum | DatasetImageScalarFieldEnum[]
+  }
+
+  /**
+   * DatasetImage findFirstOrThrow
+   */
+  export type DatasetImageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * Filter, which DatasetImage to fetch.
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DatasetImages to fetch.
+     */
+    orderBy?: DatasetImageOrderByWithRelationInput | DatasetImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DatasetImages.
+     */
+    cursor?: DatasetImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DatasetImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DatasetImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DatasetImages.
+     */
+    distinct?: DatasetImageScalarFieldEnum | DatasetImageScalarFieldEnum[]
+  }
+
+  /**
+   * DatasetImage findMany
+   */
+  export type DatasetImageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * Filter, which DatasetImages to fetch.
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DatasetImages to fetch.
+     */
+    orderBy?: DatasetImageOrderByWithRelationInput | DatasetImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DatasetImages.
+     */
+    cursor?: DatasetImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DatasetImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DatasetImages.
+     */
+    skip?: number
+    distinct?: DatasetImageScalarFieldEnum | DatasetImageScalarFieldEnum[]
+  }
+
+  /**
+   * DatasetImage create
+   */
+  export type DatasetImageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DatasetImage.
+     */
+    data: XOR<DatasetImageCreateInput, DatasetImageUncheckedCreateInput>
+  }
+
+  /**
+   * DatasetImage createMany
+   */
+  export type DatasetImageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DatasetImages.
+     */
+    data: DatasetImageCreateManyInput | DatasetImageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DatasetImage createManyAndReturn
+   */
+  export type DatasetImageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * The data used to create many DatasetImages.
+     */
+    data: DatasetImageCreateManyInput | DatasetImageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DatasetImage update
+   */
+  export type DatasetImageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DatasetImage.
+     */
+    data: XOR<DatasetImageUpdateInput, DatasetImageUncheckedUpdateInput>
+    /**
+     * Choose, which DatasetImage to update.
+     */
+    where: DatasetImageWhereUniqueInput
+  }
+
+  /**
+   * DatasetImage updateMany
+   */
+  export type DatasetImageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DatasetImages.
+     */
+    data: XOR<DatasetImageUpdateManyMutationInput, DatasetImageUncheckedUpdateManyInput>
+    /**
+     * Filter which DatasetImages to update
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * Limit how many DatasetImages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DatasetImage updateManyAndReturn
+   */
+  export type DatasetImageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * The data used to update DatasetImages.
+     */
+    data: XOR<DatasetImageUpdateManyMutationInput, DatasetImageUncheckedUpdateManyInput>
+    /**
+     * Filter which DatasetImages to update
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * Limit how many DatasetImages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DatasetImage upsert
+   */
+  export type DatasetImageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DatasetImage to update in case it exists.
+     */
+    where: DatasetImageWhereUniqueInput
+    /**
+     * In case the DatasetImage found by the `where` argument doesn't exist, create a new DatasetImage with this data.
+     */
+    create: XOR<DatasetImageCreateInput, DatasetImageUncheckedCreateInput>
+    /**
+     * In case the DatasetImage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DatasetImageUpdateInput, DatasetImageUncheckedUpdateInput>
+  }
+
+  /**
+   * DatasetImage delete
+   */
+  export type DatasetImageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+    /**
+     * Filter which DatasetImage to delete.
+     */
+    where: DatasetImageWhereUniqueInput
+  }
+
+  /**
+   * DatasetImage deleteMany
+   */
+  export type DatasetImageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DatasetImages to delete
+     */
+    where?: DatasetImageWhereInput
+    /**
+     * Limit how many DatasetImages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DatasetImage without action
+   */
+  export type DatasetImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DatasetImage
+     */
+    select?: DatasetImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DatasetImage
+     */
+    omit?: DatasetImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetImageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ModelRegistry
+   */
+
+  export type AggregateModelRegistry = {
+    _count: ModelRegistryCountAggregateOutputType | null
+    _min: ModelRegistryMinAggregateOutputType | null
+    _max: ModelRegistryMaxAggregateOutputType | null
+  }
+
+  export type ModelRegistryMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    version: string | null
+    architecture: $Enums.ModelArchitecture | null
+    status: $Enums.ModelStatus | null
+    weightsUrl: string | null
+    datasetId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModelRegistryMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    version: string | null
+    architecture: $Enums.ModelArchitecture | null
+    status: $Enums.ModelStatus | null
+    weightsUrl: string | null
+    datasetId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModelRegistryCountAggregateOutputType = {
+    id: number
+    name: number
+    version: number
+    architecture: number
+    status: number
+    weightsUrl: number
+    hyperparameters: number
+    metrics: number
+    datasetId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ModelRegistryMinAggregateInputType = {
+    id?: true
+    name?: true
+    version?: true
+    architecture?: true
+    status?: true
+    weightsUrl?: true
+    datasetId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModelRegistryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    version?: true
+    architecture?: true
+    status?: true
+    weightsUrl?: true
+    datasetId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModelRegistryCountAggregateInputType = {
+    id?: true
+    name?: true
+    version?: true
+    architecture?: true
+    status?: true
+    weightsUrl?: true
+    hyperparameters?: true
+    metrics?: true
+    datasetId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ModelRegistryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ModelRegistry to aggregate.
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModelRegistries to fetch.
+     */
+    orderBy?: ModelRegistryOrderByWithRelationInput | ModelRegistryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ModelRegistryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModelRegistries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModelRegistries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ModelRegistries
+    **/
+    _count?: true | ModelRegistryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ModelRegistryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ModelRegistryMaxAggregateInputType
+  }
+
+  export type GetModelRegistryAggregateType<T extends ModelRegistryAggregateArgs> = {
+        [P in keyof T & keyof AggregateModelRegistry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateModelRegistry[P]>
+      : GetScalarType<T[P], AggregateModelRegistry[P]>
+  }
+
+
+
+
+  export type ModelRegistryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModelRegistryWhereInput
+    orderBy?: ModelRegistryOrderByWithAggregationInput | ModelRegistryOrderByWithAggregationInput[]
+    by: ModelRegistryScalarFieldEnum[] | ModelRegistryScalarFieldEnum
+    having?: ModelRegistryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ModelRegistryCountAggregateInputType | true
+    _min?: ModelRegistryMinAggregateInputType
+    _max?: ModelRegistryMaxAggregateInputType
+  }
+
+  export type ModelRegistryGroupByOutputType = {
+    id: string
+    name: string
+    version: string | null
+    architecture: $Enums.ModelArchitecture
+    status: $Enums.ModelStatus
+    weightsUrl: string | null
+    hyperparameters: JsonValue | null
+    metrics: JsonValue | null
+    datasetId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ModelRegistryCountAggregateOutputType | null
+    _min: ModelRegistryMinAggregateOutputType | null
+    _max: ModelRegistryMaxAggregateOutputType | null
+  }
+
+  type GetModelRegistryGroupByPayload<T extends ModelRegistryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ModelRegistryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ModelRegistryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ModelRegistryGroupByOutputType[P]>
+            : GetScalarType<T[P], ModelRegistryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ModelRegistrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    version?: boolean
+    architecture?: boolean
+    status?: boolean
+    weightsUrl?: boolean
+    hyperparameters?: boolean
+    metrics?: boolean
+    datasetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+  }, ExtArgs["result"]["modelRegistry"]>
+
+  export type ModelRegistrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    version?: boolean
+    architecture?: boolean
+    status?: boolean
+    weightsUrl?: boolean
+    hyperparameters?: boolean
+    metrics?: boolean
+    datasetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+  }, ExtArgs["result"]["modelRegistry"]>
+
+  export type ModelRegistrySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    version?: boolean
+    architecture?: boolean
+    status?: boolean
+    weightsUrl?: boolean
+    hyperparameters?: boolean
+    metrics?: boolean
+    datasetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+  }, ExtArgs["result"]["modelRegistry"]>
+
+  export type ModelRegistrySelectScalar = {
+    id?: boolean
+    name?: boolean
+    version?: boolean
+    architecture?: boolean
+    status?: boolean
+    weightsUrl?: boolean
+    hyperparameters?: boolean
+    metrics?: boolean
+    datasetId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ModelRegistryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "version" | "architecture" | "status" | "weightsUrl" | "hyperparameters" | "metrics" | "datasetId" | "createdAt" | "updatedAt", ExtArgs["result"]["modelRegistry"]>
+  export type ModelRegistryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+  }
+  export type ModelRegistryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+  }
+  export type ModelRegistryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+  }
+
+  export type $ModelRegistryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ModelRegistry"
+    objects: {
+      dataset: Prisma.$DatasetPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      version: string | null
+      architecture: $Enums.ModelArchitecture
+      status: $Enums.ModelStatus
+      weightsUrl: string | null
+      hyperparameters: Prisma.JsonValue | null
+      metrics: Prisma.JsonValue | null
+      datasetId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["modelRegistry"]>
+    composites: {}
+  }
+
+  type ModelRegistryGetPayload<S extends boolean | null | undefined | ModelRegistryDefaultArgs> = $Result.GetResult<Prisma.$ModelRegistryPayload, S>
+
+  type ModelRegistryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ModelRegistryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ModelRegistryCountAggregateInputType | true
+    }
+
+  export interface ModelRegistryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ModelRegistry'], meta: { name: 'ModelRegistry' } }
+    /**
+     * Find zero or one ModelRegistry that matches the filter.
+     * @param {ModelRegistryFindUniqueArgs} args - Arguments to find a ModelRegistry
+     * @example
+     * // Get one ModelRegistry
+     * const modelRegistry = await prisma.modelRegistry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ModelRegistryFindUniqueArgs>(args: SelectSubset<T, ModelRegistryFindUniqueArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ModelRegistry that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ModelRegistryFindUniqueOrThrowArgs} args - Arguments to find a ModelRegistry
+     * @example
+     * // Get one ModelRegistry
+     * const modelRegistry = await prisma.modelRegistry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ModelRegistryFindUniqueOrThrowArgs>(args: SelectSubset<T, ModelRegistryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ModelRegistry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryFindFirstArgs} args - Arguments to find a ModelRegistry
+     * @example
+     * // Get one ModelRegistry
+     * const modelRegistry = await prisma.modelRegistry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ModelRegistryFindFirstArgs>(args?: SelectSubset<T, ModelRegistryFindFirstArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ModelRegistry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryFindFirstOrThrowArgs} args - Arguments to find a ModelRegistry
+     * @example
+     * // Get one ModelRegistry
+     * const modelRegistry = await prisma.modelRegistry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ModelRegistryFindFirstOrThrowArgs>(args?: SelectSubset<T, ModelRegistryFindFirstOrThrowArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ModelRegistries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ModelRegistries
+     * const modelRegistries = await prisma.modelRegistry.findMany()
+     * 
+     * // Get first 10 ModelRegistries
+     * const modelRegistries = await prisma.modelRegistry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const modelRegistryWithIdOnly = await prisma.modelRegistry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ModelRegistryFindManyArgs>(args?: SelectSubset<T, ModelRegistryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ModelRegistry.
+     * @param {ModelRegistryCreateArgs} args - Arguments to create a ModelRegistry.
+     * @example
+     * // Create one ModelRegistry
+     * const ModelRegistry = await prisma.modelRegistry.create({
+     *   data: {
+     *     // ... data to create a ModelRegistry
+     *   }
+     * })
+     * 
+     */
+    create<T extends ModelRegistryCreateArgs>(args: SelectSubset<T, ModelRegistryCreateArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ModelRegistries.
+     * @param {ModelRegistryCreateManyArgs} args - Arguments to create many ModelRegistries.
+     * @example
+     * // Create many ModelRegistries
+     * const modelRegistry = await prisma.modelRegistry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ModelRegistryCreateManyArgs>(args?: SelectSubset<T, ModelRegistryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ModelRegistries and returns the data saved in the database.
+     * @param {ModelRegistryCreateManyAndReturnArgs} args - Arguments to create many ModelRegistries.
+     * @example
+     * // Create many ModelRegistries
+     * const modelRegistry = await prisma.modelRegistry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ModelRegistries and only return the `id`
+     * const modelRegistryWithIdOnly = await prisma.modelRegistry.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ModelRegistryCreateManyAndReturnArgs>(args?: SelectSubset<T, ModelRegistryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ModelRegistry.
+     * @param {ModelRegistryDeleteArgs} args - Arguments to delete one ModelRegistry.
+     * @example
+     * // Delete one ModelRegistry
+     * const ModelRegistry = await prisma.modelRegistry.delete({
+     *   where: {
+     *     // ... filter to delete one ModelRegistry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ModelRegistryDeleteArgs>(args: SelectSubset<T, ModelRegistryDeleteArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ModelRegistry.
+     * @param {ModelRegistryUpdateArgs} args - Arguments to update one ModelRegistry.
+     * @example
+     * // Update one ModelRegistry
+     * const modelRegistry = await prisma.modelRegistry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ModelRegistryUpdateArgs>(args: SelectSubset<T, ModelRegistryUpdateArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ModelRegistries.
+     * @param {ModelRegistryDeleteManyArgs} args - Arguments to filter ModelRegistries to delete.
+     * @example
+     * // Delete a few ModelRegistries
+     * const { count } = await prisma.modelRegistry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ModelRegistryDeleteManyArgs>(args?: SelectSubset<T, ModelRegistryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ModelRegistries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ModelRegistries
+     * const modelRegistry = await prisma.modelRegistry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ModelRegistryUpdateManyArgs>(args: SelectSubset<T, ModelRegistryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ModelRegistries and returns the data updated in the database.
+     * @param {ModelRegistryUpdateManyAndReturnArgs} args - Arguments to update many ModelRegistries.
+     * @example
+     * // Update many ModelRegistries
+     * const modelRegistry = await prisma.modelRegistry.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ModelRegistries and only return the `id`
+     * const modelRegistryWithIdOnly = await prisma.modelRegistry.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ModelRegistryUpdateManyAndReturnArgs>(args: SelectSubset<T, ModelRegistryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ModelRegistry.
+     * @param {ModelRegistryUpsertArgs} args - Arguments to update or create a ModelRegistry.
+     * @example
+     * // Update or create a ModelRegistry
+     * const modelRegistry = await prisma.modelRegistry.upsert({
+     *   create: {
+     *     // ... data to create a ModelRegistry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ModelRegistry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ModelRegistryUpsertArgs>(args: SelectSubset<T, ModelRegistryUpsertArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ModelRegistries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryCountArgs} args - Arguments to filter ModelRegistries to count.
+     * @example
+     * // Count the number of ModelRegistries
+     * const count = await prisma.modelRegistry.count({
+     *   where: {
+     *     // ... the filter for the ModelRegistries we want to count
+     *   }
+     * })
+    **/
+    count<T extends ModelRegistryCountArgs>(
+      args?: Subset<T, ModelRegistryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ModelRegistryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ModelRegistry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ModelRegistryAggregateArgs>(args: Subset<T, ModelRegistryAggregateArgs>): Prisma.PrismaPromise<GetModelRegistryAggregateType<T>>
+
+    /**
+     * Group by ModelRegistry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModelRegistryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ModelRegistryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ModelRegistryGroupByArgs['orderBy'] }
+        : { orderBy?: ModelRegistryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ModelRegistryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModelRegistryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ModelRegistry model
+   */
+  readonly fields: ModelRegistryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ModelRegistry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ModelRegistryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    dataset<T extends ModelRegistry$datasetArgs<ExtArgs> = {}>(args?: Subset<T, ModelRegistry$datasetArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ModelRegistry model
+   */
+  interface ModelRegistryFieldRefs {
+    readonly id: FieldRef<"ModelRegistry", 'String'>
+    readonly name: FieldRef<"ModelRegistry", 'String'>
+    readonly version: FieldRef<"ModelRegistry", 'String'>
+    readonly architecture: FieldRef<"ModelRegistry", 'ModelArchitecture'>
+    readonly status: FieldRef<"ModelRegistry", 'ModelStatus'>
+    readonly weightsUrl: FieldRef<"ModelRegistry", 'String'>
+    readonly hyperparameters: FieldRef<"ModelRegistry", 'Json'>
+    readonly metrics: FieldRef<"ModelRegistry", 'Json'>
+    readonly datasetId: FieldRef<"ModelRegistry", 'String'>
+    readonly createdAt: FieldRef<"ModelRegistry", 'DateTime'>
+    readonly updatedAt: FieldRef<"ModelRegistry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ModelRegistry findUnique
+   */
+  export type ModelRegistryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * Filter, which ModelRegistry to fetch.
+     */
+    where: ModelRegistryWhereUniqueInput
+  }
+
+  /**
+   * ModelRegistry findUniqueOrThrow
+   */
+  export type ModelRegistryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * Filter, which ModelRegistry to fetch.
+     */
+    where: ModelRegistryWhereUniqueInput
+  }
+
+  /**
+   * ModelRegistry findFirst
+   */
+  export type ModelRegistryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * Filter, which ModelRegistry to fetch.
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModelRegistries to fetch.
+     */
+    orderBy?: ModelRegistryOrderByWithRelationInput | ModelRegistryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ModelRegistries.
+     */
+    cursor?: ModelRegistryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModelRegistries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModelRegistries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ModelRegistries.
+     */
+    distinct?: ModelRegistryScalarFieldEnum | ModelRegistryScalarFieldEnum[]
+  }
+
+  /**
+   * ModelRegistry findFirstOrThrow
+   */
+  export type ModelRegistryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * Filter, which ModelRegistry to fetch.
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModelRegistries to fetch.
+     */
+    orderBy?: ModelRegistryOrderByWithRelationInput | ModelRegistryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ModelRegistries.
+     */
+    cursor?: ModelRegistryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModelRegistries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModelRegistries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ModelRegistries.
+     */
+    distinct?: ModelRegistryScalarFieldEnum | ModelRegistryScalarFieldEnum[]
+  }
+
+  /**
+   * ModelRegistry findMany
+   */
+  export type ModelRegistryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * Filter, which ModelRegistries to fetch.
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModelRegistries to fetch.
+     */
+    orderBy?: ModelRegistryOrderByWithRelationInput | ModelRegistryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ModelRegistries.
+     */
+    cursor?: ModelRegistryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModelRegistries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModelRegistries.
+     */
+    skip?: number
+    distinct?: ModelRegistryScalarFieldEnum | ModelRegistryScalarFieldEnum[]
+  }
+
+  /**
+   * ModelRegistry create
+   */
+  export type ModelRegistryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ModelRegistry.
+     */
+    data: XOR<ModelRegistryCreateInput, ModelRegistryUncheckedCreateInput>
+  }
+
+  /**
+   * ModelRegistry createMany
+   */
+  export type ModelRegistryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ModelRegistries.
+     */
+    data: ModelRegistryCreateManyInput | ModelRegistryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ModelRegistry createManyAndReturn
+   */
+  export type ModelRegistryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * The data used to create many ModelRegistries.
+     */
+    data: ModelRegistryCreateManyInput | ModelRegistryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ModelRegistry update
+   */
+  export type ModelRegistryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ModelRegistry.
+     */
+    data: XOR<ModelRegistryUpdateInput, ModelRegistryUncheckedUpdateInput>
+    /**
+     * Choose, which ModelRegistry to update.
+     */
+    where: ModelRegistryWhereUniqueInput
+  }
+
+  /**
+   * ModelRegistry updateMany
+   */
+  export type ModelRegistryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ModelRegistries.
+     */
+    data: XOR<ModelRegistryUpdateManyMutationInput, ModelRegistryUncheckedUpdateManyInput>
+    /**
+     * Filter which ModelRegistries to update
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * Limit how many ModelRegistries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ModelRegistry updateManyAndReturn
+   */
+  export type ModelRegistryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * The data used to update ModelRegistries.
+     */
+    data: XOR<ModelRegistryUpdateManyMutationInput, ModelRegistryUncheckedUpdateManyInput>
+    /**
+     * Filter which ModelRegistries to update
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * Limit how many ModelRegistries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ModelRegistry upsert
+   */
+  export type ModelRegistryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ModelRegistry to update in case it exists.
+     */
+    where: ModelRegistryWhereUniqueInput
+    /**
+     * In case the ModelRegistry found by the `where` argument doesn't exist, create a new ModelRegistry with this data.
+     */
+    create: XOR<ModelRegistryCreateInput, ModelRegistryUncheckedCreateInput>
+    /**
+     * In case the ModelRegistry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ModelRegistryUpdateInput, ModelRegistryUncheckedUpdateInput>
+  }
+
+  /**
+   * ModelRegistry delete
+   */
+  export type ModelRegistryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
+    /**
+     * Filter which ModelRegistry to delete.
+     */
+    where: ModelRegistryWhereUniqueInput
+  }
+
+  /**
+   * ModelRegistry deleteMany
+   */
+  export type ModelRegistryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ModelRegistries to delete
+     */
+    where?: ModelRegistryWhereInput
+    /**
+     * Limit how many ModelRegistries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ModelRegistry.dataset
+   */
+  export type ModelRegistry$datasetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Dataset
+     */
+    select?: DatasetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Dataset
+     */
+    omit?: DatasetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DatasetInclude<ExtArgs> | null
+    where?: DatasetWhereInput
+  }
+
+  /**
+   * ModelRegistry without action
+   */
+  export type ModelRegistryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistry
+     */
+    select?: ModelRegistrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModelRegistry
+     */
+    omit?: ModelRegistryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModelRegistryInclude<ExtArgs> | null
   }
 
 
@@ -8241,12 +11902,55 @@ export namespace Prisma {
   export type BusImageScalarFieldEnum = (typeof BusImageScalarFieldEnum)[keyof typeof BusImageScalarFieldEnum]
 
 
+  export const DatasetScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type DatasetScalarFieldEnum = (typeof DatasetScalarFieldEnum)[keyof typeof DatasetScalarFieldEnum]
+
+
+  export const DatasetImageScalarFieldEnum: {
+    datasetId: 'datasetId',
+    imageId: 'imageId'
+  };
+
+  export type DatasetImageScalarFieldEnum = (typeof DatasetImageScalarFieldEnum)[keyof typeof DatasetImageScalarFieldEnum]
+
+
+  export const ModelRegistryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    version: 'version',
+    architecture: 'architecture',
+    status: 'status',
+    weightsUrl: 'weightsUrl',
+    hyperparameters: 'hyperparameters',
+    metrics: 'metrics',
+    datasetId: 'datasetId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ModelRegistryScalarFieldEnum = (typeof ModelRegistryScalarFieldEnum)[keyof typeof ModelRegistryScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -8263,6 +11967,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -8358,6 +12071,48 @@ export namespace Prisma {
    * Reference to a field of type 'Angle[]'
    */
   export type ListEnumAngleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Angle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModelArchitecture'
+   */
+  export type EnumModelArchitectureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModelArchitecture'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModelArchitecture[]'
+   */
+  export type ListEnumModelArchitectureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModelArchitecture[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModelStatus'
+   */
+  export type EnumModelStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModelStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModelStatus[]'
+   */
+  export type ListEnumModelStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModelStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -8747,6 +12502,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"BusImage"> | Date | string
     updatedAt?: DateTimeFilter<"BusImage"> | Date | string
     labeledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    trainingData?: DatasetImageListRelationFilter
   }
 
   export type BusImageOrderByWithRelationInput = {
@@ -8764,6 +12520,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     labeledBy?: UserOrderByWithRelationInput
+    trainingData?: DatasetImageOrderByRelationAggregateInput
   }
 
   export type BusImageWhereUniqueInput = Prisma.AtLeast<{
@@ -8784,6 +12541,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"BusImage"> | Date | string
     updatedAt?: DateTimeFilter<"BusImage"> | Date | string
     labeledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    trainingData?: DatasetImageListRelationFilter
   }, "id">
 
   export type BusImageOrderByWithAggregationInput = {
@@ -8824,6 +12582,189 @@ export namespace Prisma {
     labeledById?: StringNullableWithAggregatesFilter<"BusImage"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BusImage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BusImage"> | Date | string
+  }
+
+  export type DatasetWhereInput = {
+    AND?: DatasetWhereInput | DatasetWhereInput[]
+    OR?: DatasetWhereInput[]
+    NOT?: DatasetWhereInput | DatasetWhereInput[]
+    id?: StringFilter<"Dataset"> | string
+    name?: StringFilter<"Dataset"> | string
+    description?: StringNullableFilter<"Dataset"> | string | null
+    createdAt?: DateTimeFilter<"Dataset"> | Date | string
+    images?: DatasetImageListRelationFilter
+    models?: ModelRegistryListRelationFilter
+  }
+
+  export type DatasetOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    images?: DatasetImageOrderByRelationAggregateInput
+    models?: ModelRegistryOrderByRelationAggregateInput
+  }
+
+  export type DatasetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DatasetWhereInput | DatasetWhereInput[]
+    OR?: DatasetWhereInput[]
+    NOT?: DatasetWhereInput | DatasetWhereInput[]
+    name?: StringFilter<"Dataset"> | string
+    description?: StringNullableFilter<"Dataset"> | string | null
+    createdAt?: DateTimeFilter<"Dataset"> | Date | string
+    images?: DatasetImageListRelationFilter
+    models?: ModelRegistryListRelationFilter
+  }, "id">
+
+  export type DatasetOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DatasetCountOrderByAggregateInput
+    _max?: DatasetMaxOrderByAggregateInput
+    _min?: DatasetMinOrderByAggregateInput
+  }
+
+  export type DatasetScalarWhereWithAggregatesInput = {
+    AND?: DatasetScalarWhereWithAggregatesInput | DatasetScalarWhereWithAggregatesInput[]
+    OR?: DatasetScalarWhereWithAggregatesInput[]
+    NOT?: DatasetScalarWhereWithAggregatesInput | DatasetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Dataset"> | string
+    name?: StringWithAggregatesFilter<"Dataset"> | string
+    description?: StringNullableWithAggregatesFilter<"Dataset"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Dataset"> | Date | string
+  }
+
+  export type DatasetImageWhereInput = {
+    AND?: DatasetImageWhereInput | DatasetImageWhereInput[]
+    OR?: DatasetImageWhereInput[]
+    NOT?: DatasetImageWhereInput | DatasetImageWhereInput[]
+    datasetId?: StringFilter<"DatasetImage"> | string
+    imageId?: StringFilter<"DatasetImage"> | string
+    dataset?: XOR<DatasetScalarRelationFilter, DatasetWhereInput>
+    image?: XOR<BusImageScalarRelationFilter, BusImageWhereInput>
+  }
+
+  export type DatasetImageOrderByWithRelationInput = {
+    datasetId?: SortOrder
+    imageId?: SortOrder
+    dataset?: DatasetOrderByWithRelationInput
+    image?: BusImageOrderByWithRelationInput
+  }
+
+  export type DatasetImageWhereUniqueInput = Prisma.AtLeast<{
+    datasetId_imageId?: DatasetImageDatasetIdImageIdCompoundUniqueInput
+    AND?: DatasetImageWhereInput | DatasetImageWhereInput[]
+    OR?: DatasetImageWhereInput[]
+    NOT?: DatasetImageWhereInput | DatasetImageWhereInput[]
+    datasetId?: StringFilter<"DatasetImage"> | string
+    imageId?: StringFilter<"DatasetImage"> | string
+    dataset?: XOR<DatasetScalarRelationFilter, DatasetWhereInput>
+    image?: XOR<BusImageScalarRelationFilter, BusImageWhereInput>
+  }, "datasetId_imageId">
+
+  export type DatasetImageOrderByWithAggregationInput = {
+    datasetId?: SortOrder
+    imageId?: SortOrder
+    _count?: DatasetImageCountOrderByAggregateInput
+    _max?: DatasetImageMaxOrderByAggregateInput
+    _min?: DatasetImageMinOrderByAggregateInput
+  }
+
+  export type DatasetImageScalarWhereWithAggregatesInput = {
+    AND?: DatasetImageScalarWhereWithAggregatesInput | DatasetImageScalarWhereWithAggregatesInput[]
+    OR?: DatasetImageScalarWhereWithAggregatesInput[]
+    NOT?: DatasetImageScalarWhereWithAggregatesInput | DatasetImageScalarWhereWithAggregatesInput[]
+    datasetId?: StringWithAggregatesFilter<"DatasetImage"> | string
+    imageId?: StringWithAggregatesFilter<"DatasetImage"> | string
+  }
+
+  export type ModelRegistryWhereInput = {
+    AND?: ModelRegistryWhereInput | ModelRegistryWhereInput[]
+    OR?: ModelRegistryWhereInput[]
+    NOT?: ModelRegistryWhereInput | ModelRegistryWhereInput[]
+    id?: StringFilter<"ModelRegistry"> | string
+    name?: StringFilter<"ModelRegistry"> | string
+    version?: StringNullableFilter<"ModelRegistry"> | string | null
+    architecture?: EnumModelArchitectureFilter<"ModelRegistry"> | $Enums.ModelArchitecture
+    status?: EnumModelStatusFilter<"ModelRegistry"> | $Enums.ModelStatus
+    weightsUrl?: StringNullableFilter<"ModelRegistry"> | string | null
+    hyperparameters?: JsonNullableFilter<"ModelRegistry">
+    metrics?: JsonNullableFilter<"ModelRegistry">
+    datasetId?: StringNullableFilter<"ModelRegistry"> | string | null
+    createdAt?: DateTimeFilter<"ModelRegistry"> | Date | string
+    updatedAt?: DateTimeFilter<"ModelRegistry"> | Date | string
+    dataset?: XOR<DatasetNullableScalarRelationFilter, DatasetWhereInput> | null
+  }
+
+  export type ModelRegistryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    version?: SortOrderInput | SortOrder
+    architecture?: SortOrder
+    status?: SortOrder
+    weightsUrl?: SortOrderInput | SortOrder
+    hyperparameters?: SortOrderInput | SortOrder
+    metrics?: SortOrderInput | SortOrder
+    datasetId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    dataset?: DatasetOrderByWithRelationInput
+  }
+
+  export type ModelRegistryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name_version?: ModelRegistryNameVersionCompoundUniqueInput
+    AND?: ModelRegistryWhereInput | ModelRegistryWhereInput[]
+    OR?: ModelRegistryWhereInput[]
+    NOT?: ModelRegistryWhereInput | ModelRegistryWhereInput[]
+    name?: StringFilter<"ModelRegistry"> | string
+    version?: StringNullableFilter<"ModelRegistry"> | string | null
+    architecture?: EnumModelArchitectureFilter<"ModelRegistry"> | $Enums.ModelArchitecture
+    status?: EnumModelStatusFilter<"ModelRegistry"> | $Enums.ModelStatus
+    weightsUrl?: StringNullableFilter<"ModelRegistry"> | string | null
+    hyperparameters?: JsonNullableFilter<"ModelRegistry">
+    metrics?: JsonNullableFilter<"ModelRegistry">
+    datasetId?: StringNullableFilter<"ModelRegistry"> | string | null
+    createdAt?: DateTimeFilter<"ModelRegistry"> | Date | string
+    updatedAt?: DateTimeFilter<"ModelRegistry"> | Date | string
+    dataset?: XOR<DatasetNullableScalarRelationFilter, DatasetWhereInput> | null
+  }, "id" | "name_version">
+
+  export type ModelRegistryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    version?: SortOrderInput | SortOrder
+    architecture?: SortOrder
+    status?: SortOrder
+    weightsUrl?: SortOrderInput | SortOrder
+    hyperparameters?: SortOrderInput | SortOrder
+    metrics?: SortOrderInput | SortOrder
+    datasetId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ModelRegistryCountOrderByAggregateInput
+    _max?: ModelRegistryMaxOrderByAggregateInput
+    _min?: ModelRegistryMinOrderByAggregateInput
+  }
+
+  export type ModelRegistryScalarWhereWithAggregatesInput = {
+    AND?: ModelRegistryScalarWhereWithAggregatesInput | ModelRegistryScalarWhereWithAggregatesInput[]
+    OR?: ModelRegistryScalarWhereWithAggregatesInput[]
+    NOT?: ModelRegistryScalarWhereWithAggregatesInput | ModelRegistryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ModelRegistry"> | string
+    name?: StringWithAggregatesFilter<"ModelRegistry"> | string
+    version?: StringNullableWithAggregatesFilter<"ModelRegistry"> | string | null
+    architecture?: EnumModelArchitectureWithAggregatesFilter<"ModelRegistry"> | $Enums.ModelArchitecture
+    status?: EnumModelStatusWithAggregatesFilter<"ModelRegistry"> | $Enums.ModelStatus
+    weightsUrl?: StringNullableWithAggregatesFilter<"ModelRegistry"> | string | null
+    hyperparameters?: JsonNullableWithAggregatesFilter<"ModelRegistry">
+    metrics?: JsonNullableWithAggregatesFilter<"ModelRegistry">
+    datasetId?: StringNullableWithAggregatesFilter<"ModelRegistry"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ModelRegistry"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ModelRegistry"> | Date | string
   }
 
   export type PostCreateInput = {
@@ -9231,6 +13172,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     labeledBy?: UserCreateNestedOneWithoutBusImagesInput
+    trainingData?: DatasetImageCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUncheckedCreateInput = {
@@ -9247,6 +13189,7 @@ export namespace Prisma {
     labeledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUpdateInput = {
@@ -9263,6 +13206,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
+    trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateInput = {
@@ -9279,6 +13223,7 @@ export namespace Prisma {
     labeledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageCreateManyInput = {
@@ -9324,6 +13269,194 @@ export namespace Prisma {
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     labeledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DatasetCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    images?: DatasetImageCreateNestedManyWithoutDatasetInput
+    models?: ModelRegistryCreateNestedManyWithoutDatasetInput
+  }
+
+  export type DatasetUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    images?: DatasetImageUncheckedCreateNestedManyWithoutDatasetInput
+    models?: ModelRegistryUncheckedCreateNestedManyWithoutDatasetInput
+  }
+
+  export type DatasetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: DatasetImageUpdateManyWithoutDatasetNestedInput
+    models?: ModelRegistryUpdateManyWithoutDatasetNestedInput
+  }
+
+  export type DatasetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: DatasetImageUncheckedUpdateManyWithoutDatasetNestedInput
+    models?: ModelRegistryUncheckedUpdateManyWithoutDatasetNestedInput
+  }
+
+  export type DatasetCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DatasetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DatasetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DatasetImageCreateInput = {
+    dataset: DatasetCreateNestedOneWithoutImagesInput
+    image: BusImageCreateNestedOneWithoutTrainingDataInput
+  }
+
+  export type DatasetImageUncheckedCreateInput = {
+    datasetId: string
+    imageId: string
+  }
+
+  export type DatasetImageUpdateInput = {
+    dataset?: DatasetUpdateOneRequiredWithoutImagesNestedInput
+    image?: BusImageUpdateOneRequiredWithoutTrainingDataNestedInput
+  }
+
+  export type DatasetImageUncheckedUpdateInput = {
+    datasetId?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DatasetImageCreateManyInput = {
+    datasetId: string
+    imageId: string
+  }
+
+  export type DatasetImageUpdateManyMutationInput = {
+
+  }
+
+  export type DatasetImageUncheckedUpdateManyInput = {
+    datasetId?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ModelRegistryCreateInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dataset?: DatasetCreateNestedOneWithoutModelsInput
+  }
+
+  export type ModelRegistryUncheckedCreateInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    datasetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelRegistryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataset?: DatasetUpdateOneWithoutModelsNestedInput
+  }
+
+  export type ModelRegistryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    datasetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelRegistryCreateManyInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    datasetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelRegistryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelRegistryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    datasetId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9706,6 +13839,16 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type DatasetImageListRelationFilter = {
+    every?: DatasetImageWhereInput
+    some?: DatasetImageWhereInput
+    none?: DatasetImageWhereInput
+  }
+
+  export type DatasetImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BusImageCountOrderByAggregateInput = {
     id?: SortOrder
     imageUrl?: SortOrder
@@ -9806,6 +13949,198 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumAngleNullableFilter<$PrismaModel>
     _max?: NestedEnumAngleNullableFilter<$PrismaModel>
+  }
+
+  export type ModelRegistryListRelationFilter = {
+    every?: ModelRegistryWhereInput
+    some?: ModelRegistryWhereInput
+    none?: ModelRegistryWhereInput
+  }
+
+  export type ModelRegistryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DatasetCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DatasetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DatasetMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DatasetScalarRelationFilter = {
+    is?: DatasetWhereInput
+    isNot?: DatasetWhereInput
+  }
+
+  export type BusImageScalarRelationFilter = {
+    is?: BusImageWhereInput
+    isNot?: BusImageWhereInput
+  }
+
+  export type DatasetImageDatasetIdImageIdCompoundUniqueInput = {
+    datasetId: string
+    imageId: string
+  }
+
+  export type DatasetImageCountOrderByAggregateInput = {
+    datasetId?: SortOrder
+    imageId?: SortOrder
+  }
+
+  export type DatasetImageMaxOrderByAggregateInput = {
+    datasetId?: SortOrder
+    imageId?: SortOrder
+  }
+
+  export type DatasetImageMinOrderByAggregateInput = {
+    datasetId?: SortOrder
+    imageId?: SortOrder
+  }
+
+  export type EnumModelArchitectureFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelArchitecture | EnumModelArchitectureFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelArchitectureFilter<$PrismaModel> | $Enums.ModelArchitecture
+  }
+
+  export type EnumModelStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelStatus | EnumModelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelStatusFilter<$PrismaModel> | $Enums.ModelStatus
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type DatasetNullableScalarRelationFilter = {
+    is?: DatasetWhereInput | null
+    isNot?: DatasetWhereInput | null
+  }
+
+  export type ModelRegistryNameVersionCompoundUniqueInput = {
+    name: string
+    version: string
+  }
+
+  export type ModelRegistryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    version?: SortOrder
+    architecture?: SortOrder
+    status?: SortOrder
+    weightsUrl?: SortOrder
+    hyperparameters?: SortOrder
+    metrics?: SortOrder
+    datasetId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModelRegistryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    version?: SortOrder
+    architecture?: SortOrder
+    status?: SortOrder
+    weightsUrl?: SortOrder
+    datasetId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModelRegistryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    version?: SortOrder
+    architecture?: SortOrder
+    status?: SortOrder
+    weightsUrl?: SortOrder
+    datasetId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumModelArchitectureWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelArchitecture | EnumModelArchitectureFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelArchitectureWithAggregatesFilter<$PrismaModel> | $Enums.ModelArchitecture
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModelArchitectureFilter<$PrismaModel>
+    _max?: NestedEnumModelArchitectureFilter<$PrismaModel>
+  }
+
+  export type EnumModelStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelStatus | EnumModelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelStatusWithAggregatesFilter<$PrismaModel> | $Enums.ModelStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModelStatusFilter<$PrismaModel>
+    _max?: NestedEnumModelStatusFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -10044,6 +14379,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type DatasetImageCreateNestedManyWithoutImageInput = {
+    create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
+    createMany?: DatasetImageCreateManyImageInputEnvelope
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+  }
+
+  export type DatasetImageUncheckedCreateNestedManyWithoutImageInput = {
+    create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
+    createMany?: DatasetImageCreateManyImageInputEnvelope
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+  }
+
   export type NullableEnumLabelStatusFieldUpdateOperationsInput = {
     set?: $Enums.LabelStatus | null
   }
@@ -10072,6 +14421,170 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBusImagesInput, UserUpdateWithoutBusImagesInput>, UserUncheckedUpdateWithoutBusImagesInput>
+  }
+
+  export type DatasetImageUpdateManyWithoutImageNestedInput = {
+    create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
+    upsert?: DatasetImageUpsertWithWhereUniqueWithoutImageInput | DatasetImageUpsertWithWhereUniqueWithoutImageInput[]
+    createMany?: DatasetImageCreateManyImageInputEnvelope
+    set?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    disconnect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    delete?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    update?: DatasetImageUpdateWithWhereUniqueWithoutImageInput | DatasetImageUpdateWithWhereUniqueWithoutImageInput[]
+    updateMany?: DatasetImageUpdateManyWithWhereWithoutImageInput | DatasetImageUpdateManyWithWhereWithoutImageInput[]
+    deleteMany?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+  }
+
+  export type DatasetImageUncheckedUpdateManyWithoutImageNestedInput = {
+    create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
+    upsert?: DatasetImageUpsertWithWhereUniqueWithoutImageInput | DatasetImageUpsertWithWhereUniqueWithoutImageInput[]
+    createMany?: DatasetImageCreateManyImageInputEnvelope
+    set?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    disconnect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    delete?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    update?: DatasetImageUpdateWithWhereUniqueWithoutImageInput | DatasetImageUpdateWithWhereUniqueWithoutImageInput[]
+    updateMany?: DatasetImageUpdateManyWithWhereWithoutImageInput | DatasetImageUpdateManyWithWhereWithoutImageInput[]
+    deleteMany?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+  }
+
+  export type DatasetImageCreateNestedManyWithoutDatasetInput = {
+    create?: XOR<DatasetImageCreateWithoutDatasetInput, DatasetImageUncheckedCreateWithoutDatasetInput> | DatasetImageCreateWithoutDatasetInput[] | DatasetImageUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutDatasetInput | DatasetImageCreateOrConnectWithoutDatasetInput[]
+    createMany?: DatasetImageCreateManyDatasetInputEnvelope
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+  }
+
+  export type ModelRegistryCreateNestedManyWithoutDatasetInput = {
+    create?: XOR<ModelRegistryCreateWithoutDatasetInput, ModelRegistryUncheckedCreateWithoutDatasetInput> | ModelRegistryCreateWithoutDatasetInput[] | ModelRegistryUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: ModelRegistryCreateOrConnectWithoutDatasetInput | ModelRegistryCreateOrConnectWithoutDatasetInput[]
+    createMany?: ModelRegistryCreateManyDatasetInputEnvelope
+    connect?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+  }
+
+  export type DatasetImageUncheckedCreateNestedManyWithoutDatasetInput = {
+    create?: XOR<DatasetImageCreateWithoutDatasetInput, DatasetImageUncheckedCreateWithoutDatasetInput> | DatasetImageCreateWithoutDatasetInput[] | DatasetImageUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutDatasetInput | DatasetImageCreateOrConnectWithoutDatasetInput[]
+    createMany?: DatasetImageCreateManyDatasetInputEnvelope
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+  }
+
+  export type ModelRegistryUncheckedCreateNestedManyWithoutDatasetInput = {
+    create?: XOR<ModelRegistryCreateWithoutDatasetInput, ModelRegistryUncheckedCreateWithoutDatasetInput> | ModelRegistryCreateWithoutDatasetInput[] | ModelRegistryUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: ModelRegistryCreateOrConnectWithoutDatasetInput | ModelRegistryCreateOrConnectWithoutDatasetInput[]
+    createMany?: ModelRegistryCreateManyDatasetInputEnvelope
+    connect?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+  }
+
+  export type DatasetImageUpdateManyWithoutDatasetNestedInput = {
+    create?: XOR<DatasetImageCreateWithoutDatasetInput, DatasetImageUncheckedCreateWithoutDatasetInput> | DatasetImageCreateWithoutDatasetInput[] | DatasetImageUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutDatasetInput | DatasetImageCreateOrConnectWithoutDatasetInput[]
+    upsert?: DatasetImageUpsertWithWhereUniqueWithoutDatasetInput | DatasetImageUpsertWithWhereUniqueWithoutDatasetInput[]
+    createMany?: DatasetImageCreateManyDatasetInputEnvelope
+    set?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    disconnect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    delete?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    update?: DatasetImageUpdateWithWhereUniqueWithoutDatasetInput | DatasetImageUpdateWithWhereUniqueWithoutDatasetInput[]
+    updateMany?: DatasetImageUpdateManyWithWhereWithoutDatasetInput | DatasetImageUpdateManyWithWhereWithoutDatasetInput[]
+    deleteMany?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+  }
+
+  export type ModelRegistryUpdateManyWithoutDatasetNestedInput = {
+    create?: XOR<ModelRegistryCreateWithoutDatasetInput, ModelRegistryUncheckedCreateWithoutDatasetInput> | ModelRegistryCreateWithoutDatasetInput[] | ModelRegistryUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: ModelRegistryCreateOrConnectWithoutDatasetInput | ModelRegistryCreateOrConnectWithoutDatasetInput[]
+    upsert?: ModelRegistryUpsertWithWhereUniqueWithoutDatasetInput | ModelRegistryUpsertWithWhereUniqueWithoutDatasetInput[]
+    createMany?: ModelRegistryCreateManyDatasetInputEnvelope
+    set?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    disconnect?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    delete?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    connect?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    update?: ModelRegistryUpdateWithWhereUniqueWithoutDatasetInput | ModelRegistryUpdateWithWhereUniqueWithoutDatasetInput[]
+    updateMany?: ModelRegistryUpdateManyWithWhereWithoutDatasetInput | ModelRegistryUpdateManyWithWhereWithoutDatasetInput[]
+    deleteMany?: ModelRegistryScalarWhereInput | ModelRegistryScalarWhereInput[]
+  }
+
+  export type DatasetImageUncheckedUpdateManyWithoutDatasetNestedInput = {
+    create?: XOR<DatasetImageCreateWithoutDatasetInput, DatasetImageUncheckedCreateWithoutDatasetInput> | DatasetImageCreateWithoutDatasetInput[] | DatasetImageUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: DatasetImageCreateOrConnectWithoutDatasetInput | DatasetImageCreateOrConnectWithoutDatasetInput[]
+    upsert?: DatasetImageUpsertWithWhereUniqueWithoutDatasetInput | DatasetImageUpsertWithWhereUniqueWithoutDatasetInput[]
+    createMany?: DatasetImageCreateManyDatasetInputEnvelope
+    set?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    disconnect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    delete?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+    update?: DatasetImageUpdateWithWhereUniqueWithoutDatasetInput | DatasetImageUpdateWithWhereUniqueWithoutDatasetInput[]
+    updateMany?: DatasetImageUpdateManyWithWhereWithoutDatasetInput | DatasetImageUpdateManyWithWhereWithoutDatasetInput[]
+    deleteMany?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+  }
+
+  export type ModelRegistryUncheckedUpdateManyWithoutDatasetNestedInput = {
+    create?: XOR<ModelRegistryCreateWithoutDatasetInput, ModelRegistryUncheckedCreateWithoutDatasetInput> | ModelRegistryCreateWithoutDatasetInput[] | ModelRegistryUncheckedCreateWithoutDatasetInput[]
+    connectOrCreate?: ModelRegistryCreateOrConnectWithoutDatasetInput | ModelRegistryCreateOrConnectWithoutDatasetInput[]
+    upsert?: ModelRegistryUpsertWithWhereUniqueWithoutDatasetInput | ModelRegistryUpsertWithWhereUniqueWithoutDatasetInput[]
+    createMany?: ModelRegistryCreateManyDatasetInputEnvelope
+    set?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    disconnect?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    delete?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    connect?: ModelRegistryWhereUniqueInput | ModelRegistryWhereUniqueInput[]
+    update?: ModelRegistryUpdateWithWhereUniqueWithoutDatasetInput | ModelRegistryUpdateWithWhereUniqueWithoutDatasetInput[]
+    updateMany?: ModelRegistryUpdateManyWithWhereWithoutDatasetInput | ModelRegistryUpdateManyWithWhereWithoutDatasetInput[]
+    deleteMany?: ModelRegistryScalarWhereInput | ModelRegistryScalarWhereInput[]
+  }
+
+  export type DatasetCreateNestedOneWithoutImagesInput = {
+    create?: XOR<DatasetCreateWithoutImagesInput, DatasetUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: DatasetCreateOrConnectWithoutImagesInput
+    connect?: DatasetWhereUniqueInput
+  }
+
+  export type BusImageCreateNestedOneWithoutTrainingDataInput = {
+    create?: XOR<BusImageCreateWithoutTrainingDataInput, BusImageUncheckedCreateWithoutTrainingDataInput>
+    connectOrCreate?: BusImageCreateOrConnectWithoutTrainingDataInput
+    connect?: BusImageWhereUniqueInput
+  }
+
+  export type DatasetUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<DatasetCreateWithoutImagesInput, DatasetUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: DatasetCreateOrConnectWithoutImagesInput
+    upsert?: DatasetUpsertWithoutImagesInput
+    connect?: DatasetWhereUniqueInput
+    update?: XOR<XOR<DatasetUpdateToOneWithWhereWithoutImagesInput, DatasetUpdateWithoutImagesInput>, DatasetUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type BusImageUpdateOneRequiredWithoutTrainingDataNestedInput = {
+    create?: XOR<BusImageCreateWithoutTrainingDataInput, BusImageUncheckedCreateWithoutTrainingDataInput>
+    connectOrCreate?: BusImageCreateOrConnectWithoutTrainingDataInput
+    upsert?: BusImageUpsertWithoutTrainingDataInput
+    connect?: BusImageWhereUniqueInput
+    update?: XOR<XOR<BusImageUpdateToOneWithWhereWithoutTrainingDataInput, BusImageUpdateWithoutTrainingDataInput>, BusImageUncheckedUpdateWithoutTrainingDataInput>
+  }
+
+  export type DatasetCreateNestedOneWithoutModelsInput = {
+    create?: XOR<DatasetCreateWithoutModelsInput, DatasetUncheckedCreateWithoutModelsInput>
+    connectOrCreate?: DatasetCreateOrConnectWithoutModelsInput
+    connect?: DatasetWhereUniqueInput
+  }
+
+  export type EnumModelArchitectureFieldUpdateOperationsInput = {
+    set?: $Enums.ModelArchitecture
+  }
+
+  export type EnumModelStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ModelStatus
+  }
+
+  export type DatasetUpdateOneWithoutModelsNestedInput = {
+    create?: XOR<DatasetCreateWithoutModelsInput, DatasetUncheckedCreateWithoutModelsInput>
+    connectOrCreate?: DatasetCreateOrConnectWithoutModelsInput
+    upsert?: DatasetUpsertWithoutModelsInput
+    disconnect?: DatasetWhereInput | boolean
+    delete?: DatasetWhereInput | boolean
+    connect?: DatasetWhereUniqueInput
+    update?: XOR<XOR<DatasetUpdateToOneWithWhereWithoutModelsInput, DatasetUpdateWithoutModelsInput>, DatasetUncheckedUpdateWithoutModelsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10299,6 +14812,63 @@ export namespace Prisma {
     _max?: NestedEnumAngleNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumModelArchitectureFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelArchitecture | EnumModelArchitectureFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelArchitectureFilter<$PrismaModel> | $Enums.ModelArchitecture
+  }
+
+  export type NestedEnumModelStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelStatus | EnumModelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelStatusFilter<$PrismaModel> | $Enums.ModelStatus
+  }
+
+  export type NestedEnumModelArchitectureWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelArchitecture | EnumModelArchitectureFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelArchitectureWithAggregatesFilter<$PrismaModel> | $Enums.ModelArchitecture
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModelArchitectureFilter<$PrismaModel>
+    _max?: NestedEnumModelArchitectureFilter<$PrismaModel>
+  }
+
+  export type NestedEnumModelStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModelStatus | EnumModelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModelStatus[] | ListEnumModelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumModelStatusWithAggregatesFilter<$PrismaModel> | $Enums.ModelStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModelStatusFilter<$PrismaModel>
+    _max?: NestedEnumModelStatusFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type UserCreateWithoutPostsInput = {
     id: string
     name: string
@@ -10380,6 +14950,7 @@ export namespace Prisma {
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    trainingData?: DatasetImageCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUncheckedCreateWithoutLabeledByInput = {
@@ -10395,6 +14966,7 @@ export namespace Prisma {
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
   }
 
   export type BusImageCreateOrConnectWithoutLabeledByInput = {
@@ -10795,6 +15367,24 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutBusImagesInput, UserUncheckedCreateWithoutBusImagesInput>
   }
 
+  export type DatasetImageCreateWithoutImageInput = {
+    dataset: DatasetCreateNestedOneWithoutImagesInput
+  }
+
+  export type DatasetImageUncheckedCreateWithoutImageInput = {
+    datasetId: string
+  }
+
+  export type DatasetImageCreateOrConnectWithoutImageInput = {
+    where: DatasetImageWhereUniqueInput
+    create: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput>
+  }
+
+  export type DatasetImageCreateManyImageInputEnvelope = {
+    data: DatasetImageCreateManyImageInput | DatasetImageCreateManyImageInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutBusImagesInput = {
     update: XOR<UserUpdateWithoutBusImagesInput, UserUncheckedUpdateWithoutBusImagesInput>
     create: XOR<UserCreateWithoutBusImagesInput, UserUncheckedCreateWithoutBusImagesInput>
@@ -10830,6 +15420,309 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type DatasetImageUpsertWithWhereUniqueWithoutImageInput = {
+    where: DatasetImageWhereUniqueInput
+    update: XOR<DatasetImageUpdateWithoutImageInput, DatasetImageUncheckedUpdateWithoutImageInput>
+    create: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput>
+  }
+
+  export type DatasetImageUpdateWithWhereUniqueWithoutImageInput = {
+    where: DatasetImageWhereUniqueInput
+    data: XOR<DatasetImageUpdateWithoutImageInput, DatasetImageUncheckedUpdateWithoutImageInput>
+  }
+
+  export type DatasetImageUpdateManyWithWhereWithoutImageInput = {
+    where: DatasetImageScalarWhereInput
+    data: XOR<DatasetImageUpdateManyMutationInput, DatasetImageUncheckedUpdateManyWithoutImageInput>
+  }
+
+  export type DatasetImageScalarWhereInput = {
+    AND?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+    OR?: DatasetImageScalarWhereInput[]
+    NOT?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+    datasetId?: StringFilter<"DatasetImage"> | string
+    imageId?: StringFilter<"DatasetImage"> | string
+  }
+
+  export type DatasetImageCreateWithoutDatasetInput = {
+    image: BusImageCreateNestedOneWithoutTrainingDataInput
+  }
+
+  export type DatasetImageUncheckedCreateWithoutDatasetInput = {
+    imageId: string
+  }
+
+  export type DatasetImageCreateOrConnectWithoutDatasetInput = {
+    where: DatasetImageWhereUniqueInput
+    create: XOR<DatasetImageCreateWithoutDatasetInput, DatasetImageUncheckedCreateWithoutDatasetInput>
+  }
+
+  export type DatasetImageCreateManyDatasetInputEnvelope = {
+    data: DatasetImageCreateManyDatasetInput | DatasetImageCreateManyDatasetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ModelRegistryCreateWithoutDatasetInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelRegistryUncheckedCreateWithoutDatasetInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelRegistryCreateOrConnectWithoutDatasetInput = {
+    where: ModelRegistryWhereUniqueInput
+    create: XOR<ModelRegistryCreateWithoutDatasetInput, ModelRegistryUncheckedCreateWithoutDatasetInput>
+  }
+
+  export type ModelRegistryCreateManyDatasetInputEnvelope = {
+    data: ModelRegistryCreateManyDatasetInput | ModelRegistryCreateManyDatasetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DatasetImageUpsertWithWhereUniqueWithoutDatasetInput = {
+    where: DatasetImageWhereUniqueInput
+    update: XOR<DatasetImageUpdateWithoutDatasetInput, DatasetImageUncheckedUpdateWithoutDatasetInput>
+    create: XOR<DatasetImageCreateWithoutDatasetInput, DatasetImageUncheckedCreateWithoutDatasetInput>
+  }
+
+  export type DatasetImageUpdateWithWhereUniqueWithoutDatasetInput = {
+    where: DatasetImageWhereUniqueInput
+    data: XOR<DatasetImageUpdateWithoutDatasetInput, DatasetImageUncheckedUpdateWithoutDatasetInput>
+  }
+
+  export type DatasetImageUpdateManyWithWhereWithoutDatasetInput = {
+    where: DatasetImageScalarWhereInput
+    data: XOR<DatasetImageUpdateManyMutationInput, DatasetImageUncheckedUpdateManyWithoutDatasetInput>
+  }
+
+  export type ModelRegistryUpsertWithWhereUniqueWithoutDatasetInput = {
+    where: ModelRegistryWhereUniqueInput
+    update: XOR<ModelRegistryUpdateWithoutDatasetInput, ModelRegistryUncheckedUpdateWithoutDatasetInput>
+    create: XOR<ModelRegistryCreateWithoutDatasetInput, ModelRegistryUncheckedCreateWithoutDatasetInput>
+  }
+
+  export type ModelRegistryUpdateWithWhereUniqueWithoutDatasetInput = {
+    where: ModelRegistryWhereUniqueInput
+    data: XOR<ModelRegistryUpdateWithoutDatasetInput, ModelRegistryUncheckedUpdateWithoutDatasetInput>
+  }
+
+  export type ModelRegistryUpdateManyWithWhereWithoutDatasetInput = {
+    where: ModelRegistryScalarWhereInput
+    data: XOR<ModelRegistryUpdateManyMutationInput, ModelRegistryUncheckedUpdateManyWithoutDatasetInput>
+  }
+
+  export type ModelRegistryScalarWhereInput = {
+    AND?: ModelRegistryScalarWhereInput | ModelRegistryScalarWhereInput[]
+    OR?: ModelRegistryScalarWhereInput[]
+    NOT?: ModelRegistryScalarWhereInput | ModelRegistryScalarWhereInput[]
+    id?: StringFilter<"ModelRegistry"> | string
+    name?: StringFilter<"ModelRegistry"> | string
+    version?: StringNullableFilter<"ModelRegistry"> | string | null
+    architecture?: EnumModelArchitectureFilter<"ModelRegistry"> | $Enums.ModelArchitecture
+    status?: EnumModelStatusFilter<"ModelRegistry"> | $Enums.ModelStatus
+    weightsUrl?: StringNullableFilter<"ModelRegistry"> | string | null
+    hyperparameters?: JsonNullableFilter<"ModelRegistry">
+    metrics?: JsonNullableFilter<"ModelRegistry">
+    datasetId?: StringNullableFilter<"ModelRegistry"> | string | null
+    createdAt?: DateTimeFilter<"ModelRegistry"> | Date | string
+    updatedAt?: DateTimeFilter<"ModelRegistry"> | Date | string
+  }
+
+  export type DatasetCreateWithoutImagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    models?: ModelRegistryCreateNestedManyWithoutDatasetInput
+  }
+
+  export type DatasetUncheckedCreateWithoutImagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    models?: ModelRegistryUncheckedCreateNestedManyWithoutDatasetInput
+  }
+
+  export type DatasetCreateOrConnectWithoutImagesInput = {
+    where: DatasetWhereUniqueInput
+    create: XOR<DatasetCreateWithoutImagesInput, DatasetUncheckedCreateWithoutImagesInput>
+  }
+
+  export type BusImageCreateWithoutTrainingDataInput = {
+    id?: string
+    imageUrl: string
+    label?: $Enums.LabelStatus | null
+    confidence?: number | null
+    fleetNumber?: string | null
+    cameraId?: string | null
+    timeTaken?: Date | string | null
+    weatherCondition?: $Enums.Weather | null
+    cameraAngle?: $Enums.Angle | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    labeledBy?: UserCreateNestedOneWithoutBusImagesInput
+  }
+
+  export type BusImageUncheckedCreateWithoutTrainingDataInput = {
+    id?: string
+    imageUrl: string
+    label?: $Enums.LabelStatus | null
+    confidence?: number | null
+    fleetNumber?: string | null
+    cameraId?: string | null
+    timeTaken?: Date | string | null
+    weatherCondition?: $Enums.Weather | null
+    cameraAngle?: $Enums.Angle | null
+    isVerified?: boolean
+    labeledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BusImageCreateOrConnectWithoutTrainingDataInput = {
+    where: BusImageWhereUniqueInput
+    create: XOR<BusImageCreateWithoutTrainingDataInput, BusImageUncheckedCreateWithoutTrainingDataInput>
+  }
+
+  export type DatasetUpsertWithoutImagesInput = {
+    update: XOR<DatasetUpdateWithoutImagesInput, DatasetUncheckedUpdateWithoutImagesInput>
+    create: XOR<DatasetCreateWithoutImagesInput, DatasetUncheckedCreateWithoutImagesInput>
+    where?: DatasetWhereInput
+  }
+
+  export type DatasetUpdateToOneWithWhereWithoutImagesInput = {
+    where?: DatasetWhereInput
+    data: XOR<DatasetUpdateWithoutImagesInput, DatasetUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type DatasetUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    models?: ModelRegistryUpdateManyWithoutDatasetNestedInput
+  }
+
+  export type DatasetUncheckedUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    models?: ModelRegistryUncheckedUpdateManyWithoutDatasetNestedInput
+  }
+
+  export type BusImageUpsertWithoutTrainingDataInput = {
+    update: XOR<BusImageUpdateWithoutTrainingDataInput, BusImageUncheckedUpdateWithoutTrainingDataInput>
+    create: XOR<BusImageCreateWithoutTrainingDataInput, BusImageUncheckedCreateWithoutTrainingDataInput>
+    where?: BusImageWhereInput
+  }
+
+  export type BusImageUpdateToOneWithWhereWithoutTrainingDataInput = {
+    where?: BusImageWhereInput
+    data: XOR<BusImageUpdateWithoutTrainingDataInput, BusImageUncheckedUpdateWithoutTrainingDataInput>
+  }
+
+  export type BusImageUpdateWithoutTrainingDataInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    label?: NullableEnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus | null
+    confidence?: NullableIntFieldUpdateOperationsInput | number | null
+    fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
+    cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
+  }
+
+  export type BusImageUncheckedUpdateWithoutTrainingDataInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    label?: NullableEnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus | null
+    confidence?: NullableIntFieldUpdateOperationsInput | number | null
+    fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
+    cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    labeledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DatasetCreateWithoutModelsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    images?: DatasetImageCreateNestedManyWithoutDatasetInput
+  }
+
+  export type DatasetUncheckedCreateWithoutModelsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    images?: DatasetImageUncheckedCreateNestedManyWithoutDatasetInput
+  }
+
+  export type DatasetCreateOrConnectWithoutModelsInput = {
+    where: DatasetWhereUniqueInput
+    create: XOR<DatasetCreateWithoutModelsInput, DatasetUncheckedCreateWithoutModelsInput>
+  }
+
+  export type DatasetUpsertWithoutModelsInput = {
+    update: XOR<DatasetUpdateWithoutModelsInput, DatasetUncheckedUpdateWithoutModelsInput>
+    create: XOR<DatasetCreateWithoutModelsInput, DatasetUncheckedCreateWithoutModelsInput>
+    where?: DatasetWhereInput
+  }
+
+  export type DatasetUpdateToOneWithWhereWithoutModelsInput = {
+    where?: DatasetWhereInput
+    data: XOR<DatasetUpdateWithoutModelsInput, DatasetUncheckedUpdateWithoutModelsInput>
+  }
+
+  export type DatasetUpdateWithoutModelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: DatasetImageUpdateManyWithoutDatasetNestedInput
+  }
+
+  export type DatasetUncheckedUpdateWithoutModelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: DatasetImageUncheckedUpdateManyWithoutDatasetNestedInput
   }
 
   export type BusImageCreateManyLabeledByInput = {
@@ -10892,6 +15785,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateWithoutLabeledByInput = {
@@ -10907,6 +15801,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateManyWithoutLabeledByInput = {
@@ -11016,6 +15911,90 @@ export namespace Prisma {
   export type PostUncheckedUpdateManyWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DatasetImageCreateManyImageInput = {
+    datasetId: string
+  }
+
+  export type DatasetImageUpdateWithoutImageInput = {
+    dataset?: DatasetUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type DatasetImageUncheckedUpdateWithoutImageInput = {
+    datasetId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DatasetImageUncheckedUpdateManyWithoutImageInput = {
+    datasetId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DatasetImageCreateManyDatasetInput = {
+    imageId: string
+  }
+
+  export type ModelRegistryCreateManyDatasetInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DatasetImageUpdateWithoutDatasetInput = {
+    image?: BusImageUpdateOneRequiredWithoutTrainingDataNestedInput
+  }
+
+  export type DatasetImageUncheckedUpdateWithoutDatasetInput = {
+    imageId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DatasetImageUncheckedUpdateManyWithoutDatasetInput = {
+    imageId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ModelRegistryUpdateWithoutDatasetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelRegistryUncheckedUpdateWithoutDatasetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModelRegistryUncheckedUpdateManyWithoutDatasetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

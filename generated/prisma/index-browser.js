@@ -191,9 +191,40 @@ exports.Prisma.BusImageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DatasetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DatasetImageScalarFieldEnum = {
+  datasetId: 'datasetId',
+  imageId: 'imageId'
+};
+
+exports.Prisma.ModelRegistryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  version: 'version',
+  architecture: 'architecture',
+  status: 'status',
+  weightsUrl: 'weightsUrl',
+  hyperparameters: 'hyperparameters',
+  metrics: 'metrics',
+  datasetId: 'datasetId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -204,6 +235,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.LabelStatus = exports.$Enums.LabelStatus = {
   DIRTY: 'DIRTY',
@@ -225,13 +262,30 @@ exports.Angle = exports.$Enums.Angle = {
   REAR: 'REAR'
 };
 
+exports.ModelArchitecture = exports.$Enums.ModelArchitecture = {
+  MOBILENET_V2: 'MOBILENET_V2',
+  MOBILENET_V3: 'MOBILENET_V3',
+  RESNET_18: 'RESNET_18',
+  YOLO_V8: 'YOLO_V8'
+};
+
+exports.ModelStatus = exports.$Enums.ModelStatus = {
+  EXPERIMENTAL: 'EXPERIMENTAL',
+  STAGING: 'STAGING',
+  PRODUCTION: 'PRODUCTION',
+  DEPRECATED: 'DEPRECATED'
+};
+
 exports.Prisma.ModelName = {
   Post: 'Post',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  BusImage: 'BusImage'
+  BusImage: 'BusImage',
+  Dataset: 'Dataset',
+  DatasetImage: 'DatasetImage',
+  ModelRegistry: 'ModelRegistry'
 };
 
 /**

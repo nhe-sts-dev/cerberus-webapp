@@ -163,9 +163,40 @@ exports.Prisma.BusImageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DatasetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DatasetImageScalarFieldEnum = {
+  datasetId: 'datasetId',
+  imageId: 'imageId'
+};
+
+exports.Prisma.ModelRegistryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  version: 'version',
+  architecture: 'architecture',
+  status: 'status',
+  weightsUrl: 'weightsUrl',
+  hyperparameters: 'hyperparameters',
+  metrics: 'metrics',
+  datasetId: 'datasetId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -176,6 +207,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.LabelStatus = exports.$Enums.LabelStatus = {
   DIRTY: 'DIRTY',
@@ -197,13 +234,30 @@ exports.Angle = exports.$Enums.Angle = {
   REAR: 'REAR'
 };
 
+exports.ModelArchitecture = exports.$Enums.ModelArchitecture = {
+  MOBILENET_V2: 'MOBILENET_V2',
+  MOBILENET_V3: 'MOBILENET_V3',
+  RESNET_18: 'RESNET_18',
+  YOLO_V8: 'YOLO_V8'
+};
+
+exports.ModelStatus = exports.$Enums.ModelStatus = {
+  EXPERIMENTAL: 'EXPERIMENTAL',
+  STAGING: 'STAGING',
+  PRODUCTION: 'PRODUCTION',
+  DEPRECATED: 'DEPRECATED'
+};
+
 exports.Prisma.ModelName = {
   Post: 'Post',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  BusImage: 'BusImage'
+  BusImage: 'BusImage',
+  Dataset: 'Dataset',
+  DatasetImage: 'DatasetImage',
+  ModelRegistry: 'ModelRegistry'
 };
 /**
  * Create the Client
@@ -227,6 +281,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -244,7 +302,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -253,13 +310,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// Prisma schema for Better Auth\n// learn more: https://better-auth.com/docs/concepts/database\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\n// NOTE: When using mysql or sqlserver, uncomment the //@db.Text annotations in model Account below\n// Further reading:\n// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        String   @id @default(cuid())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  createdBy   User   @relation(fields: [createdById], references: [id])\n  createdById String\n\n  @@index([name])\n}\n\nmodel User {\n  id            String     @id\n  name          String //@db.Text\n  email         String\n  emailVerified Boolean    @default(false)\n  image         String? //@db.Text\n  busImages     BusImage[]\n  // password      String\n  createdAt     DateTime   @default(now())\n  updatedAt     DateTime   @default(now()) @updatedAt\n  sessions      Session[]\n  accounts      Account[]\n  posts         Post[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String? //@db.Text\n  userAgent String? //@db.Text\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String //@db.Text\n  providerId            String //@db.Text\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String? //@db.Text\n  refreshToken          String? //@db.Text\n  idToken               String? //@db.Text\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String? //@db.Text\n  password              String? //@db.Text\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String //@db.Text\n  value      String //@db.Text\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @default(now()) @updatedAt\n\n  @@map(\"verification\")\n}\n\nenum LabelStatus {\n  DIRTY\n  CLEAN\n  UNCERTAIN\n  UNLABELED\n}\n\nenum Weather {\n  SUNNY\n  RAINY\n  OVERCAST\n  NIGHT\n}\n\nenum Angle {\n  FRONT\n  SIDE\n  REAR\n}\n\nmodel BusImage {\n  id         String       @id @default(cuid())\n  imageUrl   String\n  label      LabelStatus? @default(UNLABELED)\n  confidence Int? // 1-100 scale representing \"level of dirty\", because the positive case is dirty\n\n  // Fleet & Hardware Context\n  fleetNumber String? // e.g., \"Bus-402\"\n  cameraId    String? // e.g., \"Axis-P1465-SouthGate\"\n\n  // Environmental Context\n  timeTaken        DateTime?\n  weatherCondition Weather?\n  cameraAngle      Angle?\n\n  // Workflow Data\n  isVerified  Boolean @default(false)\n  labeledById String?\n  labeledBy   User?   @relation(fields: [labeledById], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "64d7ecebe658cdd2061c055b37d262d2a849d2795abe07e3d11ec8942b4ab264",
+  "inlineSchema": "// Prisma schema for Better Auth\n// learn more: https://better-auth.com/docs/concepts/database\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  // Add binaryTargets to support Vercel's serverless environment\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\n// NOTE: When using mysql or sqlserver, uncomment the //@db.Text annotations in model Account below\n// Further reading:\n// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        String   @id @default(cuid())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  createdBy   User   @relation(fields: [createdById], references: [id])\n  createdById String\n\n  @@index([name])\n}\n\nmodel User {\n  id            String     @id\n  name          String //@db.Text\n  email         String\n  emailVerified Boolean    @default(false)\n  image         String? //@db.Text\n  busImages     BusImage[]\n  // password      String\n  createdAt     DateTime   @default(now())\n  updatedAt     DateTime   @default(now()) @updatedAt\n  sessions      Session[]\n  accounts      Account[]\n  posts         Post[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String? //@db.Text\n  userAgent String? //@db.Text\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String //@db.Text\n  providerId            String //@db.Text\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String? //@db.Text\n  refreshToken          String? //@db.Text\n  idToken               String? //@db.Text\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String? //@db.Text\n  password              String? //@db.Text\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String //@db.Text\n  value      String //@db.Text\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @default(now()) @updatedAt\n\n  @@map(\"verification\")\n}\n\nenum LabelStatus {\n  DIRTY\n  CLEAN\n  UNCERTAIN\n  UNLABELED\n}\n\nenum Weather {\n  SUNNY\n  RAINY\n  OVERCAST\n  NIGHT\n}\n\nenum Angle {\n  FRONT\n  SIDE\n  REAR\n}\n\n// --- Enums for ML ---\nenum ModelArchitecture {\n  MOBILENET_V2\n  MOBILENET_V3\n  RESNET_18\n  YOLO_V8\n}\n\nenum ModelStatus {\n  EXPERIMENTAL\n  STAGING\n  PRODUCTION\n  DEPRECATED\n}\n\nmodel BusImage {\n  id         String       @id @default(cuid())\n  imageUrl   String\n  label      LabelStatus? @default(UNLABELED)\n  confidence Int? // 1-100 scale representing \"level of dirty\", because the positive case is dirty\n\n  // Fleet & Hardware Context\n  fleetNumber String? // e.g., \"Bus-402\"\n  cameraId    String? // e.g., \"Axis-P1465-SouthGate\"\n\n  // Environmental Context\n  timeTaken        DateTime?\n  weatherCondition Weather?\n  cameraAngle      Angle?\n\n  // Workflow Data\n  isVerified  Boolean @default(false)\n  labeledById String?\n  labeledBy   User?   @relation(fields: [labeledById], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  // A bus image can be part of many training datasets\n  trainingData DatasetImage[]\n}\n\n// --- MLOps Models ---\n\n// Represents a specific training dataset (e.g., \"Dataset-Q1-2026\")\nmodel Dataset {\n  id          String   @id @default(cuid())\n  name        String\n  description String?\n  createdAt   DateTime @default(now())\n\n  images DatasetImage[]\n  models ModelRegistry[]\n}\n\n// Join table for many-to-many relationship between Dataset and BusImage\nmodel DatasetImage {\n  datasetId String\n  imageId   String\n\n  dataset Dataset  @relation(fields: [datasetId], references: [id], onDelete: Cascade)\n  image   BusImage @relation(fields: [imageId], references: [id], onDelete: Cascade)\n\n  @@id([datasetId, imageId])\n}\n\n// The core registry for your trained models\nmodel ModelRegistry {\n  id           String            @id @default(cuid())\n  name         String // e.g., \"bus-classifier-v1\"\n  version      String? // e.g., \"v1.0.0\"\n  architecture ModelArchitecture\n  status       ModelStatus       @default(EXPERIMENTAL)\n\n  // Storage\n  weightsUrl String? // S3/R2 URI to the .tflite file\n\n  // ML Metadata (JSON allows flexible schema for hyperparameters and metrics)\n  hyperparameters Json? // e.g., { \"learning_rate\": 0.001, \"batch_size\": 32, \"epochs\": 50 }\n  metrics         Json? // e.g., { \"accuracy\": 0.92, \"f1_score\": 0.89, \"val_loss\": 0.15 }\n\n  // Which dataset was used to train this?\n  datasetId String?\n  dataset   Dataset? @relation(fields: [datasetId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([name, version])\n}\n",
+  "inlineSchemaHash": "77d3819538f3c9b76054943629dbb9d1c46330d35823532acde7a5b484d3738f",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"busImages\",\"kind\":\"object\",\"type\":\"BusImage\",\"relationName\":\"BusImageToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":\"user\"},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":\"session\"},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"account\"},\"Verification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"verification\"},\"BusImage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"label\",\"kind\":\"enum\",\"type\":\"LabelStatus\"},{\"name\":\"confidence\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fleetNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cameraId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timeTaken\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"weatherCondition\",\"kind\":\"enum\",\"type\":\"Weather\"},{\"name\":\"cameraAngle\",\"kind\":\"enum\",\"type\":\"Angle\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"labeledById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"labeledBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BusImageToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"busImages\",\"kind\":\"object\",\"type\":\"BusImage\",\"relationName\":\"BusImageToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":\"user\"},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":\"session\"},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"account\"},\"Verification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"verification\"},\"BusImage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"label\",\"kind\":\"enum\",\"type\":\"LabelStatus\"},{\"name\":\"confidence\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"fleetNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cameraId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timeTaken\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"weatherCondition\",\"kind\":\"enum\",\"type\":\"Weather\"},{\"name\":\"cameraAngle\",\"kind\":\"enum\",\"type\":\"Angle\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"labeledById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"labeledBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BusImageToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"trainingData\",\"kind\":\"object\",\"type\":\"DatasetImage\",\"relationName\":\"BusImageToDatasetImage\"}],\"dbName\":null},\"Dataset\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"images\",\"kind\":\"object\",\"type\":\"DatasetImage\",\"relationName\":\"DatasetToDatasetImage\"},{\"name\":\"models\",\"kind\":\"object\",\"type\":\"ModelRegistry\",\"relationName\":\"DatasetToModelRegistry\"}],\"dbName\":null},\"DatasetImage\":{\"fields\":[{\"name\":\"datasetId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dataset\",\"kind\":\"object\",\"type\":\"Dataset\",\"relationName\":\"DatasetToDatasetImage\"},{\"name\":\"image\",\"kind\":\"object\",\"type\":\"BusImage\",\"relationName\":\"BusImageToDatasetImage\"}],\"dbName\":null},\"ModelRegistry\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"version\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"architecture\",\"kind\":\"enum\",\"type\":\"ModelArchitecture\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ModelStatus\"},{\"name\":\"weightsUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hyperparameters\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"metrics\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"datasetId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dataset\",\"kind\":\"object\",\"type\":\"Dataset\",\"relationName\":\"DatasetToModelRegistry\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
