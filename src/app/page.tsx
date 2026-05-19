@@ -17,7 +17,7 @@ export default async function Home() {
     <main className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Cerberus QA</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Cerberus</h1>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to access the bus cleanliness dashboard
           </p>

@@ -1,4 +1,5 @@
 // import "dotenv/config"; // Force load .env right away
+// pnpm exec tsx --env-file=.env scripts/fix-db.ts 
 import { db } from "../src/server/db";
 
 async function main() {
