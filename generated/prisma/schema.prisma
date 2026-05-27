@@ -152,6 +152,24 @@ model BusImage {
 
   // A bus image can be part of many training datasets
   trainingData DatasetImage[]
+  inferences   InferenceLog[] // Links to the model's predictions
+}
+
+model InferenceLog {
+  id String @id @default(cuid())
+
+  // THE MODEL'S PREDICTION
+  predictedLabel LabelStatus
+  confidence     Int // 1-100 scale
+
+  // RELATIONS
+  imageId String
+  image   BusImage @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  modelId String
+  model   ModelRegistry @relation(fields: [modelId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 // --- MLOps Models ---
@@ -196,6 +214,9 @@ model ModelRegistry {
   // Which dataset was used to train this?
   datasetId String?
   dataset   Dataset? @relation(fields: [datasetId], references: [id])
+
+  // inference logs
+  inferences InferenceLog[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

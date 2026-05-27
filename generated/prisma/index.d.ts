@@ -44,6 +44,11 @@ export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
  */
 export type BusImage = $Result.DefaultSelection<Prisma.$BusImagePayload>
 /**
+ * Model InferenceLog
+ * 
+ */
+export type InferenceLog = $Result.DefaultSelection<Prisma.$InferenceLogPayload>
+/**
  * Model Dataset
  * 
  */
@@ -310,6 +315,16 @@ export class PrismaClient<
     * ```
     */
   get busImage(): Prisma.BusImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inferenceLog`: Exposes CRUD operations for the **InferenceLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InferenceLogs
+    * const inferenceLogs = await prisma.inferenceLog.findMany()
+    * ```
+    */
+  get inferenceLog(): Prisma.InferenceLogDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.dataset`: Exposes CRUD operations for the **Dataset** model.
@@ -787,6 +802,7 @@ export namespace Prisma {
     Account: 'Account',
     Verification: 'Verification',
     BusImage: 'BusImage',
+    InferenceLog: 'InferenceLog',
     Dataset: 'Dataset',
     DatasetImage: 'DatasetImage',
     ModelRegistry: 'ModelRegistry'
@@ -808,7 +824,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "dataset" | "datasetImage" | "modelRegistry"
+      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "inferenceLog" | "dataset" | "datasetImage" | "modelRegistry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1256,6 +1272,80 @@ export namespace Prisma {
           }
         }
       }
+      InferenceLog: {
+        payload: Prisma.$InferenceLogPayload<ExtArgs>
+        fields: Prisma.InferenceLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InferenceLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InferenceLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>
+          }
+          findFirst: {
+            args: Prisma.InferenceLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InferenceLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>
+          }
+          findMany: {
+            args: Prisma.InferenceLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>[]
+          }
+          create: {
+            args: Prisma.InferenceLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>
+          }
+          createMany: {
+            args: Prisma.InferenceLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InferenceLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>[]
+          }
+          delete: {
+            args: Prisma.InferenceLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>
+          }
+          update: {
+            args: Prisma.InferenceLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.InferenceLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InferenceLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InferenceLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.InferenceLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceLogPayload>
+          }
+          aggregate: {
+            args: Prisma.InferenceLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInferenceLog>
+          }
+          groupBy: {
+            args: Prisma.InferenceLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InferenceLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InferenceLogCountArgs<ExtArgs>
+            result: $Utils.Optional<InferenceLogCountAggregateOutputType> | number
+          }
+        }
+      }
       Dataset: {
         payload: Prisma.$DatasetPayload<ExtArgs>
         fields: Prisma.DatasetFieldRefs
@@ -1580,6 +1670,7 @@ export namespace Prisma {
     account?: AccountOmit
     verification?: VerificationOmit
     busImage?: BusImageOmit
+    inferenceLog?: InferenceLogOmit
     dataset?: DatasetOmit
     datasetImage?: DatasetImageOmit
     modelRegistry?: ModelRegistryOmit
@@ -1722,10 +1813,12 @@ export namespace Prisma {
 
   export type BusImageCountOutputType = {
     trainingData: number
+    inferences: number
   }
 
   export type BusImageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trainingData?: boolean | BusImageCountOutputTypeCountTrainingDataArgs
+    inferences?: boolean | BusImageCountOutputTypeCountInferencesArgs
   }
 
   // Custom InputTypes
@@ -1744,6 +1837,13 @@ export namespace Prisma {
    */
   export type BusImageCountOutputTypeCountTrainingDataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DatasetImageWhereInput
+  }
+
+  /**
+   * BusImageCountOutputType without action
+   */
+  export type BusImageCountOutputTypeCountInferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InferenceLogWhereInput
   }
 
 
@@ -1784,6 +1884,37 @@ export namespace Prisma {
    */
   export type DatasetCountOutputTypeCountModelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ModelRegistryWhereInput
+  }
+
+
+  /**
+   * Count Type ModelRegistryCountOutputType
+   */
+
+  export type ModelRegistryCountOutputType = {
+    inferences: number
+  }
+
+  export type ModelRegistryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inferences?: boolean | ModelRegistryCountOutputTypeCountInferencesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ModelRegistryCountOutputType without action
+   */
+  export type ModelRegistryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModelRegistryCountOutputType
+     */
+    select?: ModelRegistryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ModelRegistryCountOutputType without action
+   */
+  export type ModelRegistryCountOutputTypeCountInferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InferenceLogWhereInput
   }
 
 
@@ -7560,6 +7691,7 @@ export namespace Prisma {
     updatedAt?: boolean
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
     trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
+    inferences?: boolean | BusImage$inferencesArgs<ExtArgs>
     _count?: boolean | BusImageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["busImage"]>
 
@@ -7617,6 +7749,7 @@ export namespace Prisma {
   export type BusImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
     trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
+    inferences?: boolean | BusImage$inferencesArgs<ExtArgs>
     _count?: boolean | BusImageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BusImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7631,6 +7764,7 @@ export namespace Prisma {
     objects: {
       labeledBy: Prisma.$UserPayload<ExtArgs> | null
       trainingData: Prisma.$DatasetImagePayload<ExtArgs>[]
+      inferences: Prisma.$InferenceLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8042,6 +8176,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     labeledBy<T extends BusImage$labeledByArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$labeledByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     trainingData<T extends BusImage$trainingDataArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$trainingDataArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    inferences<T extends BusImage$inferencesArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$inferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8523,6 +8658,30 @@ export namespace Prisma {
   }
 
   /**
+   * BusImage.inferences
+   */
+  export type BusImage$inferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    where?: InferenceLogWhereInput
+    orderBy?: InferenceLogOrderByWithRelationInput | InferenceLogOrderByWithRelationInput[]
+    cursor?: InferenceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InferenceLogScalarFieldEnum | InferenceLogScalarFieldEnum[]
+  }
+
+  /**
    * BusImage without action
    */
   export type BusImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8538,6 +8697,1119 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BusImageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model InferenceLog
+   */
+
+  export type AggregateInferenceLog = {
+    _count: InferenceLogCountAggregateOutputType | null
+    _avg: InferenceLogAvgAggregateOutputType | null
+    _sum: InferenceLogSumAggregateOutputType | null
+    _min: InferenceLogMinAggregateOutputType | null
+    _max: InferenceLogMaxAggregateOutputType | null
+  }
+
+  export type InferenceLogAvgAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type InferenceLogSumAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type InferenceLogMinAggregateOutputType = {
+    id: string | null
+    predictedLabel: $Enums.LabelStatus | null
+    confidence: number | null
+    imageId: string | null
+    modelId: string | null
+    createdAt: Date | null
+  }
+
+  export type InferenceLogMaxAggregateOutputType = {
+    id: string | null
+    predictedLabel: $Enums.LabelStatus | null
+    confidence: number | null
+    imageId: string | null
+    modelId: string | null
+    createdAt: Date | null
+  }
+
+  export type InferenceLogCountAggregateOutputType = {
+    id: number
+    predictedLabel: number
+    confidence: number
+    imageId: number
+    modelId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type InferenceLogAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type InferenceLogSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type InferenceLogMinAggregateInputType = {
+    id?: true
+    predictedLabel?: true
+    confidence?: true
+    imageId?: true
+    modelId?: true
+    createdAt?: true
+  }
+
+  export type InferenceLogMaxAggregateInputType = {
+    id?: true
+    predictedLabel?: true
+    confidence?: true
+    imageId?: true
+    modelId?: true
+    createdAt?: true
+  }
+
+  export type InferenceLogCountAggregateInputType = {
+    id?: true
+    predictedLabel?: true
+    confidence?: true
+    imageId?: true
+    modelId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type InferenceLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InferenceLog to aggregate.
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceLogs to fetch.
+     */
+    orderBy?: InferenceLogOrderByWithRelationInput | InferenceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InferenceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InferenceLogs
+    **/
+    _count?: true | InferenceLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InferenceLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InferenceLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InferenceLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InferenceLogMaxAggregateInputType
+  }
+
+  export type GetInferenceLogAggregateType<T extends InferenceLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateInferenceLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInferenceLog[P]>
+      : GetScalarType<T[P], AggregateInferenceLog[P]>
+  }
+
+
+
+
+  export type InferenceLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InferenceLogWhereInput
+    orderBy?: InferenceLogOrderByWithAggregationInput | InferenceLogOrderByWithAggregationInput[]
+    by: InferenceLogScalarFieldEnum[] | InferenceLogScalarFieldEnum
+    having?: InferenceLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InferenceLogCountAggregateInputType | true
+    _avg?: InferenceLogAvgAggregateInputType
+    _sum?: InferenceLogSumAggregateInputType
+    _min?: InferenceLogMinAggregateInputType
+    _max?: InferenceLogMaxAggregateInputType
+  }
+
+  export type InferenceLogGroupByOutputType = {
+    id: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    imageId: string
+    modelId: string
+    createdAt: Date
+    _count: InferenceLogCountAggregateOutputType | null
+    _avg: InferenceLogAvgAggregateOutputType | null
+    _sum: InferenceLogSumAggregateOutputType | null
+    _min: InferenceLogMinAggregateOutputType | null
+    _max: InferenceLogMaxAggregateOutputType | null
+  }
+
+  type GetInferenceLogGroupByPayload<T extends InferenceLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InferenceLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InferenceLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InferenceLogGroupByOutputType[P]>
+            : GetScalarType<T[P], InferenceLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InferenceLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    predictedLabel?: boolean
+    confidence?: boolean
+    imageId?: boolean
+    modelId?: boolean
+    createdAt?: boolean
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+    model?: boolean | ModelRegistryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inferenceLog"]>
+
+  export type InferenceLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    predictedLabel?: boolean
+    confidence?: boolean
+    imageId?: boolean
+    modelId?: boolean
+    createdAt?: boolean
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+    model?: boolean | ModelRegistryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inferenceLog"]>
+
+  export type InferenceLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    predictedLabel?: boolean
+    confidence?: boolean
+    imageId?: boolean
+    modelId?: boolean
+    createdAt?: boolean
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+    model?: boolean | ModelRegistryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inferenceLog"]>
+
+  export type InferenceLogSelectScalar = {
+    id?: boolean
+    predictedLabel?: boolean
+    confidence?: boolean
+    imageId?: boolean
+    modelId?: boolean
+    createdAt?: boolean
+  }
+
+  export type InferenceLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "predictedLabel" | "confidence" | "imageId" | "modelId" | "createdAt", ExtArgs["result"]["inferenceLog"]>
+  export type InferenceLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+    model?: boolean | ModelRegistryDefaultArgs<ExtArgs>
+  }
+  export type InferenceLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+    model?: boolean | ModelRegistryDefaultArgs<ExtArgs>
+  }
+  export type InferenceLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image?: boolean | BusImageDefaultArgs<ExtArgs>
+    model?: boolean | ModelRegistryDefaultArgs<ExtArgs>
+  }
+
+  export type $InferenceLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InferenceLog"
+    objects: {
+      image: Prisma.$BusImagePayload<ExtArgs>
+      model: Prisma.$ModelRegistryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      predictedLabel: $Enums.LabelStatus
+      confidence: number
+      imageId: string
+      modelId: string
+      createdAt: Date
+    }, ExtArgs["result"]["inferenceLog"]>
+    composites: {}
+  }
+
+  type InferenceLogGetPayload<S extends boolean | null | undefined | InferenceLogDefaultArgs> = $Result.GetResult<Prisma.$InferenceLogPayload, S>
+
+  type InferenceLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InferenceLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InferenceLogCountAggregateInputType | true
+    }
+
+  export interface InferenceLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InferenceLog'], meta: { name: 'InferenceLog' } }
+    /**
+     * Find zero or one InferenceLog that matches the filter.
+     * @param {InferenceLogFindUniqueArgs} args - Arguments to find a InferenceLog
+     * @example
+     * // Get one InferenceLog
+     * const inferenceLog = await prisma.inferenceLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InferenceLogFindUniqueArgs>(args: SelectSubset<T, InferenceLogFindUniqueArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InferenceLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InferenceLogFindUniqueOrThrowArgs} args - Arguments to find a InferenceLog
+     * @example
+     * // Get one InferenceLog
+     * const inferenceLog = await prisma.inferenceLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InferenceLogFindUniqueOrThrowArgs>(args: SelectSubset<T, InferenceLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InferenceLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogFindFirstArgs} args - Arguments to find a InferenceLog
+     * @example
+     * // Get one InferenceLog
+     * const inferenceLog = await prisma.inferenceLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InferenceLogFindFirstArgs>(args?: SelectSubset<T, InferenceLogFindFirstArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InferenceLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogFindFirstOrThrowArgs} args - Arguments to find a InferenceLog
+     * @example
+     * // Get one InferenceLog
+     * const inferenceLog = await prisma.inferenceLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InferenceLogFindFirstOrThrowArgs>(args?: SelectSubset<T, InferenceLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InferenceLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InferenceLogs
+     * const inferenceLogs = await prisma.inferenceLog.findMany()
+     * 
+     * // Get first 10 InferenceLogs
+     * const inferenceLogs = await prisma.inferenceLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const inferenceLogWithIdOnly = await prisma.inferenceLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InferenceLogFindManyArgs>(args?: SelectSubset<T, InferenceLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InferenceLog.
+     * @param {InferenceLogCreateArgs} args - Arguments to create a InferenceLog.
+     * @example
+     * // Create one InferenceLog
+     * const InferenceLog = await prisma.inferenceLog.create({
+     *   data: {
+     *     // ... data to create a InferenceLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends InferenceLogCreateArgs>(args: SelectSubset<T, InferenceLogCreateArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InferenceLogs.
+     * @param {InferenceLogCreateManyArgs} args - Arguments to create many InferenceLogs.
+     * @example
+     * // Create many InferenceLogs
+     * const inferenceLog = await prisma.inferenceLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InferenceLogCreateManyArgs>(args?: SelectSubset<T, InferenceLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InferenceLogs and returns the data saved in the database.
+     * @param {InferenceLogCreateManyAndReturnArgs} args - Arguments to create many InferenceLogs.
+     * @example
+     * // Create many InferenceLogs
+     * const inferenceLog = await prisma.inferenceLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InferenceLogs and only return the `id`
+     * const inferenceLogWithIdOnly = await prisma.inferenceLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InferenceLogCreateManyAndReturnArgs>(args?: SelectSubset<T, InferenceLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InferenceLog.
+     * @param {InferenceLogDeleteArgs} args - Arguments to delete one InferenceLog.
+     * @example
+     * // Delete one InferenceLog
+     * const InferenceLog = await prisma.inferenceLog.delete({
+     *   where: {
+     *     // ... filter to delete one InferenceLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InferenceLogDeleteArgs>(args: SelectSubset<T, InferenceLogDeleteArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InferenceLog.
+     * @param {InferenceLogUpdateArgs} args - Arguments to update one InferenceLog.
+     * @example
+     * // Update one InferenceLog
+     * const inferenceLog = await prisma.inferenceLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InferenceLogUpdateArgs>(args: SelectSubset<T, InferenceLogUpdateArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InferenceLogs.
+     * @param {InferenceLogDeleteManyArgs} args - Arguments to filter InferenceLogs to delete.
+     * @example
+     * // Delete a few InferenceLogs
+     * const { count } = await prisma.inferenceLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InferenceLogDeleteManyArgs>(args?: SelectSubset<T, InferenceLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InferenceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InferenceLogs
+     * const inferenceLog = await prisma.inferenceLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InferenceLogUpdateManyArgs>(args: SelectSubset<T, InferenceLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InferenceLogs and returns the data updated in the database.
+     * @param {InferenceLogUpdateManyAndReturnArgs} args - Arguments to update many InferenceLogs.
+     * @example
+     * // Update many InferenceLogs
+     * const inferenceLog = await prisma.inferenceLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InferenceLogs and only return the `id`
+     * const inferenceLogWithIdOnly = await prisma.inferenceLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InferenceLogUpdateManyAndReturnArgs>(args: SelectSubset<T, InferenceLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InferenceLog.
+     * @param {InferenceLogUpsertArgs} args - Arguments to update or create a InferenceLog.
+     * @example
+     * // Update or create a InferenceLog
+     * const inferenceLog = await prisma.inferenceLog.upsert({
+     *   create: {
+     *     // ... data to create a InferenceLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InferenceLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InferenceLogUpsertArgs>(args: SelectSubset<T, InferenceLogUpsertArgs<ExtArgs>>): Prisma__InferenceLogClient<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InferenceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogCountArgs} args - Arguments to filter InferenceLogs to count.
+     * @example
+     * // Count the number of InferenceLogs
+     * const count = await prisma.inferenceLog.count({
+     *   where: {
+     *     // ... the filter for the InferenceLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends InferenceLogCountArgs>(
+      args?: Subset<T, InferenceLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InferenceLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InferenceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InferenceLogAggregateArgs>(args: Subset<T, InferenceLogAggregateArgs>): Prisma.PrismaPromise<GetInferenceLogAggregateType<T>>
+
+    /**
+     * Group by InferenceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InferenceLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InferenceLogGroupByArgs['orderBy'] }
+        : { orderBy?: InferenceLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InferenceLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInferenceLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InferenceLog model
+   */
+  readonly fields: InferenceLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InferenceLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InferenceLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    image<T extends BusImageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusImageDefaultArgs<ExtArgs>>): Prisma__BusImageClient<$Result.GetResult<Prisma.$BusImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    model<T extends ModelRegistryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ModelRegistryDefaultArgs<ExtArgs>>): Prisma__ModelRegistryClient<$Result.GetResult<Prisma.$ModelRegistryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InferenceLog model
+   */
+  interface InferenceLogFieldRefs {
+    readonly id: FieldRef<"InferenceLog", 'String'>
+    readonly predictedLabel: FieldRef<"InferenceLog", 'LabelStatus'>
+    readonly confidence: FieldRef<"InferenceLog", 'Int'>
+    readonly imageId: FieldRef<"InferenceLog", 'String'>
+    readonly modelId: FieldRef<"InferenceLog", 'String'>
+    readonly createdAt: FieldRef<"InferenceLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InferenceLog findUnique
+   */
+  export type InferenceLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InferenceLog to fetch.
+     */
+    where: InferenceLogWhereUniqueInput
+  }
+
+  /**
+   * InferenceLog findUniqueOrThrow
+   */
+  export type InferenceLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InferenceLog to fetch.
+     */
+    where: InferenceLogWhereUniqueInput
+  }
+
+  /**
+   * InferenceLog findFirst
+   */
+  export type InferenceLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InferenceLog to fetch.
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceLogs to fetch.
+     */
+    orderBy?: InferenceLogOrderByWithRelationInput | InferenceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InferenceLogs.
+     */
+    cursor?: InferenceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InferenceLogs.
+     */
+    distinct?: InferenceLogScalarFieldEnum | InferenceLogScalarFieldEnum[]
+  }
+
+  /**
+   * InferenceLog findFirstOrThrow
+   */
+  export type InferenceLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InferenceLog to fetch.
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceLogs to fetch.
+     */
+    orderBy?: InferenceLogOrderByWithRelationInput | InferenceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InferenceLogs.
+     */
+    cursor?: InferenceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InferenceLogs.
+     */
+    distinct?: InferenceLogScalarFieldEnum | InferenceLogScalarFieldEnum[]
+  }
+
+  /**
+   * InferenceLog findMany
+   */
+  export type InferenceLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InferenceLogs to fetch.
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceLogs to fetch.
+     */
+    orderBy?: InferenceLogOrderByWithRelationInput | InferenceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InferenceLogs.
+     */
+    cursor?: InferenceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceLogs.
+     */
+    skip?: number
+    distinct?: InferenceLogScalarFieldEnum | InferenceLogScalarFieldEnum[]
+  }
+
+  /**
+   * InferenceLog create
+   */
+  export type InferenceLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InferenceLog.
+     */
+    data: XOR<InferenceLogCreateInput, InferenceLogUncheckedCreateInput>
+  }
+
+  /**
+   * InferenceLog createMany
+   */
+  export type InferenceLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InferenceLogs.
+     */
+    data: InferenceLogCreateManyInput | InferenceLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InferenceLog createManyAndReturn
+   */
+  export type InferenceLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many InferenceLogs.
+     */
+    data: InferenceLogCreateManyInput | InferenceLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InferenceLog update
+   */
+  export type InferenceLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InferenceLog.
+     */
+    data: XOR<InferenceLogUpdateInput, InferenceLogUncheckedUpdateInput>
+    /**
+     * Choose, which InferenceLog to update.
+     */
+    where: InferenceLogWhereUniqueInput
+  }
+
+  /**
+   * InferenceLog updateMany
+   */
+  export type InferenceLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InferenceLogs.
+     */
+    data: XOR<InferenceLogUpdateManyMutationInput, InferenceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which InferenceLogs to update
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * Limit how many InferenceLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InferenceLog updateManyAndReturn
+   */
+  export type InferenceLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * The data used to update InferenceLogs.
+     */
+    data: XOR<InferenceLogUpdateManyMutationInput, InferenceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which InferenceLogs to update
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * Limit how many InferenceLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InferenceLog upsert
+   */
+  export type InferenceLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InferenceLog to update in case it exists.
+     */
+    where: InferenceLogWhereUniqueInput
+    /**
+     * In case the InferenceLog found by the `where` argument doesn't exist, create a new InferenceLog with this data.
+     */
+    create: XOR<InferenceLogCreateInput, InferenceLogUncheckedCreateInput>
+    /**
+     * In case the InferenceLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InferenceLogUpdateInput, InferenceLogUncheckedUpdateInput>
+  }
+
+  /**
+   * InferenceLog delete
+   */
+  export type InferenceLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    /**
+     * Filter which InferenceLog to delete.
+     */
+    where: InferenceLogWhereUniqueInput
+  }
+
+  /**
+   * InferenceLog deleteMany
+   */
+  export type InferenceLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InferenceLogs to delete
+     */
+    where?: InferenceLogWhereInput
+    /**
+     * Limit how many InferenceLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InferenceLog without action
+   */
+  export type InferenceLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
   }
 
 
@@ -10858,6 +12130,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+    inferences?: boolean | ModelRegistry$inferencesArgs<ExtArgs>
+    _count?: boolean | ModelRegistryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["modelRegistry"]>
 
   export type ModelRegistrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10907,6 +12181,8 @@ export namespace Prisma {
   export type ModelRegistryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "version" | "architecture" | "status" | "weightsUrl" | "hyperparameters" | "metrics" | "datasetId" | "createdAt" | "updatedAt", ExtArgs["result"]["modelRegistry"]>
   export type ModelRegistryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
+    inferences?: boolean | ModelRegistry$inferencesArgs<ExtArgs>
+    _count?: boolean | ModelRegistryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ModelRegistryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
@@ -10919,6 +12195,7 @@ export namespace Prisma {
     name: "ModelRegistry"
     objects: {
       dataset: Prisma.$DatasetPayload<ExtArgs> | null
+      inferences: Prisma.$InferenceLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11327,6 +12604,7 @@ export namespace Prisma {
   export interface Prisma__ModelRegistryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     dataset<T extends ModelRegistry$datasetArgs<ExtArgs> = {}>(args?: Subset<T, ModelRegistry$datasetArgs<ExtArgs>>): Prisma__DatasetClient<$Result.GetResult<Prisma.$DatasetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    inferences<T extends ModelRegistry$inferencesArgs<ExtArgs> = {}>(args?: Subset<T, ModelRegistry$inferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11782,6 +13060,30 @@ export namespace Prisma {
   }
 
   /**
+   * ModelRegistry.inferences
+   */
+  export type ModelRegistry$inferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceLog
+     */
+    select?: InferenceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceLog
+     */
+    omit?: InferenceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InferenceLogInclude<ExtArgs> | null
+    where?: InferenceLogWhereInput
+    orderBy?: InferenceLogOrderByWithRelationInput | InferenceLogOrderByWithRelationInput[]
+    cursor?: InferenceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InferenceLogScalarFieldEnum | InferenceLogScalarFieldEnum[]
+  }
+
+  /**
    * ModelRegistry without action
    */
   export type ModelRegistryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11900,6 +13202,18 @@ export namespace Prisma {
   };
 
   export type BusImageScalarFieldEnum = (typeof BusImageScalarFieldEnum)[keyof typeof BusImageScalarFieldEnum]
+
+
+  export const InferenceLogScalarFieldEnum: {
+    id: 'id',
+    predictedLabel: 'predictedLabel',
+    confidence: 'confidence',
+    imageId: 'imageId',
+    modelId: 'modelId',
+    createdAt: 'createdAt'
+  };
+
+  export type InferenceLogScalarFieldEnum = (typeof InferenceLogScalarFieldEnum)[keyof typeof InferenceLogScalarFieldEnum]
 
 
   export const DatasetScalarFieldEnum: {
@@ -12503,6 +13817,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BusImage"> | Date | string
     labeledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     trainingData?: DatasetImageListRelationFilter
+    inferences?: InferenceLogListRelationFilter
   }
 
   export type BusImageOrderByWithRelationInput = {
@@ -12521,6 +13836,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     labeledBy?: UserOrderByWithRelationInput
     trainingData?: DatasetImageOrderByRelationAggregateInput
+    inferences?: InferenceLogOrderByRelationAggregateInput
   }
 
   export type BusImageWhereUniqueInput = Prisma.AtLeast<{
@@ -12542,6 +13858,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BusImage"> | Date | string
     labeledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     trainingData?: DatasetImageListRelationFilter
+    inferences?: InferenceLogListRelationFilter
   }, "id">
 
   export type BusImageOrderByWithAggregationInput = {
@@ -12582,6 +13899,71 @@ export namespace Prisma {
     labeledById?: StringNullableWithAggregatesFilter<"BusImage"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BusImage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BusImage"> | Date | string
+  }
+
+  export type InferenceLogWhereInput = {
+    AND?: InferenceLogWhereInput | InferenceLogWhereInput[]
+    OR?: InferenceLogWhereInput[]
+    NOT?: InferenceLogWhereInput | InferenceLogWhereInput[]
+    id?: StringFilter<"InferenceLog"> | string
+    predictedLabel?: EnumLabelStatusFilter<"InferenceLog"> | $Enums.LabelStatus
+    confidence?: IntFilter<"InferenceLog"> | number
+    imageId?: StringFilter<"InferenceLog"> | string
+    modelId?: StringFilter<"InferenceLog"> | string
+    createdAt?: DateTimeFilter<"InferenceLog"> | Date | string
+    image?: XOR<BusImageScalarRelationFilter, BusImageWhereInput>
+    model?: XOR<ModelRegistryScalarRelationFilter, ModelRegistryWhereInput>
+  }
+
+  export type InferenceLogOrderByWithRelationInput = {
+    id?: SortOrder
+    predictedLabel?: SortOrder
+    confidence?: SortOrder
+    imageId?: SortOrder
+    modelId?: SortOrder
+    createdAt?: SortOrder
+    image?: BusImageOrderByWithRelationInput
+    model?: ModelRegistryOrderByWithRelationInput
+  }
+
+  export type InferenceLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: InferenceLogWhereInput | InferenceLogWhereInput[]
+    OR?: InferenceLogWhereInput[]
+    NOT?: InferenceLogWhereInput | InferenceLogWhereInput[]
+    predictedLabel?: EnumLabelStatusFilter<"InferenceLog"> | $Enums.LabelStatus
+    confidence?: IntFilter<"InferenceLog"> | number
+    imageId?: StringFilter<"InferenceLog"> | string
+    modelId?: StringFilter<"InferenceLog"> | string
+    createdAt?: DateTimeFilter<"InferenceLog"> | Date | string
+    image?: XOR<BusImageScalarRelationFilter, BusImageWhereInput>
+    model?: XOR<ModelRegistryScalarRelationFilter, ModelRegistryWhereInput>
+  }, "id">
+
+  export type InferenceLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    predictedLabel?: SortOrder
+    confidence?: SortOrder
+    imageId?: SortOrder
+    modelId?: SortOrder
+    createdAt?: SortOrder
+    _count?: InferenceLogCountOrderByAggregateInput
+    _avg?: InferenceLogAvgOrderByAggregateInput
+    _max?: InferenceLogMaxOrderByAggregateInput
+    _min?: InferenceLogMinOrderByAggregateInput
+    _sum?: InferenceLogSumOrderByAggregateInput
+  }
+
+  export type InferenceLogScalarWhereWithAggregatesInput = {
+    AND?: InferenceLogScalarWhereWithAggregatesInput | InferenceLogScalarWhereWithAggregatesInput[]
+    OR?: InferenceLogScalarWhereWithAggregatesInput[]
+    NOT?: InferenceLogScalarWhereWithAggregatesInput | InferenceLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"InferenceLog"> | string
+    predictedLabel?: EnumLabelStatusWithAggregatesFilter<"InferenceLog"> | $Enums.LabelStatus
+    confidence?: IntWithAggregatesFilter<"InferenceLog"> | number
+    imageId?: StringWithAggregatesFilter<"InferenceLog"> | string
+    modelId?: StringWithAggregatesFilter<"InferenceLog"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"InferenceLog"> | Date | string
   }
 
   export type DatasetWhereInput = {
@@ -12697,6 +14079,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ModelRegistry"> | Date | string
     updatedAt?: DateTimeFilter<"ModelRegistry"> | Date | string
     dataset?: XOR<DatasetNullableScalarRelationFilter, DatasetWhereInput> | null
+    inferences?: InferenceLogListRelationFilter
   }
 
   export type ModelRegistryOrderByWithRelationInput = {
@@ -12712,6 +14095,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     dataset?: DatasetOrderByWithRelationInput
+    inferences?: InferenceLogOrderByRelationAggregateInput
   }
 
   export type ModelRegistryWhereUniqueInput = Prisma.AtLeast<{
@@ -12731,6 +14115,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ModelRegistry"> | Date | string
     updatedAt?: DateTimeFilter<"ModelRegistry"> | Date | string
     dataset?: XOR<DatasetNullableScalarRelationFilter, DatasetWhereInput> | null
+    inferences?: InferenceLogListRelationFilter
   }, "id" | "name_version">
 
   export type ModelRegistryOrderByWithAggregationInput = {
@@ -13173,6 +14558,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     labeledBy?: UserCreateNestedOneWithoutBusImagesInput
     trainingData?: DatasetImageCreateNestedManyWithoutImageInput
+    inferences?: InferenceLogCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUncheckedCreateInput = {
@@ -13190,6 +14576,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
+    inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUpdateInput = {
@@ -13207,6 +14594,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
     trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
+    inferences?: InferenceLogUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateInput = {
@@ -13224,6 +14612,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
+    inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageCreateManyInput = {
@@ -13271,6 +14660,67 @@ export namespace Prisma {
     labeledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InferenceLogCreateInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    createdAt?: Date | string
+    image: BusImageCreateNestedOneWithoutInferencesInput
+    model: ModelRegistryCreateNestedOneWithoutInferencesInput
+  }
+
+  export type InferenceLogUncheckedCreateInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    imageId: string
+    modelId: string
+    createdAt?: Date | string
+  }
+
+  export type InferenceLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: BusImageUpdateOneRequiredWithoutInferencesNestedInput
+    model?: ModelRegistryUpdateOneRequiredWithoutInferencesNestedInput
+  }
+
+  export type InferenceLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    imageId?: StringFieldUpdateOperationsInput | string
+    modelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InferenceLogCreateManyInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    imageId: string
+    modelId: string
+    createdAt?: Date | string
+  }
+
+  export type InferenceLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InferenceLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    imageId?: StringFieldUpdateOperationsInput | string
+    modelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DatasetCreateInput = {
@@ -13376,6 +14826,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     dataset?: DatasetCreateNestedOneWithoutModelsInput
+    inferences?: InferenceLogCreateNestedManyWithoutModelInput
   }
 
   export type ModelRegistryUncheckedCreateInput = {
@@ -13390,6 +14841,7 @@ export namespace Prisma {
     datasetId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    inferences?: InferenceLogUncheckedCreateNestedManyWithoutModelInput
   }
 
   export type ModelRegistryUpdateInput = {
@@ -13404,6 +14856,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataset?: DatasetUpdateOneWithoutModelsNestedInput
+    inferences?: InferenceLogUpdateManyWithoutModelNestedInput
   }
 
   export type ModelRegistryUncheckedUpdateInput = {
@@ -13418,6 +14871,7 @@ export namespace Prisma {
     datasetId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inferences?: InferenceLogUncheckedUpdateManyWithoutModelNestedInput
   }
 
   export type ModelRegistryCreateManyInput = {
@@ -13845,7 +15299,17 @@ export namespace Prisma {
     none?: DatasetImageWhereInput
   }
 
+  export type InferenceLogListRelationFilter = {
+    every?: InferenceLogWhereInput
+    some?: InferenceLogWhereInput
+    none?: InferenceLogWhereInput
+  }
+
   export type DatasetImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InferenceLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13951,6 +15415,95 @@ export namespace Prisma {
     _max?: NestedEnumAngleNullableFilter<$PrismaModel>
   }
 
+  export type EnumLabelStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LabelStatus | EnumLabelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelStatusFilter<$PrismaModel> | $Enums.LabelStatus
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BusImageScalarRelationFilter = {
+    is?: BusImageWhereInput
+    isNot?: BusImageWhereInput
+  }
+
+  export type ModelRegistryScalarRelationFilter = {
+    is?: ModelRegistryWhereInput
+    isNot?: ModelRegistryWhereInput
+  }
+
+  export type InferenceLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    predictedLabel?: SortOrder
+    confidence?: SortOrder
+    imageId?: SortOrder
+    modelId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InferenceLogAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type InferenceLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    predictedLabel?: SortOrder
+    confidence?: SortOrder
+    imageId?: SortOrder
+    modelId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InferenceLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    predictedLabel?: SortOrder
+    confidence?: SortOrder
+    imageId?: SortOrder
+    modelId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InferenceLogSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type EnumLabelStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LabelStatus | EnumLabelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelStatusWithAggregatesFilter<$PrismaModel> | $Enums.LabelStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLabelStatusFilter<$PrismaModel>
+    _max?: NestedEnumLabelStatusFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type ModelRegistryListRelationFilter = {
     every?: ModelRegistryWhereInput
     some?: ModelRegistryWhereInput
@@ -13985,11 +15538,6 @@ export namespace Prisma {
   export type DatasetScalarRelationFilter = {
     is?: DatasetWhereInput
     isNot?: DatasetWhereInput
-  }
-
-  export type BusImageScalarRelationFilter = {
-    is?: BusImageWhereInput
-    isNot?: BusImageWhereInput
   }
 
   export type DatasetImageDatasetIdImageIdCompoundUniqueInput = {
@@ -14386,11 +15934,25 @@ export namespace Prisma {
     connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
   }
 
+  export type InferenceLogCreateNestedManyWithoutImageInput = {
+    create?: XOR<InferenceLogCreateWithoutImageInput, InferenceLogUncheckedCreateWithoutImageInput> | InferenceLogCreateWithoutImageInput[] | InferenceLogUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutImageInput | InferenceLogCreateOrConnectWithoutImageInput[]
+    createMany?: InferenceLogCreateManyImageInputEnvelope
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+  }
+
   export type DatasetImageUncheckedCreateNestedManyWithoutImageInput = {
     create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
     connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
     createMany?: DatasetImageCreateManyImageInputEnvelope
     connect?: DatasetImageWhereUniqueInput | DatasetImageWhereUniqueInput[]
+  }
+
+  export type InferenceLogUncheckedCreateNestedManyWithoutImageInput = {
+    create?: XOR<InferenceLogCreateWithoutImageInput, InferenceLogUncheckedCreateWithoutImageInput> | InferenceLogCreateWithoutImageInput[] | InferenceLogUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutImageInput | InferenceLogCreateOrConnectWithoutImageInput[]
+    createMany?: InferenceLogCreateManyImageInputEnvelope
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
   }
 
   export type NullableEnumLabelStatusFieldUpdateOperationsInput = {
@@ -14437,6 +15999,20 @@ export namespace Prisma {
     deleteMany?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
   }
 
+  export type InferenceLogUpdateManyWithoutImageNestedInput = {
+    create?: XOR<InferenceLogCreateWithoutImageInput, InferenceLogUncheckedCreateWithoutImageInput> | InferenceLogCreateWithoutImageInput[] | InferenceLogUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutImageInput | InferenceLogCreateOrConnectWithoutImageInput[]
+    upsert?: InferenceLogUpsertWithWhereUniqueWithoutImageInput | InferenceLogUpsertWithWhereUniqueWithoutImageInput[]
+    createMany?: InferenceLogCreateManyImageInputEnvelope
+    set?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    disconnect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    delete?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    update?: InferenceLogUpdateWithWhereUniqueWithoutImageInput | InferenceLogUpdateWithWhereUniqueWithoutImageInput[]
+    updateMany?: InferenceLogUpdateManyWithWhereWithoutImageInput | InferenceLogUpdateManyWithWhereWithoutImageInput[]
+    deleteMany?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
+  }
+
   export type DatasetImageUncheckedUpdateManyWithoutImageNestedInput = {
     create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
     connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
@@ -14449,6 +16025,60 @@ export namespace Prisma {
     update?: DatasetImageUpdateWithWhereUniqueWithoutImageInput | DatasetImageUpdateWithWhereUniqueWithoutImageInput[]
     updateMany?: DatasetImageUpdateManyWithWhereWithoutImageInput | DatasetImageUpdateManyWithWhereWithoutImageInput[]
     deleteMany?: DatasetImageScalarWhereInput | DatasetImageScalarWhereInput[]
+  }
+
+  export type InferenceLogUncheckedUpdateManyWithoutImageNestedInput = {
+    create?: XOR<InferenceLogCreateWithoutImageInput, InferenceLogUncheckedCreateWithoutImageInput> | InferenceLogCreateWithoutImageInput[] | InferenceLogUncheckedCreateWithoutImageInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutImageInput | InferenceLogCreateOrConnectWithoutImageInput[]
+    upsert?: InferenceLogUpsertWithWhereUniqueWithoutImageInput | InferenceLogUpsertWithWhereUniqueWithoutImageInput[]
+    createMany?: InferenceLogCreateManyImageInputEnvelope
+    set?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    disconnect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    delete?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    update?: InferenceLogUpdateWithWhereUniqueWithoutImageInput | InferenceLogUpdateWithWhereUniqueWithoutImageInput[]
+    updateMany?: InferenceLogUpdateManyWithWhereWithoutImageInput | InferenceLogUpdateManyWithWhereWithoutImageInput[]
+    deleteMany?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
+  }
+
+  export type BusImageCreateNestedOneWithoutInferencesInput = {
+    create?: XOR<BusImageCreateWithoutInferencesInput, BusImageUncheckedCreateWithoutInferencesInput>
+    connectOrCreate?: BusImageCreateOrConnectWithoutInferencesInput
+    connect?: BusImageWhereUniqueInput
+  }
+
+  export type ModelRegistryCreateNestedOneWithoutInferencesInput = {
+    create?: XOR<ModelRegistryCreateWithoutInferencesInput, ModelRegistryUncheckedCreateWithoutInferencesInput>
+    connectOrCreate?: ModelRegistryCreateOrConnectWithoutInferencesInput
+    connect?: ModelRegistryWhereUniqueInput
+  }
+
+  export type EnumLabelStatusFieldUpdateOperationsInput = {
+    set?: $Enums.LabelStatus
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BusImageUpdateOneRequiredWithoutInferencesNestedInput = {
+    create?: XOR<BusImageCreateWithoutInferencesInput, BusImageUncheckedCreateWithoutInferencesInput>
+    connectOrCreate?: BusImageCreateOrConnectWithoutInferencesInput
+    upsert?: BusImageUpsertWithoutInferencesInput
+    connect?: BusImageWhereUniqueInput
+    update?: XOR<XOR<BusImageUpdateToOneWithWhereWithoutInferencesInput, BusImageUpdateWithoutInferencesInput>, BusImageUncheckedUpdateWithoutInferencesInput>
+  }
+
+  export type ModelRegistryUpdateOneRequiredWithoutInferencesNestedInput = {
+    create?: XOR<ModelRegistryCreateWithoutInferencesInput, ModelRegistryUncheckedCreateWithoutInferencesInput>
+    connectOrCreate?: ModelRegistryCreateOrConnectWithoutInferencesInput
+    upsert?: ModelRegistryUpsertWithoutInferencesInput
+    connect?: ModelRegistryWhereUniqueInput
+    update?: XOR<XOR<ModelRegistryUpdateToOneWithWhereWithoutInferencesInput, ModelRegistryUpdateWithoutInferencesInput>, ModelRegistryUncheckedUpdateWithoutInferencesInput>
   }
 
   export type DatasetImageCreateNestedManyWithoutDatasetInput = {
@@ -14569,6 +16199,20 @@ export namespace Prisma {
     connect?: DatasetWhereUniqueInput
   }
 
+  export type InferenceLogCreateNestedManyWithoutModelInput = {
+    create?: XOR<InferenceLogCreateWithoutModelInput, InferenceLogUncheckedCreateWithoutModelInput> | InferenceLogCreateWithoutModelInput[] | InferenceLogUncheckedCreateWithoutModelInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutModelInput | InferenceLogCreateOrConnectWithoutModelInput[]
+    createMany?: InferenceLogCreateManyModelInputEnvelope
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+  }
+
+  export type InferenceLogUncheckedCreateNestedManyWithoutModelInput = {
+    create?: XOR<InferenceLogCreateWithoutModelInput, InferenceLogUncheckedCreateWithoutModelInput> | InferenceLogCreateWithoutModelInput[] | InferenceLogUncheckedCreateWithoutModelInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutModelInput | InferenceLogCreateOrConnectWithoutModelInput[]
+    createMany?: InferenceLogCreateManyModelInputEnvelope
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+  }
+
   export type EnumModelArchitectureFieldUpdateOperationsInput = {
     set?: $Enums.ModelArchitecture
   }
@@ -14585,6 +16229,34 @@ export namespace Prisma {
     delete?: DatasetWhereInput | boolean
     connect?: DatasetWhereUniqueInput
     update?: XOR<XOR<DatasetUpdateToOneWithWhereWithoutModelsInput, DatasetUpdateWithoutModelsInput>, DatasetUncheckedUpdateWithoutModelsInput>
+  }
+
+  export type InferenceLogUpdateManyWithoutModelNestedInput = {
+    create?: XOR<InferenceLogCreateWithoutModelInput, InferenceLogUncheckedCreateWithoutModelInput> | InferenceLogCreateWithoutModelInput[] | InferenceLogUncheckedCreateWithoutModelInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutModelInput | InferenceLogCreateOrConnectWithoutModelInput[]
+    upsert?: InferenceLogUpsertWithWhereUniqueWithoutModelInput | InferenceLogUpsertWithWhereUniqueWithoutModelInput[]
+    createMany?: InferenceLogCreateManyModelInputEnvelope
+    set?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    disconnect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    delete?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    update?: InferenceLogUpdateWithWhereUniqueWithoutModelInput | InferenceLogUpdateWithWhereUniqueWithoutModelInput[]
+    updateMany?: InferenceLogUpdateManyWithWhereWithoutModelInput | InferenceLogUpdateManyWithWhereWithoutModelInput[]
+    deleteMany?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
+  }
+
+  export type InferenceLogUncheckedUpdateManyWithoutModelNestedInput = {
+    create?: XOR<InferenceLogCreateWithoutModelInput, InferenceLogUncheckedCreateWithoutModelInput> | InferenceLogCreateWithoutModelInput[] | InferenceLogUncheckedCreateWithoutModelInput[]
+    connectOrCreate?: InferenceLogCreateOrConnectWithoutModelInput | InferenceLogCreateOrConnectWithoutModelInput[]
+    upsert?: InferenceLogUpsertWithWhereUniqueWithoutModelInput | InferenceLogUpsertWithWhereUniqueWithoutModelInput[]
+    createMany?: InferenceLogCreateManyModelInputEnvelope
+    set?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    disconnect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    delete?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+    update?: InferenceLogUpdateWithWhereUniqueWithoutModelInput | InferenceLogUpdateWithWhereUniqueWithoutModelInput[]
+    updateMany?: InferenceLogUpdateManyWithWhereWithoutModelInput | InferenceLogUpdateManyWithWhereWithoutModelInput[]
+    deleteMany?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -14812,6 +16484,50 @@ export namespace Prisma {
     _max?: NestedEnumAngleNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumLabelStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LabelStatus | EnumLabelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelStatusFilter<$PrismaModel> | $Enums.LabelStatus
+  }
+
+  export type NestedEnumLabelStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LabelStatus | EnumLabelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LabelStatus[] | ListEnumLabelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLabelStatusWithAggregatesFilter<$PrismaModel> | $Enums.LabelStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLabelStatusFilter<$PrismaModel>
+    _max?: NestedEnumLabelStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumModelArchitectureFilter<$PrismaModel = never> = {
     equals?: $Enums.ModelArchitecture | EnumModelArchitectureFieldRefInput<$PrismaModel>
     in?: $Enums.ModelArchitecture[] | ListEnumModelArchitectureFieldRefInput<$PrismaModel>
@@ -14951,6 +16667,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trainingData?: DatasetImageCreateNestedManyWithoutImageInput
+    inferences?: InferenceLogCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUncheckedCreateWithoutLabeledByInput = {
@@ -14967,6 +16684,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
+    inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
   }
 
   export type BusImageCreateOrConnectWithoutLabeledByInput = {
@@ -15385,6 +17103,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InferenceLogCreateWithoutImageInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    createdAt?: Date | string
+    model: ModelRegistryCreateNestedOneWithoutInferencesInput
+  }
+
+  export type InferenceLogUncheckedCreateWithoutImageInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    modelId: string
+    createdAt?: Date | string
+  }
+
+  export type InferenceLogCreateOrConnectWithoutImageInput = {
+    where: InferenceLogWhereUniqueInput
+    create: XOR<InferenceLogCreateWithoutImageInput, InferenceLogUncheckedCreateWithoutImageInput>
+  }
+
+  export type InferenceLogCreateManyImageInputEnvelope = {
+    data: InferenceLogCreateManyImageInput | InferenceLogCreateManyImageInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutBusImagesInput = {
     update: XOR<UserUpdateWithoutBusImagesInput, UserUncheckedUpdateWithoutBusImagesInput>
     create: XOR<UserCreateWithoutBusImagesInput, UserUncheckedCreateWithoutBusImagesInput>
@@ -15446,6 +17190,190 @@ export namespace Prisma {
     imageId?: StringFilter<"DatasetImage"> | string
   }
 
+  export type InferenceLogUpsertWithWhereUniqueWithoutImageInput = {
+    where: InferenceLogWhereUniqueInput
+    update: XOR<InferenceLogUpdateWithoutImageInput, InferenceLogUncheckedUpdateWithoutImageInput>
+    create: XOR<InferenceLogCreateWithoutImageInput, InferenceLogUncheckedCreateWithoutImageInput>
+  }
+
+  export type InferenceLogUpdateWithWhereUniqueWithoutImageInput = {
+    where: InferenceLogWhereUniqueInput
+    data: XOR<InferenceLogUpdateWithoutImageInput, InferenceLogUncheckedUpdateWithoutImageInput>
+  }
+
+  export type InferenceLogUpdateManyWithWhereWithoutImageInput = {
+    where: InferenceLogScalarWhereInput
+    data: XOR<InferenceLogUpdateManyMutationInput, InferenceLogUncheckedUpdateManyWithoutImageInput>
+  }
+
+  export type InferenceLogScalarWhereInput = {
+    AND?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
+    OR?: InferenceLogScalarWhereInput[]
+    NOT?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
+    id?: StringFilter<"InferenceLog"> | string
+    predictedLabel?: EnumLabelStatusFilter<"InferenceLog"> | $Enums.LabelStatus
+    confidence?: IntFilter<"InferenceLog"> | number
+    imageId?: StringFilter<"InferenceLog"> | string
+    modelId?: StringFilter<"InferenceLog"> | string
+    createdAt?: DateTimeFilter<"InferenceLog"> | Date | string
+  }
+
+  export type BusImageCreateWithoutInferencesInput = {
+    id?: string
+    imageUrl: string
+    label?: $Enums.LabelStatus | null
+    confidence?: number | null
+    fleetNumber?: string | null
+    cameraId?: string | null
+    timeTaken?: Date | string | null
+    weatherCondition?: $Enums.Weather | null
+    cameraAngle?: $Enums.Angle | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    labeledBy?: UserCreateNestedOneWithoutBusImagesInput
+    trainingData?: DatasetImageCreateNestedManyWithoutImageInput
+  }
+
+  export type BusImageUncheckedCreateWithoutInferencesInput = {
+    id?: string
+    imageUrl: string
+    label?: $Enums.LabelStatus | null
+    confidence?: number | null
+    fleetNumber?: string | null
+    cameraId?: string | null
+    timeTaken?: Date | string | null
+    weatherCondition?: $Enums.Weather | null
+    cameraAngle?: $Enums.Angle | null
+    isVerified?: boolean
+    labeledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
+  }
+
+  export type BusImageCreateOrConnectWithoutInferencesInput = {
+    where: BusImageWhereUniqueInput
+    create: XOR<BusImageCreateWithoutInferencesInput, BusImageUncheckedCreateWithoutInferencesInput>
+  }
+
+  export type ModelRegistryCreateWithoutInferencesInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dataset?: DatasetCreateNestedOneWithoutModelsInput
+  }
+
+  export type ModelRegistryUncheckedCreateWithoutInferencesInput = {
+    id?: string
+    name: string
+    version?: string | null
+    architecture: $Enums.ModelArchitecture
+    status?: $Enums.ModelStatus
+    weightsUrl?: string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    datasetId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModelRegistryCreateOrConnectWithoutInferencesInput = {
+    where: ModelRegistryWhereUniqueInput
+    create: XOR<ModelRegistryCreateWithoutInferencesInput, ModelRegistryUncheckedCreateWithoutInferencesInput>
+  }
+
+  export type BusImageUpsertWithoutInferencesInput = {
+    update: XOR<BusImageUpdateWithoutInferencesInput, BusImageUncheckedUpdateWithoutInferencesInput>
+    create: XOR<BusImageCreateWithoutInferencesInput, BusImageUncheckedCreateWithoutInferencesInput>
+    where?: BusImageWhereInput
+  }
+
+  export type BusImageUpdateToOneWithWhereWithoutInferencesInput = {
+    where?: BusImageWhereInput
+    data: XOR<BusImageUpdateWithoutInferencesInput, BusImageUncheckedUpdateWithoutInferencesInput>
+  }
+
+  export type BusImageUpdateWithoutInferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    label?: NullableEnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus | null
+    confidence?: NullableIntFieldUpdateOperationsInput | number | null
+    fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
+    cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
+    trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
+  }
+
+  export type BusImageUncheckedUpdateWithoutInferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    label?: NullableEnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus | null
+    confidence?: NullableIntFieldUpdateOperationsInput | number | null
+    fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
+    cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    labeledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
+  }
+
+  export type ModelRegistryUpsertWithoutInferencesInput = {
+    update: XOR<ModelRegistryUpdateWithoutInferencesInput, ModelRegistryUncheckedUpdateWithoutInferencesInput>
+    create: XOR<ModelRegistryCreateWithoutInferencesInput, ModelRegistryUncheckedCreateWithoutInferencesInput>
+    where?: ModelRegistryWhereInput
+  }
+
+  export type ModelRegistryUpdateToOneWithWhereWithoutInferencesInput = {
+    where?: ModelRegistryWhereInput
+    data: XOR<ModelRegistryUpdateWithoutInferencesInput, ModelRegistryUncheckedUpdateWithoutInferencesInput>
+  }
+
+  export type ModelRegistryUpdateWithoutInferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataset?: DatasetUpdateOneWithoutModelsNestedInput
+  }
+
+  export type ModelRegistryUncheckedUpdateWithoutInferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
+    status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
+    weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hyperparameters?: NullableJsonNullValueInput | InputJsonValue
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    datasetId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DatasetImageCreateWithoutDatasetInput = {
     image: BusImageCreateNestedOneWithoutTrainingDataInput
   }
@@ -15475,6 +17403,7 @@ export namespace Prisma {
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    inferences?: InferenceLogCreateNestedManyWithoutModelInput
   }
 
   export type ModelRegistryUncheckedCreateWithoutDatasetInput = {
@@ -15488,6 +17417,7 @@ export namespace Prisma {
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    inferences?: InferenceLogUncheckedCreateNestedManyWithoutModelInput
   }
 
   export type ModelRegistryCreateOrConnectWithoutDatasetInput = {
@@ -15584,6 +17514,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     labeledBy?: UserCreateNestedOneWithoutBusImagesInput
+    inferences?: InferenceLogCreateNestedManyWithoutImageInput
   }
 
   export type BusImageUncheckedCreateWithoutTrainingDataInput = {
@@ -15600,6 +17531,7 @@ export namespace Prisma {
     labeledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
   }
 
   export type BusImageCreateOrConnectWithoutTrainingDataInput = {
@@ -15659,6 +17591,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
+    inferences?: InferenceLogUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateWithoutTrainingDataInput = {
@@ -15675,6 +17608,7 @@ export namespace Prisma {
     labeledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
   }
 
   export type DatasetCreateWithoutModelsInput = {
@@ -15696,6 +17630,32 @@ export namespace Prisma {
   export type DatasetCreateOrConnectWithoutModelsInput = {
     where: DatasetWhereUniqueInput
     create: XOR<DatasetCreateWithoutModelsInput, DatasetUncheckedCreateWithoutModelsInput>
+  }
+
+  export type InferenceLogCreateWithoutModelInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    createdAt?: Date | string
+    image: BusImageCreateNestedOneWithoutInferencesInput
+  }
+
+  export type InferenceLogUncheckedCreateWithoutModelInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    imageId: string
+    createdAt?: Date | string
+  }
+
+  export type InferenceLogCreateOrConnectWithoutModelInput = {
+    where: InferenceLogWhereUniqueInput
+    create: XOR<InferenceLogCreateWithoutModelInput, InferenceLogUncheckedCreateWithoutModelInput>
+  }
+
+  export type InferenceLogCreateManyModelInputEnvelope = {
+    data: InferenceLogCreateManyModelInput | InferenceLogCreateManyModelInput[]
+    skipDuplicates?: boolean
   }
 
   export type DatasetUpsertWithoutModelsInput = {
@@ -15723,6 +17683,22 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: DatasetImageUncheckedUpdateManyWithoutDatasetNestedInput
+  }
+
+  export type InferenceLogUpsertWithWhereUniqueWithoutModelInput = {
+    where: InferenceLogWhereUniqueInput
+    update: XOR<InferenceLogUpdateWithoutModelInput, InferenceLogUncheckedUpdateWithoutModelInput>
+    create: XOR<InferenceLogCreateWithoutModelInput, InferenceLogUncheckedCreateWithoutModelInput>
+  }
+
+  export type InferenceLogUpdateWithWhereUniqueWithoutModelInput = {
+    where: InferenceLogWhereUniqueInput
+    data: XOR<InferenceLogUpdateWithoutModelInput, InferenceLogUncheckedUpdateWithoutModelInput>
+  }
+
+  export type InferenceLogUpdateManyWithWhereWithoutModelInput = {
+    where: InferenceLogScalarWhereInput
+    data: XOR<InferenceLogUpdateManyMutationInput, InferenceLogUncheckedUpdateManyWithoutModelInput>
   }
 
   export type BusImageCreateManyLabeledByInput = {
@@ -15786,6 +17762,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
+    inferences?: InferenceLogUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateWithoutLabeledByInput = {
@@ -15802,6 +17779,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
+    inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
   }
 
   export type BusImageUncheckedUpdateManyWithoutLabeledByInput = {
@@ -15919,6 +17897,14 @@ export namespace Prisma {
     datasetId: string
   }
 
+  export type InferenceLogCreateManyImageInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    modelId: string
+    createdAt?: Date | string
+  }
+
   export type DatasetImageUpdateWithoutImageInput = {
     dataset?: DatasetUpdateOneRequiredWithoutImagesNestedInput
   }
@@ -15929,6 +17915,30 @@ export namespace Prisma {
 
   export type DatasetImageUncheckedUpdateManyWithoutImageInput = {
     datasetId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type InferenceLogUpdateWithoutImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    model?: ModelRegistryUpdateOneRequiredWithoutInferencesNestedInput
+  }
+
+  export type InferenceLogUncheckedUpdateWithoutImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    modelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InferenceLogUncheckedUpdateManyWithoutImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    modelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DatasetImageCreateManyDatasetInput = {
@@ -15971,6 +17981,7 @@ export namespace Prisma {
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inferences?: InferenceLogUpdateManyWithoutModelNestedInput
   }
 
   export type ModelRegistryUncheckedUpdateWithoutDatasetInput = {
@@ -15984,6 +17995,7 @@ export namespace Prisma {
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inferences?: InferenceLogUncheckedUpdateManyWithoutModelNestedInput
   }
 
   export type ModelRegistryUncheckedUpdateManyWithoutDatasetInput = {
@@ -15997,6 +18009,38 @@ export namespace Prisma {
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InferenceLogCreateManyModelInput = {
+    id?: string
+    predictedLabel: $Enums.LabelStatus
+    confidence: number
+    imageId: string
+    createdAt?: Date | string
+  }
+
+  export type InferenceLogUpdateWithoutModelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: BusImageUpdateOneRequiredWithoutInferencesNestedInput
+  }
+
+  export type InferenceLogUncheckedUpdateWithoutModelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    imageId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InferenceLogUncheckedUpdateManyWithoutModelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
+    confidence?: IntFieldUpdateOperationsInput | number
+    imageId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

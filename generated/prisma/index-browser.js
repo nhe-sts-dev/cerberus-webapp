@@ -191,6 +191,15 @@ exports.Prisma.BusImageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.InferenceLogScalarFieldEnum = {
+  id: 'id',
+  predictedLabel: 'predictedLabel',
+  confidence: 'confidence',
+  imageId: 'imageId',
+  modelId: 'modelId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.DatasetScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -283,6 +292,7 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   BusImage: 'BusImage',
+  InferenceLog: 'InferenceLog',
   Dataset: 'Dataset',
   DatasetImage: 'DatasetImage',
   ModelRegistry: 'ModelRegistry'
