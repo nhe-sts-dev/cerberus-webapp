@@ -4,7 +4,7 @@ import { s3Client } from "~/server/s3"; // Assuming this is where we put the s3 
 import { db } from "~/server/db";
 import { v4 as uuidv4 } from "uuid"; // You might need to run: npm install uuid @types/uuid
 
-// This is a simple security measure. You will put this exact string into the Axis camera settings.
+// This is a simple security measure. You will put this exact string into the Axis camera settings
 const CAMERA_SECRET_KEY = process.env.CAMERA_SECRET_KEY ?? "super-secret-axis-key-123";
 
 export async function POST(req: NextRequest) {
