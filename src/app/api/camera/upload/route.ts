@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
 
     // 2. Parse the multipart form data sent by the camera
     const formData = await req.formData();
-    const file = formData.get("file") as File | null; // Axis usually sends it under "file" or "image"
+    // const file = formData.get("file") as File | null; // Axis usually sends it under "file" or "image"
+    const file = (formData.get("file") ?? formData.get("image")) as File | null;
     
     // Optional: Capture metadata if the camera sends it in the form
     const cameraId = (formData.get("cameraId") as string) ?? "Unknown-Axis-Camera";
