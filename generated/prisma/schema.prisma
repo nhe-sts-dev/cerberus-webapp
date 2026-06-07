@@ -151,8 +151,22 @@ model BusImage {
   updatedAt DateTime @updatedAt
 
   // A bus image can be part of many training datasets
-  trainingData DatasetImage[]
-  inferences   InferenceLog[] // Links to the model's predictions
+  trainingData    DatasetImage[]
+  inferences      InferenceLog[] // Links to the model's predictions
+  transponderLogs TransponderLog[]
+}
+
+model TransponderLog {
+  id          String   @id @default(cuid())
+  fleetNumber String
+  gateId      String? // e.g., "Depot-South-Gate"
+  timestamp   DateTime // Exact time the bus passed the transponder
+
+  // Link to the image once the matching algorithm pairs them
+  matchedImageId String?   @unique
+  matchedImage   BusImage? @relation(fields: [matchedImageId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 model InferenceLog {

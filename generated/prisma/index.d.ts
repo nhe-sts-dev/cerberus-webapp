@@ -44,6 +44,11 @@ export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
  */
 export type BusImage = $Result.DefaultSelection<Prisma.$BusImagePayload>
 /**
+ * Model TransponderLog
+ * 
+ */
+export type TransponderLog = $Result.DefaultSelection<Prisma.$TransponderLogPayload>
+/**
  * Model InferenceLog
  * 
  */
@@ -315,6 +320,16 @@ export class PrismaClient<
     * ```
     */
   get busImage(): Prisma.BusImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.transponderLog`: Exposes CRUD operations for the **TransponderLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TransponderLogs
+    * const transponderLogs = await prisma.transponderLog.findMany()
+    * ```
+    */
+  get transponderLog(): Prisma.TransponderLogDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.inferenceLog`: Exposes CRUD operations for the **InferenceLog** model.
@@ -802,6 +817,7 @@ export namespace Prisma {
     Account: 'Account',
     Verification: 'Verification',
     BusImage: 'BusImage',
+    TransponderLog: 'TransponderLog',
     InferenceLog: 'InferenceLog',
     Dataset: 'Dataset',
     DatasetImage: 'DatasetImage',
@@ -824,7 +840,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "inferenceLog" | "dataset" | "datasetImage" | "modelRegistry"
+      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "transponderLog" | "inferenceLog" | "dataset" | "datasetImage" | "modelRegistry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1272,6 +1288,80 @@ export namespace Prisma {
           }
         }
       }
+      TransponderLog: {
+        payload: Prisma.$TransponderLogPayload<ExtArgs>
+        fields: Prisma.TransponderLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransponderLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransponderLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>
+          }
+          findFirst: {
+            args: Prisma.TransponderLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransponderLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>
+          }
+          findMany: {
+            args: Prisma.TransponderLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>[]
+          }
+          create: {
+            args: Prisma.TransponderLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>
+          }
+          createMany: {
+            args: Prisma.TransponderLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TransponderLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>[]
+          }
+          delete: {
+            args: Prisma.TransponderLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>
+          }
+          update: {
+            args: Prisma.TransponderLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransponderLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransponderLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TransponderLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.TransponderLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransponderLogPayload>
+          }
+          aggregate: {
+            args: Prisma.TransponderLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransponderLog>
+          }
+          groupBy: {
+            args: Prisma.TransponderLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransponderLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransponderLogCountArgs<ExtArgs>
+            result: $Utils.Optional<TransponderLogCountAggregateOutputType> | number
+          }
+        }
+      }
       InferenceLog: {
         payload: Prisma.$InferenceLogPayload<ExtArgs>
         fields: Prisma.InferenceLogFieldRefs
@@ -1670,6 +1760,7 @@ export namespace Prisma {
     account?: AccountOmit
     verification?: VerificationOmit
     busImage?: BusImageOmit
+    transponderLog?: TransponderLogOmit
     inferenceLog?: InferenceLogOmit
     dataset?: DatasetOmit
     datasetImage?: DatasetImageOmit
@@ -1814,11 +1905,13 @@ export namespace Prisma {
   export type BusImageCountOutputType = {
     trainingData: number
     inferences: number
+    transponderLogs: number
   }
 
   export type BusImageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trainingData?: boolean | BusImageCountOutputTypeCountTrainingDataArgs
     inferences?: boolean | BusImageCountOutputTypeCountInferencesArgs
+    transponderLogs?: boolean | BusImageCountOutputTypeCountTransponderLogsArgs
   }
 
   // Custom InputTypes
@@ -1844,6 +1937,13 @@ export namespace Prisma {
    */
   export type BusImageCountOutputTypeCountInferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InferenceLogWhereInput
+  }
+
+  /**
+   * BusImageCountOutputType without action
+   */
+  export type BusImageCountOutputTypeCountTransponderLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransponderLogWhereInput
   }
 
 
@@ -7692,6 +7792,7 @@ export namespace Prisma {
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
     trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
     inferences?: boolean | BusImage$inferencesArgs<ExtArgs>
+    transponderLogs?: boolean | BusImage$transponderLogsArgs<ExtArgs>
     _count?: boolean | BusImageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["busImage"]>
 
@@ -7750,6 +7851,7 @@ export namespace Prisma {
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
     trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
     inferences?: boolean | BusImage$inferencesArgs<ExtArgs>
+    transponderLogs?: boolean | BusImage$transponderLogsArgs<ExtArgs>
     _count?: boolean | BusImageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BusImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7765,6 +7867,7 @@ export namespace Prisma {
       labeledBy: Prisma.$UserPayload<ExtArgs> | null
       trainingData: Prisma.$DatasetImagePayload<ExtArgs>[]
       inferences: Prisma.$InferenceLogPayload<ExtArgs>[]
+      transponderLogs: Prisma.$TransponderLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8177,6 +8280,7 @@ export namespace Prisma {
     labeledBy<T extends BusImage$labeledByArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$labeledByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     trainingData<T extends BusImage$trainingDataArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$trainingDataArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DatasetImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inferences<T extends BusImage$inferencesArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$inferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transponderLogs<T extends BusImage$transponderLogsArgs<ExtArgs> = {}>(args?: Subset<T, BusImage$transponderLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8682,6 +8786,30 @@ export namespace Prisma {
   }
 
   /**
+   * BusImage.transponderLogs
+   */
+  export type BusImage$transponderLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    where?: TransponderLogWhereInput
+    orderBy?: TransponderLogOrderByWithRelationInput | TransponderLogOrderByWithRelationInput[]
+    cursor?: TransponderLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransponderLogScalarFieldEnum | TransponderLogScalarFieldEnum[]
+  }
+
+  /**
    * BusImage without action
    */
   export type BusImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8697,6 +8825,1096 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BusImageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TransponderLog
+   */
+
+  export type AggregateTransponderLog = {
+    _count: TransponderLogCountAggregateOutputType | null
+    _min: TransponderLogMinAggregateOutputType | null
+    _max: TransponderLogMaxAggregateOutputType | null
+  }
+
+  export type TransponderLogMinAggregateOutputType = {
+    id: string | null
+    fleetNumber: string | null
+    gateId: string | null
+    timestamp: Date | null
+    matchedImageId: string | null
+    createdAt: Date | null
+  }
+
+  export type TransponderLogMaxAggregateOutputType = {
+    id: string | null
+    fleetNumber: string | null
+    gateId: string | null
+    timestamp: Date | null
+    matchedImageId: string | null
+    createdAt: Date | null
+  }
+
+  export type TransponderLogCountAggregateOutputType = {
+    id: number
+    fleetNumber: number
+    gateId: number
+    timestamp: number
+    matchedImageId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TransponderLogMinAggregateInputType = {
+    id?: true
+    fleetNumber?: true
+    gateId?: true
+    timestamp?: true
+    matchedImageId?: true
+    createdAt?: true
+  }
+
+  export type TransponderLogMaxAggregateInputType = {
+    id?: true
+    fleetNumber?: true
+    gateId?: true
+    timestamp?: true
+    matchedImageId?: true
+    createdAt?: true
+  }
+
+  export type TransponderLogCountAggregateInputType = {
+    id?: true
+    fleetNumber?: true
+    gateId?: true
+    timestamp?: true
+    matchedImageId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TransponderLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TransponderLog to aggregate.
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransponderLogs to fetch.
+     */
+    orderBy?: TransponderLogOrderByWithRelationInput | TransponderLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransponderLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransponderLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransponderLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TransponderLogs
+    **/
+    _count?: true | TransponderLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransponderLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransponderLogMaxAggregateInputType
+  }
+
+  export type GetTransponderLogAggregateType<T extends TransponderLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransponderLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransponderLog[P]>
+      : GetScalarType<T[P], AggregateTransponderLog[P]>
+  }
+
+
+
+
+  export type TransponderLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransponderLogWhereInput
+    orderBy?: TransponderLogOrderByWithAggregationInput | TransponderLogOrderByWithAggregationInput[]
+    by: TransponderLogScalarFieldEnum[] | TransponderLogScalarFieldEnum
+    having?: TransponderLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransponderLogCountAggregateInputType | true
+    _min?: TransponderLogMinAggregateInputType
+    _max?: TransponderLogMaxAggregateInputType
+  }
+
+  export type TransponderLogGroupByOutputType = {
+    id: string
+    fleetNumber: string
+    gateId: string | null
+    timestamp: Date
+    matchedImageId: string | null
+    createdAt: Date
+    _count: TransponderLogCountAggregateOutputType | null
+    _min: TransponderLogMinAggregateOutputType | null
+    _max: TransponderLogMaxAggregateOutputType | null
+  }
+
+  type GetTransponderLogGroupByPayload<T extends TransponderLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransponderLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransponderLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransponderLogGroupByOutputType[P]>
+            : GetScalarType<T[P], TransponderLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransponderLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fleetNumber?: boolean
+    gateId?: boolean
+    timestamp?: boolean
+    matchedImageId?: boolean
+    createdAt?: boolean
+    matchedImage?: boolean | TransponderLog$matchedImageArgs<ExtArgs>
+  }, ExtArgs["result"]["transponderLog"]>
+
+  export type TransponderLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fleetNumber?: boolean
+    gateId?: boolean
+    timestamp?: boolean
+    matchedImageId?: boolean
+    createdAt?: boolean
+    matchedImage?: boolean | TransponderLog$matchedImageArgs<ExtArgs>
+  }, ExtArgs["result"]["transponderLog"]>
+
+  export type TransponderLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fleetNumber?: boolean
+    gateId?: boolean
+    timestamp?: boolean
+    matchedImageId?: boolean
+    createdAt?: boolean
+    matchedImage?: boolean | TransponderLog$matchedImageArgs<ExtArgs>
+  }, ExtArgs["result"]["transponderLog"]>
+
+  export type TransponderLogSelectScalar = {
+    id?: boolean
+    fleetNumber?: boolean
+    gateId?: boolean
+    timestamp?: boolean
+    matchedImageId?: boolean
+    createdAt?: boolean
+  }
+
+  export type TransponderLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fleetNumber" | "gateId" | "timestamp" | "matchedImageId" | "createdAt", ExtArgs["result"]["transponderLog"]>
+  export type TransponderLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    matchedImage?: boolean | TransponderLog$matchedImageArgs<ExtArgs>
+  }
+  export type TransponderLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    matchedImage?: boolean | TransponderLog$matchedImageArgs<ExtArgs>
+  }
+  export type TransponderLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    matchedImage?: boolean | TransponderLog$matchedImageArgs<ExtArgs>
+  }
+
+  export type $TransponderLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TransponderLog"
+    objects: {
+      matchedImage: Prisma.$BusImagePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fleetNumber: string
+      gateId: string | null
+      timestamp: Date
+      matchedImageId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["transponderLog"]>
+    composites: {}
+  }
+
+  type TransponderLogGetPayload<S extends boolean | null | undefined | TransponderLogDefaultArgs> = $Result.GetResult<Prisma.$TransponderLogPayload, S>
+
+  type TransponderLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TransponderLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TransponderLogCountAggregateInputType | true
+    }
+
+  export interface TransponderLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TransponderLog'], meta: { name: 'TransponderLog' } }
+    /**
+     * Find zero or one TransponderLog that matches the filter.
+     * @param {TransponderLogFindUniqueArgs} args - Arguments to find a TransponderLog
+     * @example
+     * // Get one TransponderLog
+     * const transponderLog = await prisma.transponderLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransponderLogFindUniqueArgs>(args: SelectSubset<T, TransponderLogFindUniqueArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TransponderLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TransponderLogFindUniqueOrThrowArgs} args - Arguments to find a TransponderLog
+     * @example
+     * // Get one TransponderLog
+     * const transponderLog = await prisma.transponderLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransponderLogFindUniqueOrThrowArgs>(args: SelectSubset<T, TransponderLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TransponderLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogFindFirstArgs} args - Arguments to find a TransponderLog
+     * @example
+     * // Get one TransponderLog
+     * const transponderLog = await prisma.transponderLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransponderLogFindFirstArgs>(args?: SelectSubset<T, TransponderLogFindFirstArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TransponderLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogFindFirstOrThrowArgs} args - Arguments to find a TransponderLog
+     * @example
+     * // Get one TransponderLog
+     * const transponderLog = await prisma.transponderLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransponderLogFindFirstOrThrowArgs>(args?: SelectSubset<T, TransponderLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TransponderLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TransponderLogs
+     * const transponderLogs = await prisma.transponderLog.findMany()
+     * 
+     * // Get first 10 TransponderLogs
+     * const transponderLogs = await prisma.transponderLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const transponderLogWithIdOnly = await prisma.transponderLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TransponderLogFindManyArgs>(args?: SelectSubset<T, TransponderLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TransponderLog.
+     * @param {TransponderLogCreateArgs} args - Arguments to create a TransponderLog.
+     * @example
+     * // Create one TransponderLog
+     * const TransponderLog = await prisma.transponderLog.create({
+     *   data: {
+     *     // ... data to create a TransponderLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransponderLogCreateArgs>(args: SelectSubset<T, TransponderLogCreateArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TransponderLogs.
+     * @param {TransponderLogCreateManyArgs} args - Arguments to create many TransponderLogs.
+     * @example
+     * // Create many TransponderLogs
+     * const transponderLog = await prisma.transponderLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransponderLogCreateManyArgs>(args?: SelectSubset<T, TransponderLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TransponderLogs and returns the data saved in the database.
+     * @param {TransponderLogCreateManyAndReturnArgs} args - Arguments to create many TransponderLogs.
+     * @example
+     * // Create many TransponderLogs
+     * const transponderLog = await prisma.transponderLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TransponderLogs and only return the `id`
+     * const transponderLogWithIdOnly = await prisma.transponderLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransponderLogCreateManyAndReturnArgs>(args?: SelectSubset<T, TransponderLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TransponderLog.
+     * @param {TransponderLogDeleteArgs} args - Arguments to delete one TransponderLog.
+     * @example
+     * // Delete one TransponderLog
+     * const TransponderLog = await prisma.transponderLog.delete({
+     *   where: {
+     *     // ... filter to delete one TransponderLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransponderLogDeleteArgs>(args: SelectSubset<T, TransponderLogDeleteArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TransponderLog.
+     * @param {TransponderLogUpdateArgs} args - Arguments to update one TransponderLog.
+     * @example
+     * // Update one TransponderLog
+     * const transponderLog = await prisma.transponderLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransponderLogUpdateArgs>(args: SelectSubset<T, TransponderLogUpdateArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TransponderLogs.
+     * @param {TransponderLogDeleteManyArgs} args - Arguments to filter TransponderLogs to delete.
+     * @example
+     * // Delete a few TransponderLogs
+     * const { count } = await prisma.transponderLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransponderLogDeleteManyArgs>(args?: SelectSubset<T, TransponderLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TransponderLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TransponderLogs
+     * const transponderLog = await prisma.transponderLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransponderLogUpdateManyArgs>(args: SelectSubset<T, TransponderLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TransponderLogs and returns the data updated in the database.
+     * @param {TransponderLogUpdateManyAndReturnArgs} args - Arguments to update many TransponderLogs.
+     * @example
+     * // Update many TransponderLogs
+     * const transponderLog = await prisma.transponderLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TransponderLogs and only return the `id`
+     * const transponderLogWithIdOnly = await prisma.transponderLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TransponderLogUpdateManyAndReturnArgs>(args: SelectSubset<T, TransponderLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TransponderLog.
+     * @param {TransponderLogUpsertArgs} args - Arguments to update or create a TransponderLog.
+     * @example
+     * // Update or create a TransponderLog
+     * const transponderLog = await prisma.transponderLog.upsert({
+     *   create: {
+     *     // ... data to create a TransponderLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TransponderLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransponderLogUpsertArgs>(args: SelectSubset<T, TransponderLogUpsertArgs<ExtArgs>>): Prisma__TransponderLogClient<$Result.GetResult<Prisma.$TransponderLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TransponderLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogCountArgs} args - Arguments to filter TransponderLogs to count.
+     * @example
+     * // Count the number of TransponderLogs
+     * const count = await prisma.transponderLog.count({
+     *   where: {
+     *     // ... the filter for the TransponderLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransponderLogCountArgs>(
+      args?: Subset<T, TransponderLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransponderLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TransponderLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransponderLogAggregateArgs>(args: Subset<T, TransponderLogAggregateArgs>): Prisma.PrismaPromise<GetTransponderLogAggregateType<T>>
+
+    /**
+     * Group by TransponderLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransponderLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransponderLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransponderLogGroupByArgs['orderBy'] }
+        : { orderBy?: TransponderLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransponderLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransponderLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TransponderLog model
+   */
+  readonly fields: TransponderLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TransponderLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransponderLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    matchedImage<T extends TransponderLog$matchedImageArgs<ExtArgs> = {}>(args?: Subset<T, TransponderLog$matchedImageArgs<ExtArgs>>): Prisma__BusImageClient<$Result.GetResult<Prisma.$BusImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TransponderLog model
+   */
+  interface TransponderLogFieldRefs {
+    readonly id: FieldRef<"TransponderLog", 'String'>
+    readonly fleetNumber: FieldRef<"TransponderLog", 'String'>
+    readonly gateId: FieldRef<"TransponderLog", 'String'>
+    readonly timestamp: FieldRef<"TransponderLog", 'DateTime'>
+    readonly matchedImageId: FieldRef<"TransponderLog", 'String'>
+    readonly createdAt: FieldRef<"TransponderLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TransponderLog findUnique
+   */
+  export type TransponderLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * Filter, which TransponderLog to fetch.
+     */
+    where: TransponderLogWhereUniqueInput
+  }
+
+  /**
+   * TransponderLog findUniqueOrThrow
+   */
+  export type TransponderLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * Filter, which TransponderLog to fetch.
+     */
+    where: TransponderLogWhereUniqueInput
+  }
+
+  /**
+   * TransponderLog findFirst
+   */
+  export type TransponderLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * Filter, which TransponderLog to fetch.
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransponderLogs to fetch.
+     */
+    orderBy?: TransponderLogOrderByWithRelationInput | TransponderLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TransponderLogs.
+     */
+    cursor?: TransponderLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransponderLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransponderLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TransponderLogs.
+     */
+    distinct?: TransponderLogScalarFieldEnum | TransponderLogScalarFieldEnum[]
+  }
+
+  /**
+   * TransponderLog findFirstOrThrow
+   */
+  export type TransponderLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * Filter, which TransponderLog to fetch.
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransponderLogs to fetch.
+     */
+    orderBy?: TransponderLogOrderByWithRelationInput | TransponderLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TransponderLogs.
+     */
+    cursor?: TransponderLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransponderLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransponderLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TransponderLogs.
+     */
+    distinct?: TransponderLogScalarFieldEnum | TransponderLogScalarFieldEnum[]
+  }
+
+  /**
+   * TransponderLog findMany
+   */
+  export type TransponderLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * Filter, which TransponderLogs to fetch.
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransponderLogs to fetch.
+     */
+    orderBy?: TransponderLogOrderByWithRelationInput | TransponderLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TransponderLogs.
+     */
+    cursor?: TransponderLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransponderLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransponderLogs.
+     */
+    skip?: number
+    distinct?: TransponderLogScalarFieldEnum | TransponderLogScalarFieldEnum[]
+  }
+
+  /**
+   * TransponderLog create
+   */
+  export type TransponderLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TransponderLog.
+     */
+    data: XOR<TransponderLogCreateInput, TransponderLogUncheckedCreateInput>
+  }
+
+  /**
+   * TransponderLog createMany
+   */
+  export type TransponderLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TransponderLogs.
+     */
+    data: TransponderLogCreateManyInput | TransponderLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TransponderLog createManyAndReturn
+   */
+  export type TransponderLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many TransponderLogs.
+     */
+    data: TransponderLogCreateManyInput | TransponderLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TransponderLog update
+   */
+  export type TransponderLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TransponderLog.
+     */
+    data: XOR<TransponderLogUpdateInput, TransponderLogUncheckedUpdateInput>
+    /**
+     * Choose, which TransponderLog to update.
+     */
+    where: TransponderLogWhereUniqueInput
+  }
+
+  /**
+   * TransponderLog updateMany
+   */
+  export type TransponderLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TransponderLogs.
+     */
+    data: XOR<TransponderLogUpdateManyMutationInput, TransponderLogUncheckedUpdateManyInput>
+    /**
+     * Filter which TransponderLogs to update
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * Limit how many TransponderLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TransponderLog updateManyAndReturn
+   */
+  export type TransponderLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * The data used to update TransponderLogs.
+     */
+    data: XOR<TransponderLogUpdateManyMutationInput, TransponderLogUncheckedUpdateManyInput>
+    /**
+     * Filter which TransponderLogs to update
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * Limit how many TransponderLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TransponderLog upsert
+   */
+  export type TransponderLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TransponderLog to update in case it exists.
+     */
+    where: TransponderLogWhereUniqueInput
+    /**
+     * In case the TransponderLog found by the `where` argument doesn't exist, create a new TransponderLog with this data.
+     */
+    create: XOR<TransponderLogCreateInput, TransponderLogUncheckedCreateInput>
+    /**
+     * In case the TransponderLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransponderLogUpdateInput, TransponderLogUncheckedUpdateInput>
+  }
+
+  /**
+   * TransponderLog delete
+   */
+  export type TransponderLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
+    /**
+     * Filter which TransponderLog to delete.
+     */
+    where: TransponderLogWhereUniqueInput
+  }
+
+  /**
+   * TransponderLog deleteMany
+   */
+  export type TransponderLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TransponderLogs to delete
+     */
+    where?: TransponderLogWhereInput
+    /**
+     * Limit how many TransponderLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TransponderLog.matchedImage
+   */
+  export type TransponderLog$matchedImageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusImage
+     */
+    select?: BusImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusImage
+     */
+    omit?: BusImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusImageInclude<ExtArgs> | null
+    where?: BusImageWhereInput
+  }
+
+  /**
+   * TransponderLog without action
+   */
+  export type TransponderLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransponderLog
+     */
+    select?: TransponderLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TransponderLog
+     */
+    omit?: TransponderLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransponderLogInclude<ExtArgs> | null
   }
 
 
@@ -13204,6 +14422,18 @@ export namespace Prisma {
   export type BusImageScalarFieldEnum = (typeof BusImageScalarFieldEnum)[keyof typeof BusImageScalarFieldEnum]
 
 
+  export const TransponderLogScalarFieldEnum: {
+    id: 'id',
+    fleetNumber: 'fleetNumber',
+    gateId: 'gateId',
+    timestamp: 'timestamp',
+    matchedImageId: 'matchedImageId',
+    createdAt: 'createdAt'
+  };
+
+  export type TransponderLogScalarFieldEnum = (typeof TransponderLogScalarFieldEnum)[keyof typeof TransponderLogScalarFieldEnum]
+
+
   export const InferenceLogScalarFieldEnum: {
     id: 'id',
     predictedLabel: 'predictedLabel',
@@ -13818,6 +15048,7 @@ export namespace Prisma {
     labeledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     trainingData?: DatasetImageListRelationFilter
     inferences?: InferenceLogListRelationFilter
+    transponderLogs?: TransponderLogListRelationFilter
   }
 
   export type BusImageOrderByWithRelationInput = {
@@ -13837,6 +15068,7 @@ export namespace Prisma {
     labeledBy?: UserOrderByWithRelationInput
     trainingData?: DatasetImageOrderByRelationAggregateInput
     inferences?: InferenceLogOrderByRelationAggregateInput
+    transponderLogs?: TransponderLogOrderByRelationAggregateInput
   }
 
   export type BusImageWhereUniqueInput = Prisma.AtLeast<{
@@ -13859,6 +15091,7 @@ export namespace Prisma {
     labeledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     trainingData?: DatasetImageListRelationFilter
     inferences?: InferenceLogListRelationFilter
+    transponderLogs?: TransponderLogListRelationFilter
   }, "id">
 
   export type BusImageOrderByWithAggregationInput = {
@@ -13899,6 +15132,66 @@ export namespace Prisma {
     labeledById?: StringNullableWithAggregatesFilter<"BusImage"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BusImage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BusImage"> | Date | string
+  }
+
+  export type TransponderLogWhereInput = {
+    AND?: TransponderLogWhereInput | TransponderLogWhereInput[]
+    OR?: TransponderLogWhereInput[]
+    NOT?: TransponderLogWhereInput | TransponderLogWhereInput[]
+    id?: StringFilter<"TransponderLog"> | string
+    fleetNumber?: StringFilter<"TransponderLog"> | string
+    gateId?: StringNullableFilter<"TransponderLog"> | string | null
+    timestamp?: DateTimeFilter<"TransponderLog"> | Date | string
+    matchedImageId?: StringNullableFilter<"TransponderLog"> | string | null
+    createdAt?: DateTimeFilter<"TransponderLog"> | Date | string
+    matchedImage?: XOR<BusImageNullableScalarRelationFilter, BusImageWhereInput> | null
+  }
+
+  export type TransponderLogOrderByWithRelationInput = {
+    id?: SortOrder
+    fleetNumber?: SortOrder
+    gateId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    matchedImageId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    matchedImage?: BusImageOrderByWithRelationInput
+  }
+
+  export type TransponderLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    matchedImageId?: string
+    AND?: TransponderLogWhereInput | TransponderLogWhereInput[]
+    OR?: TransponderLogWhereInput[]
+    NOT?: TransponderLogWhereInput | TransponderLogWhereInput[]
+    fleetNumber?: StringFilter<"TransponderLog"> | string
+    gateId?: StringNullableFilter<"TransponderLog"> | string | null
+    timestamp?: DateTimeFilter<"TransponderLog"> | Date | string
+    createdAt?: DateTimeFilter<"TransponderLog"> | Date | string
+    matchedImage?: XOR<BusImageNullableScalarRelationFilter, BusImageWhereInput> | null
+  }, "id" | "matchedImageId">
+
+  export type TransponderLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    fleetNumber?: SortOrder
+    gateId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    matchedImageId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: TransponderLogCountOrderByAggregateInput
+    _max?: TransponderLogMaxOrderByAggregateInput
+    _min?: TransponderLogMinOrderByAggregateInput
+  }
+
+  export type TransponderLogScalarWhereWithAggregatesInput = {
+    AND?: TransponderLogScalarWhereWithAggregatesInput | TransponderLogScalarWhereWithAggregatesInput[]
+    OR?: TransponderLogScalarWhereWithAggregatesInput[]
+    NOT?: TransponderLogScalarWhereWithAggregatesInput | TransponderLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TransponderLog"> | string
+    fleetNumber?: StringWithAggregatesFilter<"TransponderLog"> | string
+    gateId?: StringNullableWithAggregatesFilter<"TransponderLog"> | string | null
+    timestamp?: DateTimeWithAggregatesFilter<"TransponderLog"> | Date | string
+    matchedImageId?: StringNullableWithAggregatesFilter<"TransponderLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TransponderLog"> | Date | string
   }
 
   export type InferenceLogWhereInput = {
@@ -14559,6 +15852,7 @@ export namespace Prisma {
     labeledBy?: UserCreateNestedOneWithoutBusImagesInput
     trainingData?: DatasetImageCreateNestedManyWithoutImageInput
     inferences?: InferenceLogCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageUncheckedCreateInput = {
@@ -14577,6 +15871,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
     inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogUncheckedCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageUpdateInput = {
@@ -14595,6 +15890,7 @@ export namespace Prisma {
     labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
     trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
     inferences?: InferenceLogUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type BusImageUncheckedUpdateInput = {
@@ -14613,6 +15909,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
     inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUncheckedUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type BusImageCreateManyInput = {
@@ -14660,6 +15957,68 @@ export namespace Prisma {
     labeledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransponderLogCreateInput = {
+    id?: string
+    fleetNumber: string
+    gateId?: string | null
+    timestamp: Date | string
+    createdAt?: Date | string
+    matchedImage?: BusImageCreateNestedOneWithoutTransponderLogsInput
+  }
+
+  export type TransponderLogUncheckedCreateInput = {
+    id?: string
+    fleetNumber: string
+    gateId?: string | null
+    timestamp: Date | string
+    matchedImageId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TransponderLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    matchedImage?: BusImageUpdateOneWithoutTransponderLogsNestedInput
+  }
+
+  export type TransponderLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    matchedImageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransponderLogCreateManyInput = {
+    id?: string
+    fleetNumber: string
+    gateId?: string | null
+    timestamp: Date | string
+    matchedImageId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TransponderLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransponderLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    matchedImageId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InferenceLogCreateInput = {
@@ -15305,11 +16664,21 @@ export namespace Prisma {
     none?: InferenceLogWhereInput
   }
 
+  export type TransponderLogListRelationFilter = {
+    every?: TransponderLogWhereInput
+    some?: TransponderLogWhereInput
+    none?: TransponderLogWhereInput
+  }
+
   export type DatasetImageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type InferenceLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransponderLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15413,6 +16782,38 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumAngleNullableFilter<$PrismaModel>
     _max?: NestedEnumAngleNullableFilter<$PrismaModel>
+  }
+
+  export type BusImageNullableScalarRelationFilter = {
+    is?: BusImageWhereInput | null
+    isNot?: BusImageWhereInput | null
+  }
+
+  export type TransponderLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    fleetNumber?: SortOrder
+    gateId?: SortOrder
+    timestamp?: SortOrder
+    matchedImageId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TransponderLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fleetNumber?: SortOrder
+    gateId?: SortOrder
+    timestamp?: SortOrder
+    matchedImageId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TransponderLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    fleetNumber?: SortOrder
+    gateId?: SortOrder
+    timestamp?: SortOrder
+    matchedImageId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumLabelStatusFilter<$PrismaModel = never> = {
@@ -15941,6 +17342,13 @@ export namespace Prisma {
     connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
   }
 
+  export type TransponderLogCreateNestedManyWithoutMatchedImageInput = {
+    create?: XOR<TransponderLogCreateWithoutMatchedImageInput, TransponderLogUncheckedCreateWithoutMatchedImageInput> | TransponderLogCreateWithoutMatchedImageInput[] | TransponderLogUncheckedCreateWithoutMatchedImageInput[]
+    connectOrCreate?: TransponderLogCreateOrConnectWithoutMatchedImageInput | TransponderLogCreateOrConnectWithoutMatchedImageInput[]
+    createMany?: TransponderLogCreateManyMatchedImageInputEnvelope
+    connect?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+  }
+
   export type DatasetImageUncheckedCreateNestedManyWithoutImageInput = {
     create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
     connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
@@ -15953,6 +17361,13 @@ export namespace Prisma {
     connectOrCreate?: InferenceLogCreateOrConnectWithoutImageInput | InferenceLogCreateOrConnectWithoutImageInput[]
     createMany?: InferenceLogCreateManyImageInputEnvelope
     connect?: InferenceLogWhereUniqueInput | InferenceLogWhereUniqueInput[]
+  }
+
+  export type TransponderLogUncheckedCreateNestedManyWithoutMatchedImageInput = {
+    create?: XOR<TransponderLogCreateWithoutMatchedImageInput, TransponderLogUncheckedCreateWithoutMatchedImageInput> | TransponderLogCreateWithoutMatchedImageInput[] | TransponderLogUncheckedCreateWithoutMatchedImageInput[]
+    connectOrCreate?: TransponderLogCreateOrConnectWithoutMatchedImageInput | TransponderLogCreateOrConnectWithoutMatchedImageInput[]
+    createMany?: TransponderLogCreateManyMatchedImageInputEnvelope
+    connect?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
   }
 
   export type NullableEnumLabelStatusFieldUpdateOperationsInput = {
@@ -16013,6 +17428,20 @@ export namespace Prisma {
     deleteMany?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
   }
 
+  export type TransponderLogUpdateManyWithoutMatchedImageNestedInput = {
+    create?: XOR<TransponderLogCreateWithoutMatchedImageInput, TransponderLogUncheckedCreateWithoutMatchedImageInput> | TransponderLogCreateWithoutMatchedImageInput[] | TransponderLogUncheckedCreateWithoutMatchedImageInput[]
+    connectOrCreate?: TransponderLogCreateOrConnectWithoutMatchedImageInput | TransponderLogCreateOrConnectWithoutMatchedImageInput[]
+    upsert?: TransponderLogUpsertWithWhereUniqueWithoutMatchedImageInput | TransponderLogUpsertWithWhereUniqueWithoutMatchedImageInput[]
+    createMany?: TransponderLogCreateManyMatchedImageInputEnvelope
+    set?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    disconnect?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    delete?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    connect?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    update?: TransponderLogUpdateWithWhereUniqueWithoutMatchedImageInput | TransponderLogUpdateWithWhereUniqueWithoutMatchedImageInput[]
+    updateMany?: TransponderLogUpdateManyWithWhereWithoutMatchedImageInput | TransponderLogUpdateManyWithWhereWithoutMatchedImageInput[]
+    deleteMany?: TransponderLogScalarWhereInput | TransponderLogScalarWhereInput[]
+  }
+
   export type DatasetImageUncheckedUpdateManyWithoutImageNestedInput = {
     create?: XOR<DatasetImageCreateWithoutImageInput, DatasetImageUncheckedCreateWithoutImageInput> | DatasetImageCreateWithoutImageInput[] | DatasetImageUncheckedCreateWithoutImageInput[]
     connectOrCreate?: DatasetImageCreateOrConnectWithoutImageInput | DatasetImageCreateOrConnectWithoutImageInput[]
@@ -16039,6 +17468,36 @@ export namespace Prisma {
     update?: InferenceLogUpdateWithWhereUniqueWithoutImageInput | InferenceLogUpdateWithWhereUniqueWithoutImageInput[]
     updateMany?: InferenceLogUpdateManyWithWhereWithoutImageInput | InferenceLogUpdateManyWithWhereWithoutImageInput[]
     deleteMany?: InferenceLogScalarWhereInput | InferenceLogScalarWhereInput[]
+  }
+
+  export type TransponderLogUncheckedUpdateManyWithoutMatchedImageNestedInput = {
+    create?: XOR<TransponderLogCreateWithoutMatchedImageInput, TransponderLogUncheckedCreateWithoutMatchedImageInput> | TransponderLogCreateWithoutMatchedImageInput[] | TransponderLogUncheckedCreateWithoutMatchedImageInput[]
+    connectOrCreate?: TransponderLogCreateOrConnectWithoutMatchedImageInput | TransponderLogCreateOrConnectWithoutMatchedImageInput[]
+    upsert?: TransponderLogUpsertWithWhereUniqueWithoutMatchedImageInput | TransponderLogUpsertWithWhereUniqueWithoutMatchedImageInput[]
+    createMany?: TransponderLogCreateManyMatchedImageInputEnvelope
+    set?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    disconnect?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    delete?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    connect?: TransponderLogWhereUniqueInput | TransponderLogWhereUniqueInput[]
+    update?: TransponderLogUpdateWithWhereUniqueWithoutMatchedImageInput | TransponderLogUpdateWithWhereUniqueWithoutMatchedImageInput[]
+    updateMany?: TransponderLogUpdateManyWithWhereWithoutMatchedImageInput | TransponderLogUpdateManyWithWhereWithoutMatchedImageInput[]
+    deleteMany?: TransponderLogScalarWhereInput | TransponderLogScalarWhereInput[]
+  }
+
+  export type BusImageCreateNestedOneWithoutTransponderLogsInput = {
+    create?: XOR<BusImageCreateWithoutTransponderLogsInput, BusImageUncheckedCreateWithoutTransponderLogsInput>
+    connectOrCreate?: BusImageCreateOrConnectWithoutTransponderLogsInput
+    connect?: BusImageWhereUniqueInput
+  }
+
+  export type BusImageUpdateOneWithoutTransponderLogsNestedInput = {
+    create?: XOR<BusImageCreateWithoutTransponderLogsInput, BusImageUncheckedCreateWithoutTransponderLogsInput>
+    connectOrCreate?: BusImageCreateOrConnectWithoutTransponderLogsInput
+    upsert?: BusImageUpsertWithoutTransponderLogsInput
+    disconnect?: BusImageWhereInput | boolean
+    delete?: BusImageWhereInput | boolean
+    connect?: BusImageWhereUniqueInput
+    update?: XOR<XOR<BusImageUpdateToOneWithWhereWithoutTransponderLogsInput, BusImageUpdateWithoutTransponderLogsInput>, BusImageUncheckedUpdateWithoutTransponderLogsInput>
   }
 
   export type BusImageCreateNestedOneWithoutInferencesInput = {
@@ -16668,6 +18127,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     trainingData?: DatasetImageCreateNestedManyWithoutImageInput
     inferences?: InferenceLogCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageUncheckedCreateWithoutLabeledByInput = {
@@ -16685,6 +18145,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
     inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogUncheckedCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageCreateOrConnectWithoutLabeledByInput = {
@@ -17129,6 +18590,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TransponderLogCreateWithoutMatchedImageInput = {
+    id?: string
+    fleetNumber: string
+    gateId?: string | null
+    timestamp: Date | string
+    createdAt?: Date | string
+  }
+
+  export type TransponderLogUncheckedCreateWithoutMatchedImageInput = {
+    id?: string
+    fleetNumber: string
+    gateId?: string | null
+    timestamp: Date | string
+    createdAt?: Date | string
+  }
+
+  export type TransponderLogCreateOrConnectWithoutMatchedImageInput = {
+    where: TransponderLogWhereUniqueInput
+    create: XOR<TransponderLogCreateWithoutMatchedImageInput, TransponderLogUncheckedCreateWithoutMatchedImageInput>
+  }
+
+  export type TransponderLogCreateManyMatchedImageInputEnvelope = {
+    data: TransponderLogCreateManyMatchedImageInput | TransponderLogCreateManyMatchedImageInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutBusImagesInput = {
     update: XOR<UserUpdateWithoutBusImagesInput, UserUncheckedUpdateWithoutBusImagesInput>
     create: XOR<UserCreateWithoutBusImagesInput, UserUncheckedCreateWithoutBusImagesInput>
@@ -17218,6 +18705,122 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"InferenceLog"> | Date | string
   }
 
+  export type TransponderLogUpsertWithWhereUniqueWithoutMatchedImageInput = {
+    where: TransponderLogWhereUniqueInput
+    update: XOR<TransponderLogUpdateWithoutMatchedImageInput, TransponderLogUncheckedUpdateWithoutMatchedImageInput>
+    create: XOR<TransponderLogCreateWithoutMatchedImageInput, TransponderLogUncheckedCreateWithoutMatchedImageInput>
+  }
+
+  export type TransponderLogUpdateWithWhereUniqueWithoutMatchedImageInput = {
+    where: TransponderLogWhereUniqueInput
+    data: XOR<TransponderLogUpdateWithoutMatchedImageInput, TransponderLogUncheckedUpdateWithoutMatchedImageInput>
+  }
+
+  export type TransponderLogUpdateManyWithWhereWithoutMatchedImageInput = {
+    where: TransponderLogScalarWhereInput
+    data: XOR<TransponderLogUpdateManyMutationInput, TransponderLogUncheckedUpdateManyWithoutMatchedImageInput>
+  }
+
+  export type TransponderLogScalarWhereInput = {
+    AND?: TransponderLogScalarWhereInput | TransponderLogScalarWhereInput[]
+    OR?: TransponderLogScalarWhereInput[]
+    NOT?: TransponderLogScalarWhereInput | TransponderLogScalarWhereInput[]
+    id?: StringFilter<"TransponderLog"> | string
+    fleetNumber?: StringFilter<"TransponderLog"> | string
+    gateId?: StringNullableFilter<"TransponderLog"> | string | null
+    timestamp?: DateTimeFilter<"TransponderLog"> | Date | string
+    matchedImageId?: StringNullableFilter<"TransponderLog"> | string | null
+    createdAt?: DateTimeFilter<"TransponderLog"> | Date | string
+  }
+
+  export type BusImageCreateWithoutTransponderLogsInput = {
+    id?: string
+    imageUrl: string
+    label?: $Enums.LabelStatus | null
+    confidence?: number | null
+    fleetNumber?: string | null
+    cameraId?: string | null
+    timeTaken?: Date | string | null
+    weatherCondition?: $Enums.Weather | null
+    cameraAngle?: $Enums.Angle | null
+    isVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    labeledBy?: UserCreateNestedOneWithoutBusImagesInput
+    trainingData?: DatasetImageCreateNestedManyWithoutImageInput
+    inferences?: InferenceLogCreateNestedManyWithoutImageInput
+  }
+
+  export type BusImageUncheckedCreateWithoutTransponderLogsInput = {
+    id?: string
+    imageUrl: string
+    label?: $Enums.LabelStatus | null
+    confidence?: number | null
+    fleetNumber?: string | null
+    cameraId?: string | null
+    timeTaken?: Date | string | null
+    weatherCondition?: $Enums.Weather | null
+    cameraAngle?: $Enums.Angle | null
+    isVerified?: boolean
+    labeledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
+    inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
+  }
+
+  export type BusImageCreateOrConnectWithoutTransponderLogsInput = {
+    where: BusImageWhereUniqueInput
+    create: XOR<BusImageCreateWithoutTransponderLogsInput, BusImageUncheckedCreateWithoutTransponderLogsInput>
+  }
+
+  export type BusImageUpsertWithoutTransponderLogsInput = {
+    update: XOR<BusImageUpdateWithoutTransponderLogsInput, BusImageUncheckedUpdateWithoutTransponderLogsInput>
+    create: XOR<BusImageCreateWithoutTransponderLogsInput, BusImageUncheckedCreateWithoutTransponderLogsInput>
+    where?: BusImageWhereInput
+  }
+
+  export type BusImageUpdateToOneWithWhereWithoutTransponderLogsInput = {
+    where?: BusImageWhereInput
+    data: XOR<BusImageUpdateWithoutTransponderLogsInput, BusImageUncheckedUpdateWithoutTransponderLogsInput>
+  }
+
+  export type BusImageUpdateWithoutTransponderLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    label?: NullableEnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus | null
+    confidence?: NullableIntFieldUpdateOperationsInput | number | null
+    fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
+    cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
+    trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
+    inferences?: InferenceLogUpdateManyWithoutImageNestedInput
+  }
+
+  export type BusImageUncheckedUpdateWithoutTransponderLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    label?: NullableEnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus | null
+    confidence?: NullableIntFieldUpdateOperationsInput | number | null
+    fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
+    cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    labeledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
+    inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
+  }
+
   export type BusImageCreateWithoutInferencesInput = {
     id?: string
     imageUrl: string
@@ -17233,6 +18836,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     labeledBy?: UserCreateNestedOneWithoutBusImagesInput
     trainingData?: DatasetImageCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageUncheckedCreateWithoutInferencesInput = {
@@ -17250,6 +18854,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trainingData?: DatasetImageUncheckedCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogUncheckedCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageCreateOrConnectWithoutInferencesInput = {
@@ -17316,6 +18921,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
     trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type BusImageUncheckedUpdateWithoutInferencesInput = {
@@ -17333,6 +18939,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUncheckedUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type ModelRegistryUpsertWithoutInferencesInput = {
@@ -17515,6 +19122,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     labeledBy?: UserCreateNestedOneWithoutBusImagesInput
     inferences?: InferenceLogCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageUncheckedCreateWithoutTrainingDataInput = {
@@ -17532,6 +19140,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     inferences?: InferenceLogUncheckedCreateNestedManyWithoutImageInput
+    transponderLogs?: TransponderLogUncheckedCreateNestedManyWithoutMatchedImageInput
   }
 
   export type BusImageCreateOrConnectWithoutTrainingDataInput = {
@@ -17592,6 +19201,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     labeledBy?: UserUpdateOneWithoutBusImagesNestedInput
     inferences?: InferenceLogUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type BusImageUncheckedUpdateWithoutTrainingDataInput = {
@@ -17609,6 +19219,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUncheckedUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type DatasetCreateWithoutModelsInput = {
@@ -17763,6 +19374,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUpdateManyWithoutImageNestedInput
     inferences?: InferenceLogUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type BusImageUncheckedUpdateWithoutLabeledByInput = {
@@ -17780,6 +19392,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trainingData?: DatasetImageUncheckedUpdateManyWithoutImageNestedInput
     inferences?: InferenceLogUncheckedUpdateManyWithoutImageNestedInput
+    transponderLogs?: TransponderLogUncheckedUpdateManyWithoutMatchedImageNestedInput
   }
 
   export type BusImageUncheckedUpdateManyWithoutLabeledByInput = {
@@ -17905,6 +19518,14 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type TransponderLogCreateManyMatchedImageInput = {
+    id?: string
+    fleetNumber: string
+    gateId?: string | null
+    timestamp: Date | string
+    createdAt?: Date | string
+  }
+
   export type DatasetImageUpdateWithoutImageInput = {
     dataset?: DatasetUpdateOneRequiredWithoutImagesNestedInput
   }
@@ -17938,6 +19559,30 @@ export namespace Prisma {
     predictedLabel?: EnumLabelStatusFieldUpdateOperationsInput | $Enums.LabelStatus
     confidence?: IntFieldUpdateOperationsInput | number
     modelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransponderLogUpdateWithoutMatchedImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransponderLogUncheckedUpdateWithoutMatchedImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransponderLogUncheckedUpdateManyWithoutMatchedImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fleetNumber?: StringFieldUpdateOperationsInput | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

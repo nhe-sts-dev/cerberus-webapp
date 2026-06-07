@@ -9,6 +9,8 @@ type LabelStatus = "DIRTY" | "CLEAN" | "UNCERTAIN" | "UNLABELED";
 
 const CAMERA_SECRET_KEY = process.env.CAMERA_SECRET_KEY ?? "super-secret-axis-key-123";
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export async function POST(req: NextRequest) {
   try {
     // 1. Authenticate
@@ -69,6 +71,51 @@ export async function POST(req: NextRequest) {
         inferences: true, 
       }
     });
+
+    // --- REVERSE MATCHING ALGORITHM ---
+    // Look for an orphaned TransponderLog that arrived recently
+    const timeWindowSeconds = 60;
+    const minTime = new Date(newImageRecord.timeTaken!.getTime() - timeWindowSeconds * 1000);
+    const maxTime = new Date(newImageRecord.timeTaken!.getTime() + timeWindowSeconds * 1000);
+
+    let matchingTransponder = await db.transponderLog.findFirst({
+      where: {
+        matchedImageId: null, // Look for logs that haven't been claimed yet
+        timestamp: { gte: minTime, lte: maxTime }
+      },
+      orderBy: { timestamp: 'desc' }
+    });
+
+    // 2. If no match is found, maybe the camera is 1 second behind! Let's wait.
+    if (!matchingTransponder) {
+    console.log("No immediate match found. Sleeping for 2 seconds to wait for camera...");
+    await delay(2000); // Pause execution for 2 seconds
+    
+    // 3. Try one last time
+    matchingTransponder = await db.transponderLog.findFirst({
+      where: {
+        matchedImageId: null, // Look for logs that haven't been claimed yet
+        timestamp: { gte: minTime, lte: maxTime }
+      },
+      orderBy: { timestamp: 'desc' }
+      });
+    }
+
+    if (matchingTransponder) {
+      // Tie them together!
+      await db.$transaction([
+        db.busImage.update({
+          where: { id: newImageRecord.id },
+          data: { fleetNumber: matchingTransponder.fleetNumber }
+        }),
+        db.transponderLog.update({
+          where: { id: matchingTransponder.id },
+          data: { matchedImageId: newImageRecord.id }
+        })
+      ]);
+      console.log(`Matched Image ${newImageRecord.id} with Fleet ${matchingTransponder.fleetNumber}`);
+    }
+    // ----------------------------------
 
     return NextResponse.json({ 
       success: true, 
