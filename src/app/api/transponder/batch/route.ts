@@ -3,7 +3,7 @@ import { db } from "~/server/db";
 import Papa from "papaparse";
 import * as xlsx from "xlsx";
 
-const GOLDEN_ARROW_SECRET = process.env.CAMERA_SECRET_KEY ?? "super-secret-axis-key-123";
+const GOLDEN_ARROW_SECRET = process.env.TRANSPONDER_SECRET_KEY ?? "super-secret-axis-key-123";
 
 interface GateEvent {
   fleetNumber: string;
