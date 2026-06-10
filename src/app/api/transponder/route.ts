@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "~/server/db";
+import { db } from "~/server/db"; 
 
 // You can use the same secret, or generate a specific one for Golden Arrow
 const GOLDEN_ARROW_SECRET = process.env.TRANSPONDER_SECRET_KEY ?? "super-secret-axis-key-123";
