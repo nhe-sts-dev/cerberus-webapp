@@ -20,7 +20,14 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Parse the multipart form data
-    const formData = await req.formData();
+    // const formData = await req.formData();
+    // Replace the current req.formData() line with this:
+    let formData: FormData;
+    try {
+      formData = await req.formData();
+    } catch {
+      return NextResponse.json({ error: "Invalid form data or missing body" }, { status: 400 });
+    }
     const file = formData.get("file") as File | null;
     
     // Extract inference metadata sent by the camera
