@@ -34,6 +34,11 @@ export async function POST(req: NextRequest) {
 
     const transponderTime = new Date(timestamp);
 
+    // Catch invalid dates so Prisma doesn't throw a 500 error
+    if (isNaN(transponderTime.getTime())) {
+      return NextResponse.json({ error: "Invalid timestamp value" }, { status: 400 });
+    }
+
     // 3. Save the ping to our log
     // Normalize gateId to a string to satisfy the DB type
     const gateIdStr = typeof gateId === 'string' ? gateId : "Unknown-Gate";

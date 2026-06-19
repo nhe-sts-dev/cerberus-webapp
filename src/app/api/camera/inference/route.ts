@@ -28,7 +28,15 @@ export async function POST(req: NextRequest) {
     } catch {
       return NextResponse.json({ error: "Invalid form data or missing body" }, { status: 400 });
     }
-    const file = formData.get("file") as File | null;
+    // const file = formData.get("file") as File | null;
+    // Safely extract and enforce the file type
+    const fileEntry = formData.get("file") ?? formData.get("image");
+    
+    if (!fileEntry || typeof fileEntry === "string") {
+      return NextResponse.json({ error: "No valid image file provided" }, { status: 400 });
+    }
+    
+    const file = fileEntry;
     
     // Extract inference metadata sent by the camera
     const cameraId = (formData.get("cameraId") as string) ?? "Unknown-Camera";

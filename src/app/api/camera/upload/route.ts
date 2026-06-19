@@ -27,7 +27,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid form data or missing body" }, { status: 400 });
     }
     // const file = formData.get("file") as File | null; // Axis usually sends it under "file" or "image"
-    const file = (formData.get("file") ?? formData.get("image")) as File | null;
+    // const file = (formData.get("file") ?? formData.get("image")) as File | null;
+    // Safely extract and enforce the file type
+    const fileEntry = formData.get("file") ?? formData.get("image");
+    
+    if (!fileEntry || typeof fileEntry === "string") {
+      return NextResponse.json({ error: "No valid image file provided" }, { status: 400 });
+    }
+    
+    const file = fileEntry;
     
     // Optional: Capture metadata if the camera sends it in the form
     const cameraId = (formData.get("cameraId") as string) ?? "Unknown-Axis-Camera";
