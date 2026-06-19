@@ -39,6 +39,12 @@ export async function POST(req: NextRequest) {
     
     // Optional: Capture metadata if the camera sends it in the form
     const cameraId = (formData.get("cameraId") as string) ?? "Unknown-Axis-Camera";
+    const cameraTimestamp = formData.get("timestamp") as string | null;
+    
+    // Use camera's time if provided, otherwise fallback to server time
+    const timeTaken = cameraTimestamp && !isNaN(new Date(cameraTimestamp).getTime()) 
+      ? new Date(cameraTimestamp) 
+      : new Date();
 
     if (!file) {
       return NextResponse.json({ error: "No image file provided" }, { status: 400 });
@@ -69,7 +75,7 @@ export async function POST(req: NextRequest) {
         imageUrl: publicUrl,
         label: "UNLABELED",
         cameraId: cameraId,
-        timeTaken: new Date(), // Storing the exact time we received it
+        timeTaken: timeTaken,
       },
     });
 

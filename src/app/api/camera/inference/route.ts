@@ -46,6 +46,13 @@ export async function POST(req: NextRequest) {
     const confidenceStr = formData.get("confidence") as string;
     const confidence = confidenceStr ? parseInt(confidenceStr, 10) : 0;
 
+    const cameraTimestamp = formData.get("timestamp") as string | null;
+    
+    // Use camera's time if provided, otherwise fallback to server time
+    const timeTaken = cameraTimestamp && !isNaN(new Date(cameraTimestamp).getTime()) 
+      ? new Date(cameraTimestamp) 
+      : new Date();
+
     if (!file || !modelId || !predictedLabel) {
       return NextResponse.json({ error: "Missing required file, modelId, or label" }, { status: 400 });
     }
@@ -72,7 +79,7 @@ export async function POST(req: NextRequest) {
         imageUrl: publicUrl,
         cameraId: cameraId,
         fleetNumber: fleetNumber,
-        timeTaken: new Date(),
+        timeTaken: timeTaken,
         label: "UNLABELED", // Awaiting human verification in the dashboard
         inferences: {
           create: {
