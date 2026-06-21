@@ -242,6 +242,10 @@ async function main() {
     {
       name: "Permutation: Out of Bounds (>60s delay should NOT match)",
       fn: async (): Promise<[boolean, string]> => {
+
+        // Clean up leftover pings from the Tailgating test
+        await db.transponderLog.deleteMany({ where: { gateId: "Test-Gate" } });
+
         const timeTooOld = new Date(Date.now() - 65000).toISOString(); // 65 seconds ago
 
         await fetch(`${BASE_URL}/api/transponder`, {
