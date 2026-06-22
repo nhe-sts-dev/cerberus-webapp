@@ -36,9 +36,41 @@ export function ModelsClient() {
     return <div className="text-center text-gray-500 py-20">No models found in the registry.</div>;
   }
 
+  // const handleBuildEAP = async (modelId: string, tfliteUrl: string | null) => {
+  //   if (!tfliteUrl) return alert("No TFLite weights URL available.");
+    
+  //   setBuildingIds(prev => new Set(prev).add(modelId));
+    
+  //   try {
+  //     const res = await fetch('/api/models/trigger-build', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ modelId, tfliteUrl })
+  //     });
+      
+  //     if (!res.ok) throw new Error("Failed to trigger build");
+  //     alert("EAP Build triggered successfully! It will be available in ~2 minutes. Refresh the page later.");
+  //   } catch {
+  //     alert("Error triggering build.");
+  //   } finally {
+  //     setBuildingIds(prev => {
+  //       const next = new Set(prev);
+  //       next.delete(modelId);
+  //       return next;
+  //     });
+  //   }
+  // };
+
   const handleBuildEAP = async (modelId: string, tfliteUrl: string | null) => {
     if (!tfliteUrl) return alert("No TFLite weights URL available.");
     
+    // Optional: Confirm with the user if an EAP already exists
+    const model = models.find(m => m.id === modelId);
+    if (model?.eapUrl) {
+      const confirmRebuild = window.confirm("An EAP file already exists for this model. Recompiling will overwrite it. Continue?");
+      if (!confirmRebuild) return;
+    }
+
     setBuildingIds(prev => new Set(prev).add(modelId));
     
     try {
@@ -50,7 +82,7 @@ export function ModelsClient() {
       
       if (!res.ok) throw new Error("Failed to trigger build");
       alert("EAP Build triggered successfully! It will be available in ~2 minutes. Refresh the page later.");
-    } catch {
+    } catch (e) {
       alert("Error triggering build.");
     } finally {
       setBuildingIds(prev => {
@@ -97,30 +129,63 @@ export function ModelsClient() {
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
                   Trained on {model.createdAt.toLocaleDateString()}
-                  {model.weightsUrl && (
+                  {/* {model.weightsUrl && (
                     <a href={model.weightsUrl} target="_blank" rel="noreferrer" className="ml-4 text-blue-500 hover:underline">
                       Download .tflite Weights
                     </a>
-                  )}
+                  )} */}
                 </p>
               </div>
 
-              {/* THE NEW BUTTONS */}
-              <div className="flex gap-3">
-                {model.eapUrl ? (
-                  <a href={model.eapUrl} target="_blank" rel="noreferrer" 
-                     className="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md font-medium transition">
-                    ⬇ Download .EAP
+             {/* --- THE TRIPLE BUTTON LAYOUT --- */}
+              <div className="flex flex-wrap gap-2">
+                
+                {/* 1. Download TFLite Button */}
+                {model.weightsUrl ? (
+                  <a href={model.weightsUrl} target="_blank" rel="noreferrer" 
+                     className="bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 text-sm px-3 py-1.5 rounded-md font-medium transition flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    .TFLITE
                   </a>
                 ) : (
-                  <button 
-                    onClick={() => handleBuildEAP(model.id, model.weightsUrl)}
-                    disabled={isBuilding || !model.weightsUrl}
-                    className="bg-gray-800 disabled:bg-gray-400 hover:bg-gray-900 text-white text-sm px-4 py-2 rounded-md font-medium transition"
-                  >
-                    {isBuilding ? "⏳ Compiling in Cloud..." : "⚙️ Compile to .EAP"}
+                  <button disabled className="bg-gray-100 text-gray-400 border border-gray-200 text-sm px-3 py-1.5 rounded-md font-medium flex items-center gap-1 cursor-not-allowed">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    .TFLITE
                   </button>
                 )}
+
+                {/* 2. Download EAP Button */}
+                {model.eapUrl ? (
+                  <a href={model.eapUrl} target="_blank" rel="noreferrer" 
+                     className="bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 text-sm px-3 py-1.5 rounded-md font-medium transition flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    .EAP
+                  </a>
+                ) : (
+                  <button disabled className="bg-gray-100 text-gray-400 border border-gray-200 text-sm px-3 py-1.5 rounded-md font-medium flex items-center gap-1 cursor-not-allowed" title="Compile the model first to generate the EAP file">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    .EAP
+                  </button>
+                )}
+
+                {/* 3. Compile Button (Always Available) */}
+                <button 
+                  onClick={() => handleBuildEAP(model.id, model.weightsUrl)}
+                  disabled={isBuilding || !model.weightsUrl}
+                  className="bg-gray-800 disabled:bg-gray-400 hover:bg-gray-900 text-white text-sm px-4 py-1.5 rounded-md font-medium transition ml-2 flex items-center gap-2"
+                >
+                  {isBuilding ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                      Compiling...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                      {model.eapUrl ? "Recompile" : "Compile"}
+                    </>
+                  )}
+                </button>
               </div>
 
               <div>
