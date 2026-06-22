@@ -14,18 +14,36 @@ jobs:
 
       - name: Download .tflite Model
         run: |
+          # 1. Wipe out any existing model directory to guarantee a clean slate
+          rm -rf camera-firmware/vdo-larod/model
           mkdir -p camera-firmware/vdo-larod/model
-          curl -L "${{ github.event.client_payload.tfliteUrl }}" -o camera-firmware/vdo-larod/model/model.tflite
+          
+          # 2. Download the EXACT weights passed from the Next.js button
+          echo "Downloading model from: ${{ github.event.client_payload.tfliteUrl }}"
+          curl -f -L "${{ github.event.client_payload.tfliteUrl }}" -o camera-firmware/vdo-larod/model/model.tflite
+        # run: |
+        #   mkdir -p camera-firmware/vdo-larod/model
+        #   curl -L "{{ github.event.client_payload.tfliteUrl }}" -o camera-firmware/vdo-larod/model/model.tflite
 
       - name: Build EAP via Docker
         run: |
           cd camera-firmware/vdo-larod
-          # Assuming your Dockerfile builds the .eap and leaves it in a /build folder
-          docker build --build-arg ARCH=aarch64 -t acap-builder .
-          # Extract the compiled .eap file from the container to the host runner
+          # explicitly pass the ARTPEC-8 chip argument
+          docker build --build-arg ARCH=aarch64 --build-arg CHIP=artpec8 -t acap-builder .
+          
+          # Extract the compiled .eap file from the container
           docker create --name temp_container acap-builder
-          docker cp temp_container:/build/vdo_larod_1_0_0_aarch64.eap ./model.eap
+          docker cp temp_container:/opt/app/ .  # Axis SDK usually outputs to /opt/app/ in the container
+          mv app/*.eap ./model.eap
           docker rm temp_container
+        # run: |
+        #   cd camera-firmware/vdo-larod
+        #   # Assuming your Dockerfile builds the .eap and leaves it in a /build folder
+        #   docker build --build-arg ARCH=aarch64 -t acap-builder .
+        #   # Extract the compiled .eap file from the container to the host runner
+        #   docker create --name temp_container acap-builder
+        #   docker cp temp_container:/build/vdo_larod_1_0_0_aarch64.eap ./model.eap
+        #   docker rm temp_container
 
       - name: Upload EAP to Cloudflare R2
         env:
