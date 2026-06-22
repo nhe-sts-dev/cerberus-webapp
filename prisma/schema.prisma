@@ -224,6 +224,7 @@ model ModelRegistry {
   
   // Storage
   weightsUrl      String?            // S3/R2 URI to the .tflite file
+  eapUrl          String?  // The compiled .eap URL
   
   // ML Metadata (JSON allows flexible schema for hyperparameters and metrics)
   hyperparameters Json?             // e.g., { "learning_rate": 0.001, "batch_size": 32, "epochs": 50 }

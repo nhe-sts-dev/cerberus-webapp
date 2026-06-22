@@ -1,0 +1,45 @@
+name: Build AXIS EAP File
+
+# Triggered via REST API from Next.js
+on:
+  repository_dispatch:
+    types: [build-eap]
+
+jobs:
+  compile_acap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download .tflite Model
+        run: |
+          mkdir -p camera-firmware/vdo-larod/model
+          curl -L "${{ github.event.client_payload.tfliteUrl }}" -o camera-firmware/vdo-larod/model/model.tflite
+
+      - name: Build EAP via Docker
+        run: |
+          cd camera-firmware/vdo-larod
+          # Assuming your Dockerfile builds the .eap and leaves it in a /build folder
+          docker build --build-arg ARCH=aarch64 -t acap-builder .
+          # Extract the compiled .eap file from the container to the host runner
+          docker create --name temp_container acap-builder
+          docker cp temp_container:/build/vdo_larod_1_0_0_aarch64.eap ./model.eap
+          docker rm temp_container
+
+      - name: Upload EAP to Cloudflare R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          EAP_KEY="models/compiled/${{ github.event.client_payload.modelId }}.eap"
+          aws s3 cp camera-firmware/vdo-larod/model.eap s3://${{ secrets.R2_BUCKET_NAME }}/$EAP_KEY --endpoint-url ${{ secrets.R2_ENDPOINT }}
+          
+          # Pass the URL back to Next.js
+          PUBLIC_URL="https://${{ secrets.R2_PUBLIC_DOMAIN }}/$EAP_KEY"
+          
+          curl -X POST "${{ secrets.NEXT_PUBLIC_SITE_URL }}/api/models/webhook-eap" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.CERBERUS_WEBHOOK_SECRET }}" \
+          -d "{\"modelId\": \"${{ github.event.client_payload.modelId }}\", \"eapUrl\": \"$PUBLIC_URL\"}"

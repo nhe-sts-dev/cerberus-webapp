@@ -4,6 +4,7 @@ import { api } from "~/trpc/react";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine
 } from "recharts";
+import { useState } from "react";
 
 // 1. Define Types to cast the Prisma JSON objects
 interface CurveData {
@@ -25,6 +26,7 @@ interface ModelMetrics {
 
 export function ModelsClient() {
   const { data: models, isLoading } = api.models.getAllModels.useQuery();
+  const [buildingIds, setBuildingIds] = useState<Set<string>>(new Set());
 
   if (isLoading) {
     return <div className="text-center text-gray-500 py-20">Loading models...</div>;
@@ -34,12 +36,38 @@ export function ModelsClient() {
     return <div className="text-center text-gray-500 py-20">No models found in the registry.</div>;
   }
 
+  const handleBuildEAP = async (modelId: string, tfliteUrl: string | null) => {
+    if (!tfliteUrl) return alert("No TFLite weights URL available.");
+    
+    setBuildingIds(prev => new Set(prev).add(modelId));
+    
+    try {
+      const res = await fetch('/api/models/trigger-build', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ modelId, tfliteUrl })
+      });
+      
+      if (!res.ok) throw new Error("Failed to trigger build");
+      alert("EAP Build triggered successfully! It will be available in ~2 minutes. Refresh the page later.");
+    } catch {
+      alert("Error triggering build.");
+    } finally {
+      setBuildingIds(prev => {
+        const next = new Set(prev);
+        next.delete(modelId);
+        return next;
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-8">
       {models.map((model) => {
         // Cast the JSON fields
         const metrics = model.metrics as unknown as ModelMetrics;
         const hp = model.hyperparameters as Record<string, number | string>;
+        const isBuilding = buildingIds.has(model.id);
 
         // Format chart data by zipping the arrays together
         const rocData = metrics?.curve_data?.roc?.fpr.map((fpr, i) => ({
@@ -76,6 +104,25 @@ export function ModelsClient() {
                   )}
                 </p>
               </div>
+
+              {/* THE NEW BUTTONS */}
+              <div className="flex gap-3">
+                {model.eapUrl ? (
+                  <a href={model.eapUrl} target="_blank" rel="noreferrer" 
+                     className="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-md font-medium transition">
+                    ⬇ Download .EAP
+                  </a>
+                ) : (
+                  <button 
+                    onClick={() => handleBuildEAP(model.id, model.weightsUrl)}
+                    disabled={isBuilding || !model.weightsUrl}
+                    className="bg-gray-800 disabled:bg-gray-400 hover:bg-gray-900 text-white text-sm px-4 py-2 rounded-md font-medium transition"
+                  >
+                    {isBuilding ? "⏳ Compiling in Cloud..." : "⚙️ Compile to .EAP"}
+                  </button>
+                )}
+              </div>
+
               <div>
                 <span className="bg-gray-800 text-white text-xs px-3 py-1 rounded-md font-medium tracking-wide">
                   {model.status}

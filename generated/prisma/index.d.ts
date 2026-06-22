@@ -13160,6 +13160,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture | null
     status: $Enums.ModelStatus | null
     weightsUrl: string | null
+    eapUrl: string | null
     datasetId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -13172,6 +13173,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture | null
     status: $Enums.ModelStatus | null
     weightsUrl: string | null
+    eapUrl: string | null
     datasetId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -13184,6 +13186,7 @@ export namespace Prisma {
     architecture: number
     status: number
     weightsUrl: number
+    eapUrl: number
     hyperparameters: number
     metrics: number
     datasetId: number
@@ -13200,6 +13203,7 @@ export namespace Prisma {
     architecture?: true
     status?: true
     weightsUrl?: true
+    eapUrl?: true
     datasetId?: true
     createdAt?: true
     updatedAt?: true
@@ -13212,6 +13216,7 @@ export namespace Prisma {
     architecture?: true
     status?: true
     weightsUrl?: true
+    eapUrl?: true
     datasetId?: true
     createdAt?: true
     updatedAt?: true
@@ -13224,6 +13229,7 @@ export namespace Prisma {
     architecture?: true
     status?: true
     weightsUrl?: true
+    eapUrl?: true
     hyperparameters?: true
     metrics?: true
     datasetId?: true
@@ -13311,6 +13317,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status: $Enums.ModelStatus
     weightsUrl: string | null
+    eapUrl: string | null
     hyperparameters: JsonValue | null
     metrics: JsonValue | null
     datasetId: string | null
@@ -13342,6 +13349,7 @@ export namespace Prisma {
     architecture?: boolean
     status?: boolean
     weightsUrl?: boolean
+    eapUrl?: boolean
     hyperparameters?: boolean
     metrics?: boolean
     datasetId?: boolean
@@ -13359,6 +13367,7 @@ export namespace Prisma {
     architecture?: boolean
     status?: boolean
     weightsUrl?: boolean
+    eapUrl?: boolean
     hyperparameters?: boolean
     metrics?: boolean
     datasetId?: boolean
@@ -13374,6 +13383,7 @@ export namespace Prisma {
     architecture?: boolean
     status?: boolean
     weightsUrl?: boolean
+    eapUrl?: boolean
     hyperparameters?: boolean
     metrics?: boolean
     datasetId?: boolean
@@ -13389,6 +13399,7 @@ export namespace Prisma {
     architecture?: boolean
     status?: boolean
     weightsUrl?: boolean
+    eapUrl?: boolean
     hyperparameters?: boolean
     metrics?: boolean
     datasetId?: boolean
@@ -13396,7 +13407,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ModelRegistryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "version" | "architecture" | "status" | "weightsUrl" | "hyperparameters" | "metrics" | "datasetId" | "createdAt" | "updatedAt", ExtArgs["result"]["modelRegistry"]>
+  export type ModelRegistryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "version" | "architecture" | "status" | "weightsUrl" | "eapUrl" | "hyperparameters" | "metrics" | "datasetId" | "createdAt" | "updatedAt", ExtArgs["result"]["modelRegistry"]>
   export type ModelRegistryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     dataset?: boolean | ModelRegistry$datasetArgs<ExtArgs>
     inferences?: boolean | ModelRegistry$inferencesArgs<ExtArgs>
@@ -13422,6 +13433,7 @@ export namespace Prisma {
       architecture: $Enums.ModelArchitecture
       status: $Enums.ModelStatus
       weightsUrl: string | null
+      eapUrl: string | null
       hyperparameters: Prisma.JsonValue | null
       metrics: Prisma.JsonValue | null
       datasetId: string | null
@@ -13858,6 +13870,7 @@ export namespace Prisma {
     readonly architecture: FieldRef<"ModelRegistry", 'ModelArchitecture'>
     readonly status: FieldRef<"ModelRegistry", 'ModelStatus'>
     readonly weightsUrl: FieldRef<"ModelRegistry", 'String'>
+    readonly eapUrl: FieldRef<"ModelRegistry", 'String'>
     readonly hyperparameters: FieldRef<"ModelRegistry", 'Json'>
     readonly metrics: FieldRef<"ModelRegistry", 'Json'>
     readonly datasetId: FieldRef<"ModelRegistry", 'String'>
@@ -14471,6 +14484,7 @@ export namespace Prisma {
     architecture: 'architecture',
     status: 'status',
     weightsUrl: 'weightsUrl',
+    eapUrl: 'eapUrl',
     hyperparameters: 'hyperparameters',
     metrics: 'metrics',
     datasetId: 'datasetId',
@@ -15366,6 +15380,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFilter<"ModelRegistry"> | $Enums.ModelArchitecture
     status?: EnumModelStatusFilter<"ModelRegistry"> | $Enums.ModelStatus
     weightsUrl?: StringNullableFilter<"ModelRegistry"> | string | null
+    eapUrl?: StringNullableFilter<"ModelRegistry"> | string | null
     hyperparameters?: JsonNullableFilter<"ModelRegistry">
     metrics?: JsonNullableFilter<"ModelRegistry">
     datasetId?: StringNullableFilter<"ModelRegistry"> | string | null
@@ -15382,6 +15397,7 @@ export namespace Prisma {
     architecture?: SortOrder
     status?: SortOrder
     weightsUrl?: SortOrderInput | SortOrder
+    eapUrl?: SortOrderInput | SortOrder
     hyperparameters?: SortOrderInput | SortOrder
     metrics?: SortOrderInput | SortOrder
     datasetId?: SortOrderInput | SortOrder
@@ -15402,6 +15418,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFilter<"ModelRegistry"> | $Enums.ModelArchitecture
     status?: EnumModelStatusFilter<"ModelRegistry"> | $Enums.ModelStatus
     weightsUrl?: StringNullableFilter<"ModelRegistry"> | string | null
+    eapUrl?: StringNullableFilter<"ModelRegistry"> | string | null
     hyperparameters?: JsonNullableFilter<"ModelRegistry">
     metrics?: JsonNullableFilter<"ModelRegistry">
     datasetId?: StringNullableFilter<"ModelRegistry"> | string | null
@@ -15418,6 +15435,7 @@ export namespace Prisma {
     architecture?: SortOrder
     status?: SortOrder
     weightsUrl?: SortOrderInput | SortOrder
+    eapUrl?: SortOrderInput | SortOrder
     hyperparameters?: SortOrderInput | SortOrder
     metrics?: SortOrderInput | SortOrder
     datasetId?: SortOrderInput | SortOrder
@@ -15438,6 +15456,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureWithAggregatesFilter<"ModelRegistry"> | $Enums.ModelArchitecture
     status?: EnumModelStatusWithAggregatesFilter<"ModelRegistry"> | $Enums.ModelStatus
     weightsUrl?: StringNullableWithAggregatesFilter<"ModelRegistry"> | string | null
+    eapUrl?: StringNullableWithAggregatesFilter<"ModelRegistry"> | string | null
     hyperparameters?: JsonNullableWithAggregatesFilter<"ModelRegistry">
     metrics?: JsonNullableWithAggregatesFilter<"ModelRegistry">
     datasetId?: StringNullableWithAggregatesFilter<"ModelRegistry"> | string | null
@@ -16180,6 +16199,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -16195,6 +16215,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     datasetId?: string | null
@@ -16210,6 +16231,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16225,6 +16247,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     datasetId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16240,6 +16263,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     datasetId?: string | null
@@ -16254,6 +16278,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16267,6 +16292,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     datasetId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17015,6 +17041,7 @@ export namespace Prisma {
     architecture?: SortOrder
     status?: SortOrder
     weightsUrl?: SortOrder
+    eapUrl?: SortOrder
     hyperparameters?: SortOrder
     metrics?: SortOrder
     datasetId?: SortOrder
@@ -17029,6 +17056,7 @@ export namespace Prisma {
     architecture?: SortOrder
     status?: SortOrder
     weightsUrl?: SortOrder
+    eapUrl?: SortOrder
     datasetId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17041,6 +17069,7 @@ export namespace Prisma {
     architecture?: SortOrder
     status?: SortOrder
     weightsUrl?: SortOrder
+    eapUrl?: SortOrder
     datasetId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18869,6 +18898,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -18883,6 +18913,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     datasetId?: string | null
@@ -18960,6 +18991,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18974,6 +19006,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     datasetId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19006,6 +19039,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -19020,6 +19054,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -19079,6 +19114,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFilter<"ModelRegistry"> | $Enums.ModelArchitecture
     status?: EnumModelStatusFilter<"ModelRegistry"> | $Enums.ModelStatus
     weightsUrl?: StringNullableFilter<"ModelRegistry"> | string | null
+    eapUrl?: StringNullableFilter<"ModelRegistry"> | string | null
     hyperparameters?: JsonNullableFilter<"ModelRegistry">
     metrics?: JsonNullableFilter<"ModelRegistry">
     datasetId?: StringNullableFilter<"ModelRegistry"> | string | null
@@ -19597,6 +19633,7 @@ export namespace Prisma {
     architecture: $Enums.ModelArchitecture
     status?: $Enums.ModelStatus
     weightsUrl?: string | null
+    eapUrl?: string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -19622,6 +19659,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19636,6 +19674,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19650,6 +19689,7 @@ export namespace Prisma {
     architecture?: EnumModelArchitectureFieldUpdateOperationsInput | $Enums.ModelArchitecture
     status?: EnumModelStatusFieldUpdateOperationsInput | $Enums.ModelStatus
     weightsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    eapUrl?: NullableStringFieldUpdateOperationsInput | string | null
     hyperparameters?: NullableJsonNullValueInput | InputJsonValue
     metrics?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

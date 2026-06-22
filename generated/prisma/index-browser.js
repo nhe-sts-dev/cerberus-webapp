@@ -228,6 +228,7 @@ exports.Prisma.ModelRegistryScalarFieldEnum = {
   architecture: 'architecture',
   status: 'status',
   weightsUrl: 'weightsUrl',
+  eapUrl: 'eapUrl',
   hyperparameters: 'hyperparameters',
   metrics: 'metrics',
   datasetId: 'datasetId',
