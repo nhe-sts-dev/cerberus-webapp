@@ -1,6 +1,8 @@
 // Run via: pnpm exec tsx --env-file=.env scripts/test-apis.ts
 
 import { db } from "../src/server/db";
+import * as fs from 'fs';
+import * as path from 'path';
 
 // --- STRICT TYPES FOR API RESPONSES ---
 type CameraUploadResponse = { success?: boolean; imageId?: string; error?: string };
@@ -13,7 +15,17 @@ const TRANSPONDER_SECRET = process.env.TRANSPONDER_SECRET_KEY ?? "super-secret-a
 
 const colors = { green: "\x1b[32m", red: "\x1b[31m", blue: "\x1b[34m", reset: "\x1b[0m" };
 
-function getMockFile(): Blob {
+// function getMockFile(): Blob {
+//   return new Blob(["fake_image_data_buffer"], { type: "image/jpeg" });
+// }
+function getMockFile(type: "clean" | "dirty" | "dummy" = "dirty"): Blob {
+  if (type === "clean" || type === "dirty") {
+    const filePath = path.join(process.cwd(), `public/test-images/${type}_bus.jpg`);
+    if (fs.existsSync(filePath)) {
+      const fileBuffer = fs.readFileSync(filePath);
+      return new Blob([fileBuffer], { type: "image/jpeg" });
+    }
+  }
   return new Blob(["fake_image_data_buffer"], { type: "image/jpeg" });
 }
 
