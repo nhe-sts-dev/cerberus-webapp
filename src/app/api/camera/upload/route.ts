@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
     // --- NEW: CLOUD INFERENCE TRIGGER ---
     try {
       const productionModel = await db.modelRegistry.findFirst({
-        where: { status: "PRODUCTION" },
+        where: { status: "EXPERIMENTAL" },   //change to PRODUCTION
         orderBy: { createdAt: "desc" }
       });
 
