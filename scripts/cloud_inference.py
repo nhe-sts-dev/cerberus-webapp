@@ -94,34 +94,34 @@ def main():
             cursor.close()
             conn.close()
 
-    # 6. Send Email via Resend
-    print("Sending Email Alert...")
-    resend.api_key = RESEND_API_KEY
+    # # 6. Send Email via Resend
+    # print("Sending Email Alert...")
+    # resend.api_key = RESEND_API_KEY
     
-    color = "#ef4444" if predicted_label == "DIRTY" else "#22c55e"
+    # color = "#ef4444" if predicted_label == "DIRTY" else "#22c55e"
     
-    html_content = f"""
-    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
-        <div style="background-color: {color}; padding: 20px; text-align: center; color: white;">
-            <h1 style="margin: 0;">Bus Classified as {predicted_label}</h1>
-        </div>
-        <div style="padding: 20px;">
-            <img src="{IMAGE_URL}" style="width: 100%; border-radius: 4px; margin-bottom: 20px;" alt="Bus Image" />
-            <p><strong>Confidence:</strong> {dirty_confidence}% Dirty</p>
-            <p><strong>Model Used:</strong> {MODEL_NAME} (v{MODEL_VERSION})</p>
-            <p><strong>Image ID:</strong> {IMAGE_ID}</p>
-            <a href="https://project-560xk.vercel.app/dashboard" style="display: inline-block; background: #1f2937; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px;">View in Dashboard</a>
-        </div>
-    </div>
-    """
+    # html_content = f"""
+    # <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+    #     <div style="background-color: {color}; padding: 20px; text-align: center; color: white;">
+    #         <h1 style="margin: 0;">Bus Classified as {predicted_label}</h1>
+    #     </div>
+    #     <div style="padding: 20px;">
+    #         <img src="{IMAGE_URL}" style="width: 100%; border-radius: 4px; margin-bottom: 20px;" alt="Bus Image" />
+    #         <p><strong>Confidence:</strong> {dirty_confidence}% Dirty</p>
+    #         <p><strong>Model Used:</strong> {MODEL_NAME} (v{MODEL_VERSION})</p>
+    #         <p><strong>Image ID:</strong> {IMAGE_ID}</p>
+    #         <a href="https://project-560xk.vercel.app/dashboard" style="display: inline-block; background: #1f2937; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px;">View in Dashboard</a>
+    #     </div>
+    # </div>
+    # """
 
-    resend.Emails.send({
-        "from": "cerberus@jludik.dev",
-        "to": ["jacques@ludik.dev"],
-        "subject": f"Alert: Bus classified as {predicted_label}",
-        "html": html_content
-    })
-    print("Process complete. Check your inbox!")
+    # resend.Emails.send({
+    #     "from": "cerberus@jludik.dev",
+    #     "to": ["jacques@ludik.dev"],
+    #     "subject": f"Alert: Bus classified as {predicted_label}",
+    #     "html": html_content
+    # })
+    # print("Process complete. Check your inbox!")
 
 if __name__ == "__main__":
     main()
