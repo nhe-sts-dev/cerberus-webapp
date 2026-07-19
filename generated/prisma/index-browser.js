@@ -135,6 +135,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -261,6 +262,13 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.Role = exports.$Enums.Role = {
+  ADMIN: 'ADMIN',
+  OWNER: 'OWNER',
+  MONITOR: 'MONITOR',
+  MANAGER: 'MANAGER'
+};
+
 exports.LabelStatus = exports.$Enums.LabelStatus = {
   DIRTY: 'DIRTY',
   CLEAN: 'CLEAN',
