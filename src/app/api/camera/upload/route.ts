@@ -11,7 +11,9 @@ export async function POST(req: NextRequest) {
   try {
     // 1. Authenticate the request
     const authHeader = req.headers.get("authorization");
-    if (authHeader !== `Bearer ${CAMERA_SECRET_KEY}`) {
+    const urlToken = req.nextUrl.searchParams.get("token");
+
+    if (authHeader !== `Bearer ${CAMERA_SECRET_KEY}`&& urlToken !== CAMERA_SECRET_KEY) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
