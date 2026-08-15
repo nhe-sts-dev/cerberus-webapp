@@ -147,6 +147,7 @@ model BusImage {
   // Fleet & Hardware Context
   fleetNumber      String?      // e.g., "Bus-402"
   cameraId         String?      // e.g., "Axis-P1465-SouthGate"
+  gateId           String?      // e.g., "Main-Depot-Gate" This is the depot gate
   
   // Environmental Context
   timeTaken        DateTime?

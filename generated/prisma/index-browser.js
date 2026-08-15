@@ -183,6 +183,7 @@ exports.Prisma.BusImageScalarFieldEnum = {
   confidence: 'confidence',
   fleetNumber: 'fleetNumber',
   cameraId: 'cameraId',
+  gateId: 'gateId',
   timeTaken: 'timeTaken',
   weatherCondition: 'weatherCondition',
   cameraAngle: 'cameraAngle',

@@ -7581,6 +7581,7 @@ export namespace Prisma {
     confidence: number | null
     fleetNumber: string | null
     cameraId: string | null
+    gateId: string | null
     timeTaken: Date | null
     weatherCondition: $Enums.Weather | null
     cameraAngle: $Enums.Angle | null
@@ -7597,6 +7598,7 @@ export namespace Prisma {
     confidence: number | null
     fleetNumber: string | null
     cameraId: string | null
+    gateId: string | null
     timeTaken: Date | null
     weatherCondition: $Enums.Weather | null
     cameraAngle: $Enums.Angle | null
@@ -7613,6 +7615,7 @@ export namespace Prisma {
     confidence: number
     fleetNumber: number
     cameraId: number
+    gateId: number
     timeTaken: number
     weatherCondition: number
     cameraAngle: number
@@ -7639,6 +7642,7 @@ export namespace Prisma {
     confidence?: true
     fleetNumber?: true
     cameraId?: true
+    gateId?: true
     timeTaken?: true
     weatherCondition?: true
     cameraAngle?: true
@@ -7655,6 +7659,7 @@ export namespace Prisma {
     confidence?: true
     fleetNumber?: true
     cameraId?: true
+    gateId?: true
     timeTaken?: true
     weatherCondition?: true
     cameraAngle?: true
@@ -7671,6 +7676,7 @@ export namespace Prisma {
     confidence?: true
     fleetNumber?: true
     cameraId?: true
+    gateId?: true
     timeTaken?: true
     weatherCondition?: true
     cameraAngle?: true
@@ -7774,6 +7780,7 @@ export namespace Prisma {
     confidence: number | null
     fleetNumber: string | null
     cameraId: string | null
+    gateId: string | null
     timeTaken: Date | null
     weatherCondition: $Enums.Weather | null
     cameraAngle: $Enums.Angle | null
@@ -7809,6 +7816,7 @@ export namespace Prisma {
     confidence?: boolean
     fleetNumber?: boolean
     cameraId?: boolean
+    gateId?: boolean
     timeTaken?: boolean
     weatherCondition?: boolean
     cameraAngle?: boolean
@@ -7830,6 +7838,7 @@ export namespace Prisma {
     confidence?: boolean
     fleetNumber?: boolean
     cameraId?: boolean
+    gateId?: boolean
     timeTaken?: boolean
     weatherCondition?: boolean
     cameraAngle?: boolean
@@ -7847,6 +7856,7 @@ export namespace Prisma {
     confidence?: boolean
     fleetNumber?: boolean
     cameraId?: boolean
+    gateId?: boolean
     timeTaken?: boolean
     weatherCondition?: boolean
     cameraAngle?: boolean
@@ -7864,6 +7874,7 @@ export namespace Prisma {
     confidence?: boolean
     fleetNumber?: boolean
     cameraId?: boolean
+    gateId?: boolean
     timeTaken?: boolean
     weatherCondition?: boolean
     cameraAngle?: boolean
@@ -7873,7 +7884,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type BusImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "imageUrl" | "label" | "confidence" | "fleetNumber" | "cameraId" | "timeTaken" | "weatherCondition" | "cameraAngle" | "isVerified" | "labeledById" | "createdAt" | "updatedAt", ExtArgs["result"]["busImage"]>
+  export type BusImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "imageUrl" | "label" | "confidence" | "fleetNumber" | "cameraId" | "gateId" | "timeTaken" | "weatherCondition" | "cameraAngle" | "isVerified" | "labeledById" | "createdAt" | "updatedAt", ExtArgs["result"]["busImage"]>
   export type BusImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     labeledBy?: boolean | BusImage$labeledByArgs<ExtArgs>
     trainingData?: boolean | BusImage$trainingDataArgs<ExtArgs>
@@ -7903,6 +7914,7 @@ export namespace Prisma {
       confidence: number | null
       fleetNumber: string | null
       cameraId: string | null
+      gateId: string | null
       timeTaken: Date | null
       weatherCondition: $Enums.Weather | null
       cameraAngle: $Enums.Angle | null
@@ -8343,6 +8355,7 @@ export namespace Prisma {
     readonly confidence: FieldRef<"BusImage", 'Int'>
     readonly fleetNumber: FieldRef<"BusImage", 'String'>
     readonly cameraId: FieldRef<"BusImage", 'String'>
+    readonly gateId: FieldRef<"BusImage", 'String'>
     readonly timeTaken: FieldRef<"BusImage", 'DateTime'>
     readonly weatherCondition: FieldRef<"BusImage", 'Weather'>
     readonly cameraAngle: FieldRef<"BusImage", 'Angle'>
@@ -14451,6 +14464,7 @@ export namespace Prisma {
     confidence: 'confidence',
     fleetNumber: 'fleetNumber',
     cameraId: 'cameraId',
+    gateId: 'gateId',
     timeTaken: 'timeTaken',
     weatherCondition: 'weatherCondition',
     cameraAngle: 'cameraAngle',
@@ -15099,6 +15113,7 @@ export namespace Prisma {
     confidence?: IntNullableFilter<"BusImage"> | number | null
     fleetNumber?: StringNullableFilter<"BusImage"> | string | null
     cameraId?: StringNullableFilter<"BusImage"> | string | null
+    gateId?: StringNullableFilter<"BusImage"> | string | null
     timeTaken?: DateTimeNullableFilter<"BusImage"> | Date | string | null
     weatherCondition?: EnumWeatherNullableFilter<"BusImage"> | $Enums.Weather | null
     cameraAngle?: EnumAngleNullableFilter<"BusImage"> | $Enums.Angle | null
@@ -15119,6 +15134,7 @@ export namespace Prisma {
     confidence?: SortOrderInput | SortOrder
     fleetNumber?: SortOrderInput | SortOrder
     cameraId?: SortOrderInput | SortOrder
+    gateId?: SortOrderInput | SortOrder
     timeTaken?: SortOrderInput | SortOrder
     weatherCondition?: SortOrderInput | SortOrder
     cameraAngle?: SortOrderInput | SortOrder
@@ -15142,6 +15158,7 @@ export namespace Prisma {
     confidence?: IntNullableFilter<"BusImage"> | number | null
     fleetNumber?: StringNullableFilter<"BusImage"> | string | null
     cameraId?: StringNullableFilter<"BusImage"> | string | null
+    gateId?: StringNullableFilter<"BusImage"> | string | null
     timeTaken?: DateTimeNullableFilter<"BusImage"> | Date | string | null
     weatherCondition?: EnumWeatherNullableFilter<"BusImage"> | $Enums.Weather | null
     cameraAngle?: EnumAngleNullableFilter<"BusImage"> | $Enums.Angle | null
@@ -15162,6 +15179,7 @@ export namespace Prisma {
     confidence?: SortOrderInput | SortOrder
     fleetNumber?: SortOrderInput | SortOrder
     cameraId?: SortOrderInput | SortOrder
+    gateId?: SortOrderInput | SortOrder
     timeTaken?: SortOrderInput | SortOrder
     weatherCondition?: SortOrderInput | SortOrder
     cameraAngle?: SortOrderInput | SortOrder
@@ -15186,6 +15204,7 @@ export namespace Prisma {
     confidence?: IntNullableWithAggregatesFilter<"BusImage"> | number | null
     fleetNumber?: StringNullableWithAggregatesFilter<"BusImage"> | string | null
     cameraId?: StringNullableWithAggregatesFilter<"BusImage"> | string | null
+    gateId?: StringNullableWithAggregatesFilter<"BusImage"> | string | null
     timeTaken?: DateTimeNullableWithAggregatesFilter<"BusImage"> | Date | string | null
     weatherCondition?: EnumWeatherNullableWithAggregatesFilter<"BusImage"> | $Enums.Weather | null
     cameraAngle?: EnumAngleNullableWithAggregatesFilter<"BusImage"> | $Enums.Angle | null
@@ -15916,6 +15935,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -15935,6 +15955,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -15954,6 +15975,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -15973,6 +15995,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -15992,6 +16015,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -16008,6 +16032,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -16023,6 +16048,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -16789,6 +16815,7 @@ export namespace Prisma {
     confidence?: SortOrder
     fleetNumber?: SortOrder
     cameraId?: SortOrder
+    gateId?: SortOrder
     timeTaken?: SortOrder
     weatherCondition?: SortOrder
     cameraAngle?: SortOrder
@@ -16809,6 +16836,7 @@ export namespace Prisma {
     confidence?: SortOrder
     fleetNumber?: SortOrder
     cameraId?: SortOrder
+    gateId?: SortOrder
     timeTaken?: SortOrder
     weatherCondition?: SortOrder
     cameraAngle?: SortOrder
@@ -16825,6 +16853,7 @@ export namespace Prisma {
     confidence?: SortOrder
     fleetNumber?: SortOrder
     cameraId?: SortOrder
+    gateId?: SortOrder
     timeTaken?: SortOrder
     weatherCondition?: SortOrder
     cameraAngle?: SortOrder
@@ -18247,6 +18276,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -18265,6 +18295,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -18406,6 +18437,7 @@ export namespace Prisma {
     confidence?: IntNullableFilter<"BusImage"> | number | null
     fleetNumber?: StringNullableFilter<"BusImage"> | string | null
     cameraId?: StringNullableFilter<"BusImage"> | string | null
+    gateId?: StringNullableFilter<"BusImage"> | string | null
     timeTaken?: DateTimeNullableFilter<"BusImage"> | Date | string | null
     weatherCondition?: EnumWeatherNullableFilter<"BusImage"> | $Enums.Weather | null
     cameraAngle?: EnumAngleNullableFilter<"BusImage"> | $Enums.Angle | null
@@ -18880,6 +18912,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -18898,6 +18931,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -18932,6 +18966,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -18950,6 +18985,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -18968,6 +19004,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -18986,6 +19023,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -19055,6 +19093,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -19073,6 +19112,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -19261,6 +19301,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -19279,6 +19320,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -19340,6 +19382,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -19358,6 +19401,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -19466,6 +19510,7 @@ export namespace Prisma {
     confidence?: number | null
     fleetNumber?: string | null
     cameraId?: string | null
+    gateId?: string | null
     timeTaken?: Date | string | null
     weatherCondition?: $Enums.Weather | null
     cameraAngle?: $Enums.Angle | null
@@ -19513,6 +19558,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -19531,6 +19577,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
@@ -19549,6 +19596,7 @@ export namespace Prisma {
     confidence?: NullableIntFieldUpdateOperationsInput | number | null
     fleetNumber?: NullableStringFieldUpdateOperationsInput | string | null
     cameraId?: NullableStringFieldUpdateOperationsInput | string | null
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
     timeTaken?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     weatherCondition?: NullableEnumWeatherFieldUpdateOperationsInput | $Enums.Weather | null
     cameraAngle?: NullableEnumAngleFieldUpdateOperationsInput | $Enums.Angle | null
