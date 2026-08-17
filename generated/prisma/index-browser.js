@@ -136,6 +136,7 @@ exports.Prisma.UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   role: 'role',
+  gateId: 'gateId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -265,7 +266,6 @@ exports.Prisma.JsonNullValueFilter = {
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
-  OWNER: 'OWNER',
   MONITOR: 'MONITOR',
   MANAGER: 'MANAGER'
 };

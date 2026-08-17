@@ -31,7 +31,7 @@ model Post {
 
 enum Role {
   ADMIN
-  OWNER
+  // OWNER
   MONITOR
   MANAGER
 }
@@ -43,6 +43,7 @@ model User {
   emailVerified Boolean    @default(false)
   image         String? //@db.Text
   role          Role?
+  gateId        String? // New field for Manager depot assignment
   busImages     BusImage[]
   // password      String
   createdAt     DateTime   @default(now())
