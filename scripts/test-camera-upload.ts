@@ -1,6 +1,6 @@
 // // Run via: pnpm exec tsx --env-file=.env scripts/test-apis-real-image.ts
 
-// Run via: pnpm exec tsx --env-file=.env scripts/test-apis-real-image.ts
+// Run via: pnpm exec tsx --env-file=.env scripts/test-camera-upload.ts
 
 import { db } from "../src/server/db";
 import { s3Client } from "../src/server/s3";
@@ -9,26 +9,21 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 type CameraUploadResponse = { success?: boolean; imageId?: string; error?: string };
-type InferenceResponse = { success?: boolean; imageId?: string; inferenceId?: string; error?: string };
-type TransponderResponse = { success?: boolean; matchedImageId?: string; message?: string; error?: string };
 
-const BASE_URL = "https://project-560xk.vercel.app/"; 
+const BASE_URL = "https://project-560xk.vercel.app"; // Test locally first
 const CAMERA_SECRET = process.env.CAMERA_SECRET_KEY ?? "super-secret-axis-key-123";
-const TRANSPONDER_SECRET = process.env.TRANSPONDER_SECRET_KEY ?? "super-secret-axis-key-123";
 
 const colors = { green: "\x1b[32m", red: "\x1b[31m", blue: "\x1b[34m", reset: "\x1b[0m" };
 
-function getMockFile(type: "clean" | "dirty" | "dummy" = "dirty"): Blob {
-  if (type === "clean" || type === "dirty") {
-    const filePath = path.join(process.cwd(), `public/test-images/${type}_bus.jpg`);
-    if (fs.existsSync(filePath)) {
-      const fileBuffer = fs.readFileSync(filePath);
-      return new Blob([fileBuffer], { type: "image/jpeg" });
-    } else {
-      console.warn(`\n⚠️  WARNING: Could not find ${filePath}. Falling back to dummy buffer.`);
-    }
+function getMockFile(type: "clean" | "dirty"): Blob {
+  const filePath = path.join(process.cwd(), `public/test-images/${type}_bus.jpg`);
+  if (fs.existsSync(filePath)) {
+    const fileBuffer = fs.readFileSync(filePath);
+    return new Blob([fileBuffer], { type: "image/jpeg" });
+  } else {
+    console.warn(`\n⚠️  WARNING: Could not find ${filePath}. Falling back to dummy buffer.`);
+    return new Blob(["fake_image_data_buffer"], { type: "image/jpeg" });
   }
-  return new Blob(["fake_image_data_buffer"], { type: "image/jpeg" });
 }
 
 async function runTest(testName: string, testFunc: () => Promise<[boolean, string]>) {
@@ -53,81 +48,71 @@ async function runTest(testName: string, testFunc: () => Promise<[boolean, strin
 }
 
 async function main() {
-  console.log(`Starting Integration Tests for: ${BASE_URL}`);
+  console.log(`Starting Upload API Tests for: ${BASE_URL}`);
   console.log("-".repeat(80));
 
-  const targetModel = await db.modelRegistry.findFirst({
-    where: { 
-      status: "EXPERIMENTAL", 
-      weightsUrl: { not: null } 
-    },
-    orderBy: { createdAt: "desc" }
-  });
-
-  if (!targetModel) {
-    console.error(`${colors.red}CRITICAL ERROR: No EXPERIMENTAL model with a weightsUrl found in Neon DB!${colors.reset}`);
-    process.exit(1);
-  }
-
-  console.log(`✅ Using Real Model for Tests: ${colors.blue}${targetModel.name} (v${targetModel.version})${colors.reset}\n`);
+  const TEST_CAMERA_ID = "Test-Upload-Script-Cam";
 
   const tests = [
     {
       name: "Upload API - Reject Missing File",
       fn: async (): Promise<[boolean, string]> => {
         const formData = new FormData();
-        formData.append("cameraId", "Test-Cam"); 
-        formData.append("timestamp", new Date().toISOString());
+        formData.append("cameraId", TEST_CAMERA_ID); 
         formData.append("gateId", "AG"); 
+        formData.append("timestamp", new Date().toISOString());
+        
         const res = await fetch(`${BASE_URL}/api/camera/upload?token=${CAMERA_SECRET}`, {
           method: "POST", body: formData
         });
+        
         return res.status === 400 ? [true, "Correctly rejected missing file"] : [false, `Got ${res.status}`];
       }
     },
     {
-      name: "Inference API - Successful Inference Logging",
+      name: "Upload API - Successfully Upload Clean Bus",
       fn: async (): Promise<[boolean, string]> => {
         const formData = new FormData();
-        formData.append("file", getMockFile("dirty"), "test.jpg");
-        formData.append("cameraId", "Test-Inference-Cam");
+        formData.append("file", getMockFile("clean"), "clean.jpg");
+        formData.append("cameraId", TEST_CAMERA_ID);
         formData.append("gateId", "AG");
         formData.append("timestamp", new Date().toISOString());
-        formData.append("modelId", targetModel.id); 
-        formData.append("label", "DIRTY");
-        formData.append("confidence", "88");
 
-        const res = await fetch(`${BASE_URL}/api/camera/inference?token=${CAMERA_SECRET}`, {
+        const res = await fetch(`${BASE_URL}/api/camera/upload?token=${CAMERA_SECRET}`, {
           method: "POST", body: formData
         });
-        const json = await res.json() as InferenceResponse;
-        return res.status === 200 && json.inferenceId 
-          ? [true, `Inference logged successfully. ID: ${json.inferenceId}`] 
-          : [false, `Failed: ${JSON.stringify(json)}`];
+        const json = await res.json() as CameraUploadResponse;
+        
+        if (res.status === 200 && json.imageId) {
+          const img = await db.busImage.findUnique({ where: { id: json.imageId }});
+          return img?.gateId === "AG" 
+            ? [true, `Uploaded clean bus. DB ID: ${json.imageId}`] 
+            : [false, "Uploaded but failed to save gateId to DB"];
+        }
+        return [false, `Failed: ${JSON.stringify(json)}`];
       }
     },
     {
-      name: "Race Condition C - Simultaneous Impact (The 10-Second Test)",
+      name: "Upload API - Successfully Upload Dirty Bus",
       fn: async (): Promise<[boolean, string]> => {
-        const timestamp = new Date().toISOString(); 
-        const fd = new FormData();
-        fd.append("file", getMockFile("clean"), "test.jpg");
-        fd.append("cameraId", "Test-Cam-C");
-        fd.append("gateId", "Test-Gate");
-        fd.append("timestamp", timestamp);
+        const formData = new FormData();
+        formData.append("file", getMockFile("dirty"), "dirty.jpg");
+        formData.append("cameraId", TEST_CAMERA_ID);
+        formData.append("gateId", "AG");
+        formData.append("timestamp", new Date().toISOString());
 
-        const p1 = fetch(`${BASE_URL}/api/transponder`, {
-          method: "POST", headers: { Authorization: `Bearer ${TRANSPONDER_SECRET}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ fleetNumber: "RACE-BUS-C", timestamp, gateId: "Test-Gate" })
+        const res = await fetch(`${BASE_URL}/api/camera/upload?token=${CAMERA_SECRET}`, {
+          method: "POST", body: formData
         });
-        const p2 = fetch(`${BASE_URL}/api/camera/upload?token=${CAMERA_SECRET}`, {
-          method: "POST", body: fd
-        });
-
-        await Promise.all([p1, p2]);
-
-        const img = await db.busImage.findFirst({ where: { fleetNumber: "RACE-BUS-C" }});
-        return img ? [true, "Simultaneous match successful"] : [false, "Collision failure"];
+        const json = await res.json() as CameraUploadResponse;
+        
+        if (res.status === 200 && json.imageId) {
+          const img = await db.busImage.findUnique({ where: { id: json.imageId }});
+          return img?.gateId === "AG" 
+            ? [true, `Uploaded dirty bus. DB ID: ${json.imageId}`] 
+            : [false, "Uploaded but failed to save gateId to DB"];
+        }
+        return [false, `Failed: ${JSON.stringify(json)}`];
       }
     }
   ];
@@ -140,21 +125,30 @@ async function main() {
   console.log("-".repeat(80));
   console.log(`TEST SUMMARY: ${passedCount}/${tests.length} Tests Passed`);
 
-  // --- TEARDOWN WITH R2 DELETION ---
-  console.log(`\n${colors.blue}Cleaning up test data from Neon DB and R2 Bucket...${colors.reset}`);
+  // --- PAUSE FOR GITHUB ACTIONS INFERENCE ---
+  // Only pause if at least one upload succeeded
+  if (passedCount > 0) {
+    console.log(`\n⏳ Upload successful! Waiting 4 minutes (240s) for GitHub Actions to complete the inference run...`);
+    for (let i = 240; i > 0; i--) {
+      process.stdout.write(`\r⏱️  Time remaining before teardown: ${i} seconds...  `);
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    console.log("\n");
+  }
+
+  // --- TEARDOWN WITH CLOUDFLARE R2 DELETION ---
+  console.log(`\n${colors.blue}Cleaning up test data from Neon DB and Cloudflare R2...${colors.reset}`);
   
   const testImages = await db.busImage.findMany({
-    where: { cameraId: { startsWith: "Test-" } },
+    where: { cameraId: TEST_CAMERA_ID },
     select: { id: true, imageUrl: true }
   });
-  
-  const testImageIds = testImages.map(img => img.id);
 
   // 1. Delete actual files from Cloudflare R2
   for (const img of testImages) {
     try {
       const urlObj = new URL(img.imageUrl);
-      const key = urlObj.pathname.substring(1); // Extracts "camera-uploads/filename.jpg"
+      const key = urlObj.pathname.substring(1); 
       
       await s3Client.send(new DeleteObjectCommand({
         Bucket: process.env.R2_BUCKET_NAME,
@@ -165,21 +159,14 @@ async function main() {
     }
   }
 
-  // 2. Delete database records
+  // 2. Delete inference logs tied to these images (Foreign Key protection)
+  const testImageIds = testImages.map(img => img.id);
   await db.inferenceLog.deleteMany({
     where: { imageId: { in: testImageIds } }
   });
 
-  await db.busImage.deleteMany({ where: { cameraId: { startsWith: "Test-" } } });
-  
-  await db.transponderLog.deleteMany({ 
-    where: { 
-      OR: [
-        { gateId: "Test-Gate" },
-        { fleetNumber: { in: ["RACE-BUS-C"] } }
-      ]
-    } 
-  });
+  // 3. Delete image records
+  await db.busImage.deleteMany({ where: { cameraId: TEST_CAMERA_ID } });
   
   console.log("Cleanup complete.");
   process.exit(passedCount === tests.length ? 0 : 1);
