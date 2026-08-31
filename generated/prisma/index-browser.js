@@ -239,6 +239,13 @@ exports.Prisma.ModelRegistryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.InferenceTimeScalarFieldEnum = {
+  id: 'id',
+  beginTime: 'beginTime',
+  endTime: 'endTime',
+  gateId: 'gateId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -315,7 +322,8 @@ exports.Prisma.ModelName = {
   InferenceLog: 'InferenceLog',
   Dataset: 'Dataset',
   DatasetImage: 'DatasetImage',
-  ModelRegistry: 'ModelRegistry'
+  ModelRegistry: 'ModelRegistry',
+  InferenceTime: 'InferenceTime'
 };
 
 /**

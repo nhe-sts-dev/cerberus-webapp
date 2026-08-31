@@ -68,6 +68,11 @@ export type DatasetImage = $Result.DefaultSelection<Prisma.$DatasetImagePayload>
  * 
  */
 export type ModelRegistry = $Result.DefaultSelection<Prisma.$ModelRegistryPayload>
+/**
+ * Model InferenceTime
+ * 
+ */
+export type InferenceTime = $Result.DefaultSelection<Prisma.$InferenceTimePayload>
 
 /**
  * Enums
@@ -383,6 +388,16 @@ export class PrismaClient<
     * ```
     */
   get modelRegistry(): Prisma.ModelRegistryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inferenceTime`: Exposes CRUD operations for the **InferenceTime** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InferenceTimes
+    * const inferenceTimes = await prisma.inferenceTime.findMany()
+    * ```
+    */
+  get inferenceTime(): Prisma.InferenceTimeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -834,7 +849,8 @@ export namespace Prisma {
     InferenceLog: 'InferenceLog',
     Dataset: 'Dataset',
     DatasetImage: 'DatasetImage',
-    ModelRegistry: 'ModelRegistry'
+    ModelRegistry: 'ModelRegistry',
+    InferenceTime: 'InferenceTime'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -853,7 +869,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "transponderLog" | "inferenceLog" | "dataset" | "datasetImage" | "modelRegistry"
+      modelProps: "post" | "user" | "session" | "account" | "verification" | "busImage" | "transponderLog" | "inferenceLog" | "dataset" | "datasetImage" | "modelRegistry" | "inferenceTime"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1671,6 +1687,80 @@ export namespace Prisma {
           }
         }
       }
+      InferenceTime: {
+        payload: Prisma.$InferenceTimePayload<ExtArgs>
+        fields: Prisma.InferenceTimeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InferenceTimeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InferenceTimeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>
+          }
+          findFirst: {
+            args: Prisma.InferenceTimeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InferenceTimeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>
+          }
+          findMany: {
+            args: Prisma.InferenceTimeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>[]
+          }
+          create: {
+            args: Prisma.InferenceTimeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>
+          }
+          createMany: {
+            args: Prisma.InferenceTimeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InferenceTimeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>[]
+          }
+          delete: {
+            args: Prisma.InferenceTimeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>
+          }
+          update: {
+            args: Prisma.InferenceTimeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>
+          }
+          deleteMany: {
+            args: Prisma.InferenceTimeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InferenceTimeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InferenceTimeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>[]
+          }
+          upsert: {
+            args: Prisma.InferenceTimeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InferenceTimePayload>
+          }
+          aggregate: {
+            args: Prisma.InferenceTimeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInferenceTime>
+          }
+          groupBy: {
+            args: Prisma.InferenceTimeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InferenceTimeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InferenceTimeCountArgs<ExtArgs>
+            result: $Utils.Optional<InferenceTimeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1778,6 +1868,7 @@ export namespace Prisma {
     dataset?: DatasetOmit
     datasetImage?: DatasetImageOmit
     modelRegistry?: ModelRegistryOmit
+    inferenceTime?: InferenceTimeOmit
   }
 
   /* Types for Logging */
@@ -14386,6 +14477,988 @@ export namespace Prisma {
 
 
   /**
+   * Model InferenceTime
+   */
+
+  export type AggregateInferenceTime = {
+    _count: InferenceTimeCountAggregateOutputType | null
+    _min: InferenceTimeMinAggregateOutputType | null
+    _max: InferenceTimeMaxAggregateOutputType | null
+  }
+
+  export type InferenceTimeMinAggregateOutputType = {
+    id: string | null
+    beginTime: Date | null
+    endTime: Date | null
+    gateId: string | null
+  }
+
+  export type InferenceTimeMaxAggregateOutputType = {
+    id: string | null
+    beginTime: Date | null
+    endTime: Date | null
+    gateId: string | null
+  }
+
+  export type InferenceTimeCountAggregateOutputType = {
+    id: number
+    beginTime: number
+    endTime: number
+    gateId: number
+    _all: number
+  }
+
+
+  export type InferenceTimeMinAggregateInputType = {
+    id?: true
+    beginTime?: true
+    endTime?: true
+    gateId?: true
+  }
+
+  export type InferenceTimeMaxAggregateInputType = {
+    id?: true
+    beginTime?: true
+    endTime?: true
+    gateId?: true
+  }
+
+  export type InferenceTimeCountAggregateInputType = {
+    id?: true
+    beginTime?: true
+    endTime?: true
+    gateId?: true
+    _all?: true
+  }
+
+  export type InferenceTimeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InferenceTime to aggregate.
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceTimes to fetch.
+     */
+    orderBy?: InferenceTimeOrderByWithRelationInput | InferenceTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InferenceTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InferenceTimes
+    **/
+    _count?: true | InferenceTimeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InferenceTimeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InferenceTimeMaxAggregateInputType
+  }
+
+  export type GetInferenceTimeAggregateType<T extends InferenceTimeAggregateArgs> = {
+        [P in keyof T & keyof AggregateInferenceTime]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInferenceTime[P]>
+      : GetScalarType<T[P], AggregateInferenceTime[P]>
+  }
+
+
+
+
+  export type InferenceTimeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InferenceTimeWhereInput
+    orderBy?: InferenceTimeOrderByWithAggregationInput | InferenceTimeOrderByWithAggregationInput[]
+    by: InferenceTimeScalarFieldEnum[] | InferenceTimeScalarFieldEnum
+    having?: InferenceTimeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InferenceTimeCountAggregateInputType | true
+    _min?: InferenceTimeMinAggregateInputType
+    _max?: InferenceTimeMaxAggregateInputType
+  }
+
+  export type InferenceTimeGroupByOutputType = {
+    id: string
+    beginTime: Date
+    endTime: Date
+    gateId: string | null
+    _count: InferenceTimeCountAggregateOutputType | null
+    _min: InferenceTimeMinAggregateOutputType | null
+    _max: InferenceTimeMaxAggregateOutputType | null
+  }
+
+  type GetInferenceTimeGroupByPayload<T extends InferenceTimeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InferenceTimeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InferenceTimeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InferenceTimeGroupByOutputType[P]>
+            : GetScalarType<T[P], InferenceTimeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InferenceTimeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    beginTime?: boolean
+    endTime?: boolean
+    gateId?: boolean
+  }, ExtArgs["result"]["inferenceTime"]>
+
+  export type InferenceTimeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    beginTime?: boolean
+    endTime?: boolean
+    gateId?: boolean
+  }, ExtArgs["result"]["inferenceTime"]>
+
+  export type InferenceTimeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    beginTime?: boolean
+    endTime?: boolean
+    gateId?: boolean
+  }, ExtArgs["result"]["inferenceTime"]>
+
+  export type InferenceTimeSelectScalar = {
+    id?: boolean
+    beginTime?: boolean
+    endTime?: boolean
+    gateId?: boolean
+  }
+
+  export type InferenceTimeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "beginTime" | "endTime" | "gateId", ExtArgs["result"]["inferenceTime"]>
+
+  export type $InferenceTimePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InferenceTime"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      beginTime: Date
+      endTime: Date
+      gateId: string | null
+    }, ExtArgs["result"]["inferenceTime"]>
+    composites: {}
+  }
+
+  type InferenceTimeGetPayload<S extends boolean | null | undefined | InferenceTimeDefaultArgs> = $Result.GetResult<Prisma.$InferenceTimePayload, S>
+
+  type InferenceTimeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InferenceTimeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InferenceTimeCountAggregateInputType | true
+    }
+
+  export interface InferenceTimeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InferenceTime'], meta: { name: 'InferenceTime' } }
+    /**
+     * Find zero or one InferenceTime that matches the filter.
+     * @param {InferenceTimeFindUniqueArgs} args - Arguments to find a InferenceTime
+     * @example
+     * // Get one InferenceTime
+     * const inferenceTime = await prisma.inferenceTime.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InferenceTimeFindUniqueArgs>(args: SelectSubset<T, InferenceTimeFindUniqueArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InferenceTime that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InferenceTimeFindUniqueOrThrowArgs} args - Arguments to find a InferenceTime
+     * @example
+     * // Get one InferenceTime
+     * const inferenceTime = await prisma.inferenceTime.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InferenceTimeFindUniqueOrThrowArgs>(args: SelectSubset<T, InferenceTimeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InferenceTime that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeFindFirstArgs} args - Arguments to find a InferenceTime
+     * @example
+     * // Get one InferenceTime
+     * const inferenceTime = await prisma.inferenceTime.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InferenceTimeFindFirstArgs>(args?: SelectSubset<T, InferenceTimeFindFirstArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InferenceTime that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeFindFirstOrThrowArgs} args - Arguments to find a InferenceTime
+     * @example
+     * // Get one InferenceTime
+     * const inferenceTime = await prisma.inferenceTime.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InferenceTimeFindFirstOrThrowArgs>(args?: SelectSubset<T, InferenceTimeFindFirstOrThrowArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InferenceTimes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InferenceTimes
+     * const inferenceTimes = await prisma.inferenceTime.findMany()
+     * 
+     * // Get first 10 InferenceTimes
+     * const inferenceTimes = await prisma.inferenceTime.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const inferenceTimeWithIdOnly = await prisma.inferenceTime.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InferenceTimeFindManyArgs>(args?: SelectSubset<T, InferenceTimeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InferenceTime.
+     * @param {InferenceTimeCreateArgs} args - Arguments to create a InferenceTime.
+     * @example
+     * // Create one InferenceTime
+     * const InferenceTime = await prisma.inferenceTime.create({
+     *   data: {
+     *     // ... data to create a InferenceTime
+     *   }
+     * })
+     * 
+     */
+    create<T extends InferenceTimeCreateArgs>(args: SelectSubset<T, InferenceTimeCreateArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InferenceTimes.
+     * @param {InferenceTimeCreateManyArgs} args - Arguments to create many InferenceTimes.
+     * @example
+     * // Create many InferenceTimes
+     * const inferenceTime = await prisma.inferenceTime.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InferenceTimeCreateManyArgs>(args?: SelectSubset<T, InferenceTimeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InferenceTimes and returns the data saved in the database.
+     * @param {InferenceTimeCreateManyAndReturnArgs} args - Arguments to create many InferenceTimes.
+     * @example
+     * // Create many InferenceTimes
+     * const inferenceTime = await prisma.inferenceTime.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InferenceTimes and only return the `id`
+     * const inferenceTimeWithIdOnly = await prisma.inferenceTime.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InferenceTimeCreateManyAndReturnArgs>(args?: SelectSubset<T, InferenceTimeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InferenceTime.
+     * @param {InferenceTimeDeleteArgs} args - Arguments to delete one InferenceTime.
+     * @example
+     * // Delete one InferenceTime
+     * const InferenceTime = await prisma.inferenceTime.delete({
+     *   where: {
+     *     // ... filter to delete one InferenceTime
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InferenceTimeDeleteArgs>(args: SelectSubset<T, InferenceTimeDeleteArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InferenceTime.
+     * @param {InferenceTimeUpdateArgs} args - Arguments to update one InferenceTime.
+     * @example
+     * // Update one InferenceTime
+     * const inferenceTime = await prisma.inferenceTime.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InferenceTimeUpdateArgs>(args: SelectSubset<T, InferenceTimeUpdateArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InferenceTimes.
+     * @param {InferenceTimeDeleteManyArgs} args - Arguments to filter InferenceTimes to delete.
+     * @example
+     * // Delete a few InferenceTimes
+     * const { count } = await prisma.inferenceTime.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InferenceTimeDeleteManyArgs>(args?: SelectSubset<T, InferenceTimeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InferenceTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InferenceTimes
+     * const inferenceTime = await prisma.inferenceTime.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InferenceTimeUpdateManyArgs>(args: SelectSubset<T, InferenceTimeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InferenceTimes and returns the data updated in the database.
+     * @param {InferenceTimeUpdateManyAndReturnArgs} args - Arguments to update many InferenceTimes.
+     * @example
+     * // Update many InferenceTimes
+     * const inferenceTime = await prisma.inferenceTime.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InferenceTimes and only return the `id`
+     * const inferenceTimeWithIdOnly = await prisma.inferenceTime.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InferenceTimeUpdateManyAndReturnArgs>(args: SelectSubset<T, InferenceTimeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InferenceTime.
+     * @param {InferenceTimeUpsertArgs} args - Arguments to update or create a InferenceTime.
+     * @example
+     * // Update or create a InferenceTime
+     * const inferenceTime = await prisma.inferenceTime.upsert({
+     *   create: {
+     *     // ... data to create a InferenceTime
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InferenceTime we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InferenceTimeUpsertArgs>(args: SelectSubset<T, InferenceTimeUpsertArgs<ExtArgs>>): Prisma__InferenceTimeClient<$Result.GetResult<Prisma.$InferenceTimePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InferenceTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeCountArgs} args - Arguments to filter InferenceTimes to count.
+     * @example
+     * // Count the number of InferenceTimes
+     * const count = await prisma.inferenceTime.count({
+     *   where: {
+     *     // ... the filter for the InferenceTimes we want to count
+     *   }
+     * })
+    **/
+    count<T extends InferenceTimeCountArgs>(
+      args?: Subset<T, InferenceTimeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InferenceTimeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InferenceTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InferenceTimeAggregateArgs>(args: Subset<T, InferenceTimeAggregateArgs>): Prisma.PrismaPromise<GetInferenceTimeAggregateType<T>>
+
+    /**
+     * Group by InferenceTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InferenceTimeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InferenceTimeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InferenceTimeGroupByArgs['orderBy'] }
+        : { orderBy?: InferenceTimeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InferenceTimeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInferenceTimeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InferenceTime model
+   */
+  readonly fields: InferenceTimeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InferenceTime.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InferenceTimeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InferenceTime model
+   */
+  interface InferenceTimeFieldRefs {
+    readonly id: FieldRef<"InferenceTime", 'String'>
+    readonly beginTime: FieldRef<"InferenceTime", 'DateTime'>
+    readonly endTime: FieldRef<"InferenceTime", 'DateTime'>
+    readonly gateId: FieldRef<"InferenceTime", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InferenceTime findUnique
+   */
+  export type InferenceTimeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * Filter, which InferenceTime to fetch.
+     */
+    where: InferenceTimeWhereUniqueInput
+  }
+
+  /**
+   * InferenceTime findUniqueOrThrow
+   */
+  export type InferenceTimeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * Filter, which InferenceTime to fetch.
+     */
+    where: InferenceTimeWhereUniqueInput
+  }
+
+  /**
+   * InferenceTime findFirst
+   */
+  export type InferenceTimeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * Filter, which InferenceTime to fetch.
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceTimes to fetch.
+     */
+    orderBy?: InferenceTimeOrderByWithRelationInput | InferenceTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InferenceTimes.
+     */
+    cursor?: InferenceTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InferenceTimes.
+     */
+    distinct?: InferenceTimeScalarFieldEnum | InferenceTimeScalarFieldEnum[]
+  }
+
+  /**
+   * InferenceTime findFirstOrThrow
+   */
+  export type InferenceTimeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * Filter, which InferenceTime to fetch.
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceTimes to fetch.
+     */
+    orderBy?: InferenceTimeOrderByWithRelationInput | InferenceTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InferenceTimes.
+     */
+    cursor?: InferenceTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InferenceTimes.
+     */
+    distinct?: InferenceTimeScalarFieldEnum | InferenceTimeScalarFieldEnum[]
+  }
+
+  /**
+   * InferenceTime findMany
+   */
+  export type InferenceTimeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * Filter, which InferenceTimes to fetch.
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InferenceTimes to fetch.
+     */
+    orderBy?: InferenceTimeOrderByWithRelationInput | InferenceTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InferenceTimes.
+     */
+    cursor?: InferenceTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InferenceTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InferenceTimes.
+     */
+    skip?: number
+    distinct?: InferenceTimeScalarFieldEnum | InferenceTimeScalarFieldEnum[]
+  }
+
+  /**
+   * InferenceTime create
+   */
+  export type InferenceTimeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a InferenceTime.
+     */
+    data: XOR<InferenceTimeCreateInput, InferenceTimeUncheckedCreateInput>
+  }
+
+  /**
+   * InferenceTime createMany
+   */
+  export type InferenceTimeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InferenceTimes.
+     */
+    data: InferenceTimeCreateManyInput | InferenceTimeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InferenceTime createManyAndReturn
+   */
+  export type InferenceTimeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * The data used to create many InferenceTimes.
+     */
+    data: InferenceTimeCreateManyInput | InferenceTimeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InferenceTime update
+   */
+  export type InferenceTimeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a InferenceTime.
+     */
+    data: XOR<InferenceTimeUpdateInput, InferenceTimeUncheckedUpdateInput>
+    /**
+     * Choose, which InferenceTime to update.
+     */
+    where: InferenceTimeWhereUniqueInput
+  }
+
+  /**
+   * InferenceTime updateMany
+   */
+  export type InferenceTimeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InferenceTimes.
+     */
+    data: XOR<InferenceTimeUpdateManyMutationInput, InferenceTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which InferenceTimes to update
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * Limit how many InferenceTimes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InferenceTime updateManyAndReturn
+   */
+  export type InferenceTimeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * The data used to update InferenceTimes.
+     */
+    data: XOR<InferenceTimeUpdateManyMutationInput, InferenceTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which InferenceTimes to update
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * Limit how many InferenceTimes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InferenceTime upsert
+   */
+  export type InferenceTimeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the InferenceTime to update in case it exists.
+     */
+    where: InferenceTimeWhereUniqueInput
+    /**
+     * In case the InferenceTime found by the `where` argument doesn't exist, create a new InferenceTime with this data.
+     */
+    create: XOR<InferenceTimeCreateInput, InferenceTimeUncheckedCreateInput>
+    /**
+     * In case the InferenceTime was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InferenceTimeUpdateInput, InferenceTimeUncheckedUpdateInput>
+  }
+
+  /**
+   * InferenceTime delete
+   */
+  export type InferenceTimeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+    /**
+     * Filter which InferenceTime to delete.
+     */
+    where: InferenceTimeWhereUniqueInput
+  }
+
+  /**
+   * InferenceTime deleteMany
+   */
+  export type InferenceTimeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InferenceTimes to delete
+     */
+    where?: InferenceTimeWhereInput
+    /**
+     * Limit how many InferenceTimes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InferenceTime without action
+   */
+  export type InferenceTimeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InferenceTime
+     */
+    select?: InferenceTimeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InferenceTime
+     */
+    omit?: InferenceTimeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14548,6 +15621,16 @@ export namespace Prisma {
   };
 
   export type ModelRegistryScalarFieldEnum = (typeof ModelRegistryScalarFieldEnum)[keyof typeof ModelRegistryScalarFieldEnum]
+
+
+  export const InferenceTimeScalarFieldEnum: {
+    id: 'id',
+    beginTime: 'beginTime',
+    endTime: 'endTime',
+    gateId: 'gateId'
+  };
+
+  export type InferenceTimeScalarFieldEnum = (typeof InferenceTimeScalarFieldEnum)[keyof typeof InferenceTimeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15548,6 +16631,53 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ModelRegistry"> | Date | string
   }
 
+  export type InferenceTimeWhereInput = {
+    AND?: InferenceTimeWhereInput | InferenceTimeWhereInput[]
+    OR?: InferenceTimeWhereInput[]
+    NOT?: InferenceTimeWhereInput | InferenceTimeWhereInput[]
+    id?: StringFilter<"InferenceTime"> | string
+    beginTime?: DateTimeFilter<"InferenceTime"> | Date | string
+    endTime?: DateTimeFilter<"InferenceTime"> | Date | string
+    gateId?: StringNullableFilter<"InferenceTime"> | string | null
+  }
+
+  export type InferenceTimeOrderByWithRelationInput = {
+    id?: SortOrder
+    beginTime?: SortOrder
+    endTime?: SortOrder
+    gateId?: SortOrderInput | SortOrder
+  }
+
+  export type InferenceTimeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: InferenceTimeWhereInput | InferenceTimeWhereInput[]
+    OR?: InferenceTimeWhereInput[]
+    NOT?: InferenceTimeWhereInput | InferenceTimeWhereInput[]
+    beginTime?: DateTimeFilter<"InferenceTime"> | Date | string
+    endTime?: DateTimeFilter<"InferenceTime"> | Date | string
+    gateId?: StringNullableFilter<"InferenceTime"> | string | null
+  }, "id">
+
+  export type InferenceTimeOrderByWithAggregationInput = {
+    id?: SortOrder
+    beginTime?: SortOrder
+    endTime?: SortOrder
+    gateId?: SortOrderInput | SortOrder
+    _count?: InferenceTimeCountOrderByAggregateInput
+    _max?: InferenceTimeMaxOrderByAggregateInput
+    _min?: InferenceTimeMinOrderByAggregateInput
+  }
+
+  export type InferenceTimeScalarWhereWithAggregatesInput = {
+    AND?: InferenceTimeScalarWhereWithAggregatesInput | InferenceTimeScalarWhereWithAggregatesInput[]
+    OR?: InferenceTimeScalarWhereWithAggregatesInput[]
+    NOT?: InferenceTimeScalarWhereWithAggregatesInput | InferenceTimeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"InferenceTime"> | string
+    beginTime?: DateTimeWithAggregatesFilter<"InferenceTime"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"InferenceTime"> | Date | string
+    gateId?: StringNullableWithAggregatesFilter<"InferenceTime"> | string | null
+  }
+
   export type PostCreateInput = {
     id?: string
     name: string
@@ -16405,6 +17535,55 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InferenceTimeCreateInput = {
+    id?: string
+    beginTime: Date | string
+    endTime: Date | string
+    gateId?: string | null
+  }
+
+  export type InferenceTimeUncheckedCreateInput = {
+    id?: string
+    beginTime: Date | string
+    endTime: Date | string
+    gateId?: string | null
+  }
+
+  export type InferenceTimeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    beginTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InferenceTimeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    beginTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InferenceTimeCreateManyInput = {
+    id?: string
+    beginTime: Date | string
+    endTime: Date | string
+    gateId?: string | null
+  }
+
+  export type InferenceTimeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    beginTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InferenceTimeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    beginTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    gateId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17250,6 +18429,27 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type InferenceTimeCountOrderByAggregateInput = {
+    id?: SortOrder
+    beginTime?: SortOrder
+    endTime?: SortOrder
+    gateId?: SortOrder
+  }
+
+  export type InferenceTimeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    beginTime?: SortOrder
+    endTime?: SortOrder
+    gateId?: SortOrder
+  }
+
+  export type InferenceTimeMinOrderByAggregateInput = {
+    id?: SortOrder
+    beginTime?: SortOrder
+    endTime?: SortOrder
+    gateId?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {

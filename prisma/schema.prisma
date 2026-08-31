@@ -138,7 +138,6 @@ enum ModelStatus {
 }
 
 
-
 model BusImage {
   id               String       @id @default(cuid())
   imageUrl         String
@@ -251,4 +250,12 @@ model ModelRegistry {
   updatedAt       DateTime          @updatedAt
 
   @@unique([name, version])
+}
+
+
+model InferenceTime {
+  id          String   @id @default(cuid())
+  beginTime   DateTime
+  endTime     DateTime
+  gateId      String?  // e.g., "ArrowGate"
 }

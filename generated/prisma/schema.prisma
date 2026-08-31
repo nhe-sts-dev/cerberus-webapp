@@ -248,3 +248,10 @@ model ModelRegistry {
 
   @@unique([name, version])
 }
+
+model InferenceTime {
+  id        String   @id @default(cuid())
+  beginTime DateTime
+  endTime   DateTime
+  gateId    String? // e.g., "ArrowGate"
+}

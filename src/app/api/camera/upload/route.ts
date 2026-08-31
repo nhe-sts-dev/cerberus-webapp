@@ -67,43 +67,76 @@ export async function POST(req: NextRequest) {
       },
     });
 
-   // --- CLOUD INFERENCE TRIGGER ---
-    try {
-      const productionModel = await db.modelRegistry.findFirst({
-        where: { status: "EXPERIMENTAL" },   //change to PRODUCTION
-        orderBy: { createdAt: "desc" }
+    // 5. Evaluate the Inference Time Window
+    const timeConfig = await db.inferenceTime.findFirst();
+    let shouldRunInference = true; // Default to true if no config has been created yet
+
+    if (timeConfig) {
+      // Safely fetch current SAST time
+      const sastFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Africa/Johannesburg',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
       });
+      
+      const sastTimeStr = sastFormatter.format(new Date());
+      const [currentHour, currentMinute] = sastTimeStr.split(':').map(Number);
+      const currentTotalMinutes = (currentHour! * 60) + currentMinute!;
 
-      if (productionModel?.weightsUrl) {
-        const GITHUB_PAT = process.env.GITHUB_PAT;
-        const GITHUB_REPO = process.env.GITHUB_REPO; 
+      // We stored the UI time as UTC in the database, so getUTCHours reflects exact user input
+      const beginTotalMinutes = (timeConfig.beginTime.getUTCHours() * 60) + timeConfig.beginTime.getUTCMinutes();
+      const endTotalMinutes = (timeConfig.endTime.getUTCHours() * 60) + timeConfig.endTime.getUTCMinutes();
 
-        if (GITHUB_PAT && GITHUB_REPO) {
-          await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
-            method: "POST",
-            headers: {
-              "Accept": "application/vnd.github.v3+json",
-              "Authorization": `token ${GITHUB_PAT}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              event_type: "run-cloud-inference",
-              client_payload: {
-                imageId: newBusImage.id,
-                imageUrl: publicUrl,
-                modelId: productionModel.id,
-                modelName: productionModel.name,
-                modelVersion: productionModel.version,
-                weightsUrl: productionModel.weightsUrl
-              }
-            })
-          });
-        }
+      if (beginTotalMinutes <= endTotalMinutes) {
+        // Standard daytime window (e.g., 08:00 to 16:00)
+        shouldRunInference = currentTotalMinutes >= beginTotalMinutes && currentTotalMinutes <= endTotalMinutes;
+      } else {
+        // Window spanning past midnight (e.g., 22:00 to 04:00)
+        shouldRunInference = currentTotalMinutes >= beginTotalMinutes || currentTotalMinutes <= endTotalMinutes;
       }
-    } catch (error) {
-      console.error("Failed to trigger cloud inference:", error);
     }
-    // ------------------------------------
+
+    if (shouldRunInference) {
+      // --- CLOUD INFERENCE TRIGGER ---
+      try {
+        const productionModel = await db.modelRegistry.findFirst({
+          where: { status: "EXPERIMENTAL" },   // Change to PRODUCTION
+          orderBy: { createdAt: "desc" }
+        });
+
+        if (productionModel?.weightsUrl) {
+          const GITHUB_PAT = process.env.GITHUB_PAT;
+          const GITHUB_REPO = process.env.GITHUB_REPO; 
+
+          if (GITHUB_PAT && GITHUB_REPO) {
+            await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
+              method: "POST",
+              headers: {
+                "Accept": "application/vnd.github.v3+json",
+                "Authorization": `token ${GITHUB_PAT}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                event_type: "run-cloud-inference",
+                client_payload: {
+                  imageId: newBusImage.id,
+                  imageUrl: publicUrl,
+                  modelId: productionModel.id,
+                  modelName: productionModel.name,
+                  modelVersion: productionModel.version,
+                  weightsUrl: productionModel.weightsUrl
+                }
+              })
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to trigger cloud inference:", error);
+      }
+    } else {
+      console.log(`Skipped Inference: Current SAST time is outside the permitted execution window.`);
+    }
 
     return NextResponse.json({ success: true, imageId: newBusImage.id }, { status: 200 });
 
@@ -112,6 +145,52 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+//    // --- CLOUD INFERENCE TRIGGER ---
+//     try {
+//       const productionModel = await db.modelRegistry.findFirst({
+//         where: { status: "EXPERIMENTAL" },   //change to PRODUCTION
+//         orderBy: { createdAt: "desc" }
+//       });
+
+//       if (productionModel?.weightsUrl) {
+//         const GITHUB_PAT = process.env.GITHUB_PAT;
+//         const GITHUB_REPO = process.env.GITHUB_REPO; 
+
+//         if (GITHUB_PAT && GITHUB_REPO) {
+//           await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
+//             method: "POST",
+//             headers: {
+//               "Accept": "application/vnd.github.v3+json",
+//               "Authorization": `token ${GITHUB_PAT}`,
+//               "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify({
+//               event_type: "run-cloud-inference",
+//               client_payload: {
+//                 imageId: newBusImage.id,
+//                 imageUrl: publicUrl,
+//                 modelId: productionModel.id,
+//                 modelName: productionModel.name,
+//                 modelVersion: productionModel.version,
+//                 weightsUrl: productionModel.weightsUrl
+//               }
+//             })
+//           });
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Failed to trigger cloud inference:", error);
+//     }
+//     // ------------------------------------
+
+//     return NextResponse.json({ success: true, imageId: newBusImage.id }, { status: 200 });
+
+//   } catch (error) {
+//     console.error("Camera upload error:", error);
+//     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+//   }
+// }
 
 
 
