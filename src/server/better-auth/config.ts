@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 
-import { env } from "~/env";
+// import { env } from "~/env";
 import { db } from "~/server/db";
 
 export const auth = betterAuth({
@@ -10,6 +10,17 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+  },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+      },
+      gateId: {
+        type: "string",
+        required: false,
+      },
+    },
   },
   // socialProviders: {
   //   github: {

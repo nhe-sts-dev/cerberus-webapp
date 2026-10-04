@@ -21,17 +21,14 @@ export const imageRouter = createTRPCRouter({
     .input(
       z.object({
         limit: z.number().min(1).max(100).default(20),
-        cursor: z.string().nullish(), 
-      })
+        cursor: z.string().nullish(),
+      }),
     )
     .query(async ({ ctx, input }) => {
       const items = await ctx.db.busImage.findMany({
-        take: input.limit + 1, 
+        take: input.limit + 1,
         cursor: input.cursor ? { id: input.cursor } : undefined,
-        orderBy: [
-          { isVerified: "asc" }, 
-          { createdAt: "desc" }, 
-        ],
+        orderBy: [{ isVerified: "asc" }, { createdAt: "desc" }],
       });
 
       let nextCursor: typeof input.cursor | undefined = undefined;
@@ -54,9 +51,15 @@ export const imageRouter = createTRPCRouter({
         timeTaken: z.date().optional().nullable(),
         weatherCondition: zWeather.optional().nullable(),
         cameraAngle: zAngle.optional().nullable(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
+      // 1. Fetch current user to check their role
+      const currentUser = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
+      });
+      const isAdmin = currentUser?.role === "ADMIN";
+
       // The input types will now perfectly match your Prisma schema
       return ctx.db.busImage.update({
         where: { id: input.id },
@@ -68,7 +71,8 @@ export const imageRouter = createTRPCRouter({
           timeTaken: input.timeTaken,
           weatherCondition: input.weatherCondition,
           cameraAngle: input.cameraAngle,
-          isVerified: true, 
+          // 2. Only Admins can verify. Monitors/Managers will flag it as unverified.
+          isVerified: isAdmin ? true : false,
           labeledById: ctx.session.user.id,
         },
       });

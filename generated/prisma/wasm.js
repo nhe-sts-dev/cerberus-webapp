@@ -308,7 +308,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\jludi\\Builds\\STStech-group\\Cerberus Web App\\cerberus-web-app\\generated\\prisma",
+      "value": "/Users/jacquesludik/Documents/Builds/genuiwin/sts-techgroup/cerberus-labelling-app/cerberus-webapp/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -317,7 +317,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       },
       {
@@ -326,7 +326,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\jludi\\Builds\\STStech-group\\Cerberus Web App\\cerberus-web-app\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/jacquesludik/Documents/Builds/genuiwin/sts-techgroup/cerberus-labelling-app/cerberus-webapp/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
