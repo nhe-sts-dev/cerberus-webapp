@@ -17,7 +17,7 @@ export function SettingsSidebar({
   >("NONE");
 
   // Both Admins and Monitors can add users in this app
-  const canAddUser = role === "ADMIN" || role === "MONITOR";
+  // const canAddUser = role === "ADMIN" || role === "MONITOR";
   const isAdmin = role === "ADMIN";
 
   return (
