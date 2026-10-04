@@ -14,13 +14,19 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
-        #   cache: 'pip'
+          python-version: "3.10"
+          cache: "pip" # Re-enabled to cache the large PyTorch binaries
+
+      - name: Cache EasyOCR Models
+        uses: actions/cache@v3
+        with:
+          path: ~/.EasyOCR/model
+          key: easyocr-en-models
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install tensorflow-cpu psycopg2-binary resend requests Pillow numpy
+          pip install tensorflow-cpu psycopg2-binary resend requests Pillow numpy easyocr opencv-python-headless
 
       - name: Run Inference Pipeline
         env:
@@ -28,3 +34,34 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
         run: python scripts/cloud_inference.py
+
+# name: Cloud ML Inference
+
+# on:
+#   repository_dispatch:
+#     types: [run-cloud-inference]
+
+# jobs:
+#   infer_and_notify:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v4
+
+#       - name: Setup Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
+#         #   cache: 'pip'
+
+#       - name: Install Dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install tensorflow-cpu psycopg2-binary resend requests Pillow numpy
+
+#       - name: Run Inference Pipeline
+#         env:
+#           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+#           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+#           CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+#         run: python scripts/cloud_inference.py
