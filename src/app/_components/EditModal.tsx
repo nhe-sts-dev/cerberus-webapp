@@ -18,7 +18,7 @@ export function EditModal({
   onClose: () => void;
 }) {
   const { data: session } = authClient.useSession();
-  const isAdmin = session?.user?.role === "ADMIN";
+  const isAdmin = (session?.user as { role?: string })?.role === "ADMIN";
   const utils = api.useUtils();
 
   // Explicitly type the state to fix ESLint "unsafe destructuring" errors
