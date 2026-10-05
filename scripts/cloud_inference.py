@@ -10,6 +10,7 @@ import easyocr
 import re
 from PIL import Image
 from io import BytesIO
+import cv2  # Ensure this is imported at the top of your file
 
 # --- CONFIGURATION ---
 DATABASE_URL = os.environ.get("DATABASE_URL")
@@ -38,44 +39,76 @@ def main():
     raw_img = Image.open(BytesIO(img_response.content)).convert("RGB")
     raw_img_array = np.array(raw_img)
 
-    # # --- EASYOCR PIPELINE ---
+    # # --- EASYOCR PIPELINE WITH ROI ZOOM ---
     # print("Running OCR to extract fleet number...")
-    # reader = easyocr.Reader(
-    #     ["en"], gpu=False
-    # )  # Switch to True if running on CUDA hardware
-    # ocr_results = reader.readtext(raw_img_array)
+    # reader = easyocr.Reader(["en"], gpu=False)
+
+    # # 1. Focus on the Region of Interest (Driver Cab Area)
+    # # The sticker consistently sits in the middle-to-lower vertical section and right-hand side.
+    # # [ymin:ymax, xmin:xmax] as percentages:
+    # width, height = raw_img.size
+    # crop_box = (
+    #     int(width * 0.40),  # Left (40% across)
+    #     int(height * 0.35),  # Top (35% down)
+    #     int(width * 0.95),  # Right (95% across)
+    #     int(height * 0.85),  # Bottom (85% down)
+    # )
+    # cropped_cab = raw_img.crop(crop_box)
+    # cropped_array = np.array(cropped_cab)
+
+    # # 2. Run OCR on the cropped area with tuned detection thresholds
+    # ocr_results = reader.readtext(
+    #     cropped_array, paragraph=False, text_threshold=0.5, low_text=0.3
+    # )
 
     # fleet_number = None
-    # fleet_pattern = re.compile(r"\b\d{4}\b")
+    # fleet_pattern = re.compile(r"(\d{4})")
 
+    # print(f"--- Raw OCR Detections ({len(ocr_results)} found) ---")
     # for bbox, text, prob in ocr_results:
-    #     match = fleet_pattern.search(text)
-    #     if match:
-    #         fleet_number = match.group(0)
-    #         print(f"Detected Fleet Number: {fleet_number} (Confidence: {prob:.2f})")
-    #         break
-    # # ------------------------
-    # --- EASYOCR PIPELINE WITH ROI ZOOM ---
-    print("Running OCR to extract fleet number...")
+    #     clean_text = text.strip()
+    #     print(f"Detected: '{clean_text}' | Confidence: {prob:.2f}")
+
+    #     # Look for any 4-digit sequence
+    #     match = fleet_pattern.search(clean_text)
+    #     if match and not fleet_number:
+    #         fleet_number = match.group(1)
+    #         print(f"==> Matched Fleet Number: {fleet_number} (from '{clean_text}')")
+
+    # if not fleet_number:
+    #     print("⚠️ No 4-digit fleet number identified in this image.")
+    # # -------------------------------------
+
+    # --- OPENCV PREPROCESSING & EASYOCR ---
+    print("Preprocessing image for OCR...")
+    raw_img_cv = np.array(raw_img)
+    height, width, _ = raw_img_cv.shape
+
+    # 1. Broad Crop (Targeting the right half, middle-bottom where the cab is)
+    cab_crop = raw_img_cv[
+        int(height * 0.3) : int(height * 0.95), int(width * 0.4) : int(width * 0.95)
+    ]
+
+    # 2. Upscale by 2.5x to enlarge text
+    scaled_cab = cv2.resize(
+        cab_crop, None, fx=2.5, fy=2.5, interpolation=cv2.INTER_CUBIC
+    )
+
+    # 3. Grayscale
+    gray = cv2.cvtColor(scaled_cab, cv2.COLOR_RGB2GRAY)
+
+    # 4. CLAHE Contrast Enhancement
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    enhanced = clahe.apply(gray)
+
+    # 5. Denoise (Removes compression artifacts)
+    denoised = cv2.fastNlMeansDenoising(enhanced, h=15)
+
+    print("Running OCR on enhanced image...")
     reader = easyocr.Reader(["en"], gpu=False)
 
-    # 1. Focus on the Region of Interest (Driver Cab Area)
-    # The sticker consistently sits in the middle-to-lower vertical section and right-hand side.
-    # [ymin:ymax, xmin:xmax] as percentages:
-    width, height = raw_img.size
-    crop_box = (
-        int(width * 0.40),  # Left (40% across)
-        int(height * 0.35),  # Top (35% down)
-        int(width * 0.95),  # Right (95% across)
-        int(height * 0.85),  # Bottom (85% down)
-    )
-    cropped_cab = raw_img.crop(crop_box)
-    cropped_array = np.array(cropped_cab)
-
-    # 2. Run OCR on the cropped area with tuned detection thresholds
-    ocr_results = reader.readtext(
-        cropped_array, paragraph=False, text_threshold=0.5, low_text=0.3
-    )
+    # We pass the enhanced OpenCV image array directly to EasyOCR
+    ocr_results = reader.readtext(denoised, paragraph=False, text_threshold=0.5)
 
     fleet_number = None
     fleet_pattern = re.compile(r"(\d{4})")
@@ -85,7 +118,6 @@ def main():
         clean_text = text.strip()
         print(f"Detected: '{clean_text}' | Confidence: {prob:.2f}")
 
-        # Look for any 4-digit sequence
         match = fleet_pattern.search(clean_text)
         if match and not fleet_number:
             fleet_number = match.group(1)
@@ -93,7 +125,7 @@ def main():
 
     if not fleet_number:
         print("⚠️ No 4-digit fleet number identified in this image.")
-    # -------------------------------------
+    # --------------------------------------
 
     print("Loading model into memory...")
     interpreter = tf.lite.Interpreter(model_path=model_path)
