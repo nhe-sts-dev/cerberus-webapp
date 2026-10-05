@@ -23,10 +23,15 @@ jobs:
           path: ~/.EasyOCR/model
           key: easyocr-en-models
 
+      # - name: Install Dependencies
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -r requirements.txt
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          # The --extra-index-url flag forces pip to grab the much smaller CPU-only PyTorch binaries
+          pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
       - name: Run Inference Pipeline
         env:
