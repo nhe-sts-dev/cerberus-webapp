@@ -83,52 +83,52 @@ def main():
     print("\n==========================================")
     print(f"🔗 Evaluating Image URL: {IMAGE_URL}")
     print("==========================================\n")
-    print("Preprocessing image for OCR...")
-    raw_img_cv = np.array(raw_img)
-    height, width, _ = raw_img_cv.shape
+    # print("Preprocessing image for OCR...")
+    # raw_img_cv = np.array(raw_img)
+    # height, width, _ = raw_img_cv.shape
 
-    # 1. Broad Crop (Targeting the right half, middle-bottom where the cab is)
-    cab_crop = raw_img_cv[
-        int(height * 0.3) : int(height * 0.95), int(width * 0.4) : int(width * 0.95)
-    ]
+    # # 1. Broad Crop (Targeting the right half, middle-bottom where the cab is)
+    # cab_crop = raw_img_cv[
+    #     int(height * 0.3) : int(height * 0.95), int(width * 0.4) : int(width * 0.95)
+    # ]
 
-    # 2. Upscale by 2.5x to enlarge text
-    scaled_cab = cv2.resize(
-        cab_crop, None, fx=2.5, fy=2.5, interpolation=cv2.INTER_CUBIC
-    )
+    # # 2. Upscale by 2.5x to enlarge text
+    # scaled_cab = cv2.resize(
+    #     cab_crop, None, fx=2.5, fy=2.5, interpolation=cv2.INTER_CUBIC
+    # )
 
-    # 3. Grayscale
-    gray = cv2.cvtColor(scaled_cab, cv2.COLOR_RGB2GRAY)
+    # # 3. Grayscale
+    # gray = cv2.cvtColor(scaled_cab, cv2.COLOR_RGB2GRAY)
 
-    # 4. CLAHE Contrast Enhancement
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    enhanced = clahe.apply(gray)
+    # # 4. CLAHE Contrast Enhancement
+    # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    # enhanced = clahe.apply(gray)
 
-    # 5. Denoise (Removes compression artifacts)
-    denoised = cv2.fastNlMeansDenoising(enhanced, h=15)
+    # # 5. Denoise (Removes compression artifacts)
+    # denoised = cv2.fastNlMeansDenoising(enhanced, h=15)
 
-    print("Running OCR on enhanced image...")
-    reader = easyocr.Reader(["en"], gpu=False)
+    # print("Running OCR on enhanced image...")
+    # reader = easyocr.Reader(["en"], gpu=False)
 
-    # We pass the enhanced OpenCV image array directly to EasyOCR
-    ocr_results = reader.readtext(denoised, paragraph=False, text_threshold=0.5)
+    # # We pass the enhanced OpenCV image array directly to EasyOCR
+    # ocr_results = reader.readtext(denoised, paragraph=False, text_threshold=0.5)
 
-    fleet_number = None
-    fleet_pattern = re.compile(r"(\d{4})")
+    # fleet_number = None
+    # fleet_pattern = re.compile(r"(\d{4})")
 
-    print(f"--- Raw OCR Detections ({len(ocr_results)} found) ---")
-    for bbox, text, prob in ocr_results:
-        clean_text = text.strip()
-        print(f"Detected: '{clean_text}' | Confidence: {prob:.2f}")
+    # print(f"--- Raw OCR Detections ({len(ocr_results)} found) ---")
+    # for bbox, text, prob in ocr_results:
+    #     clean_text = text.strip()
+    #     print(f"Detected: '{clean_text}' | Confidence: {prob:.2f}")
 
-        match = fleet_pattern.search(clean_text)
-        if match and not fleet_number:
-            fleet_number = match.group(1)
-            print(f"==> Matched Fleet Number: {fleet_number} (from '{clean_text}')")
+    #     match = fleet_pattern.search(clean_text)
+    #     if match and not fleet_number:
+    #         fleet_number = match.group(1)
+    #         print(f"==> Matched Fleet Number: {fleet_number} (from '{clean_text}')")
 
-    if not fleet_number:
-        print("⚠️ No 4-digit fleet number identified in this image.")
-    # --------------------------------------
+    # if not fleet_number:
+    #     print("⚠️ No 4-digit fleet number identified in this image.")
+    # # --------------------------------------
 
     print("Loading model into memory...")
     interpreter = tf.lite.Interpreter(model_path=model_path)
