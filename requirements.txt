@@ -1,0 +1,8 @@
+tensorflow-cpu
+psycopg2-binary
+resend
+requests
+Pillow
+numpy
+easyocr
+opencv-python-headless
