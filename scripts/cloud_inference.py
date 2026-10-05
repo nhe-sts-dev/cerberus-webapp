@@ -80,6 +80,9 @@ def main():
     # # -------------------------------------
 
     # --- OPENCV PREPROCESSING & EASYOCR ---
+    print("\n==========================================")
+    print(f"🔗 Evaluating Image URL: {IMAGE_URL}")
+    print("==========================================\n")
     print("Preprocessing image for OCR...")
     raw_img_cv = np.array(raw_img)
     height, width, _ = raw_img_cv.shape
