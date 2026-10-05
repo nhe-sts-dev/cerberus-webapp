@@ -38,23 +38,62 @@ def main():
     raw_img = Image.open(BytesIO(img_response.content)).convert("RGB")
     raw_img_array = np.array(raw_img)
 
-    # --- EASYOCR PIPELINE ---
+    # # --- EASYOCR PIPELINE ---
+    # print("Running OCR to extract fleet number...")
+    # reader = easyocr.Reader(
+    #     ["en"], gpu=False
+    # )  # Switch to True if running on CUDA hardware
+    # ocr_results = reader.readtext(raw_img_array)
+
+    # fleet_number = None
+    # fleet_pattern = re.compile(r"\b\d{4}\b")
+
+    # for bbox, text, prob in ocr_results:
+    #     match = fleet_pattern.search(text)
+    #     if match:
+    #         fleet_number = match.group(0)
+    #         print(f"Detected Fleet Number: {fleet_number} (Confidence: {prob:.2f})")
+    #         break
+    # # ------------------------
+    # --- EASYOCR PIPELINE WITH ROI ZOOM ---
     print("Running OCR to extract fleet number...")
-    reader = easyocr.Reader(
-        ["en"], gpu=False
-    )  # Switch to True if running on CUDA hardware
-    ocr_results = reader.readtext(raw_img_array)
+    reader = easyocr.Reader(["en"], gpu=False)
+
+    # 1. Focus on the Region of Interest (Driver Cab Area)
+    # The sticker consistently sits in the middle-to-lower vertical section and right-hand side.
+    # [ymin:ymax, xmin:xmax] as percentages:
+    width, height = raw_img.size
+    crop_box = (
+        int(width * 0.40),  # Left (40% across)
+        int(height * 0.35),  # Top (35% down)
+        int(width * 0.95),  # Right (95% across)
+        int(height * 0.85),  # Bottom (85% down)
+    )
+    cropped_cab = raw_img.crop(crop_box)
+    cropped_array = np.array(cropped_cab)
+
+    # 2. Run OCR on the cropped area with tuned detection thresholds
+    ocr_results = reader.readtext(
+        cropped_array, paragraph=False, text_threshold=0.5, low_text=0.3
+    )
 
     fleet_number = None
-    fleet_pattern = re.compile(r"\b\d{4}\b")
+    fleet_pattern = re.compile(r"(\d{4})")
 
+    print(f"--- Raw OCR Detections ({len(ocr_results)} found) ---")
     for bbox, text, prob in ocr_results:
-        match = fleet_pattern.search(text)
-        if match:
-            fleet_number = match.group(0)
-            print(f"Detected Fleet Number: {fleet_number} (Confidence: {prob:.2f})")
-            break
-    # ------------------------
+        clean_text = text.strip()
+        print(f"Detected: '{clean_text}' | Confidence: {prob:.2f}")
+
+        # Look for any 4-digit sequence
+        match = fleet_pattern.search(clean_text)
+        if match and not fleet_number:
+            fleet_number = match.group(1)
+            print(f"==> Matched Fleet Number: {fleet_number} (from '{clean_text}')")
+
+    if not fleet_number:
+        print("⚠️ No 4-digit fleet number identified in this image.")
+    # -------------------------------------
 
     print("Loading model into memory...")
     interpreter = tf.lite.Interpreter(model_path=model_path)
