@@ -19,6 +19,7 @@ export function SettingsSidebar({
   // Both Admins and Monitors can add users in this app
   // const canAddUser = role === "ADMIN" || role === "MONITOR";
   const isAdmin = role === "ADMIN";
+  const canAddUser = role === "ADMIN" || role === "MONITOR";
 
   return (
     <>
@@ -83,13 +84,14 @@ export function SettingsSidebar({
         </nav> */}
 
         <nav className="flex flex-col gap-1 p-4">
-          {/* Everyone gets to see this button now */}
-          <button
-            onClick={() => setActiveModal("ADD_USER")}
-            className="group flex items-center gap-3 rounded-xl p-3.5 text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900"
-          >
-            <span>Add New Account</span>
-          </button>
+          {canAddUser && (
+            <button
+              onClick={() => setActiveModal("ADD_USER")}
+              className="group flex items-center gap-3 rounded-xl p-3.5 text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900"
+            >
+              <span>Add New Account</span>
+            </button>
+          )}
 
           {isAdmin && (
             <button

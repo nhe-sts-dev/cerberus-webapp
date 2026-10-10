@@ -80,7 +80,7 @@ export const settingsRouter = createTRPCRouter({
 
       if (!caller) throw new Error("User not found.");
 
-      // Strict Security Enforcements
+      // Strict Security Enforcements added on 10 oct
       if (caller.role === "MANAGER" && input.role !== "MANAGER") {
         throw new Error(
           "Managers are only authorized to create other Manager accounts.",

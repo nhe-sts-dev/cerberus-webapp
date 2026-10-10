@@ -216,23 +216,6 @@ export function UserFormModal({
                 />
               </div>
 
-              {/* <div>
-                <label className="mb-1.5 block text-sm font-medium text-stone-700">
-                  Role
-                </label>
-                <select
-                  value={role}
-                  onChange={(e) =>
-                    setRole(e.target.value as "ADMIN" | "MONITOR" | "MANAGER")
-                  }
-                  className="block w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-zinc-800 focus:ring-1 focus:ring-zinc-800"
-                >
-                  <option value="MANAGER">Manager</option>
-                  <option value="MONITOR">Monitor</option>
-                  <option value="ADMIN">Admin</option>
-                </select>
-              </div> */}
-
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-stone-700">
                   Role
@@ -246,16 +229,11 @@ export function UserFormModal({
                 >
                   {/* Admin gets to see everything */}
                   {profile?.role === "ADMIN" && (
-                    <option value="ADMIN">Admin</option>
+                    <>
+                      <option value="ADMIN">Admin</option>
+                      <option value="MONITOR">Monitor</option>
+                    </>
                   )}
-
-                  {/* Admins and Monitors get to see Monitor */}
-                  {(profile?.role === "ADMIN" ||
-                    profile?.role === "MONITOR") && (
-                    <option value="MONITOR">Monitor</option>
-                  )}
-
-                  {/* Everyone (including Managers) can see Manager */}
                   <option value="MANAGER">Manager</option>
                 </select>
               </div>
